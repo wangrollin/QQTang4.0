@@ -6,20 +6,19 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-public class Help extends JPanel {
-    protected static JButton menuBtn;
-    protected static ImageIcon menuIcon, bgIcon;
+public class HelpPanel extends JPanel {
+    private JButton gobackBtn;
+    private ImageIcon bgIcon;
 
-    public Help() {
+    HelpPanel() {
         setLayout(null);
 
         bgIcon = new ImageIcon("3.png");
 
-        menuIcon = new ImageIcon("退2.png");
-        menuBtn = new JButton(menuIcon);
-        menuBtn.setBounds(470, 50, 50, 50);
+        gobackBtn = new JButton(new ImageIcon("退2.png"));
+        gobackBtn.setBounds(470, 50, 50, 50);
 
-        add(menuBtn);
+        add(gobackBtn);
 
         setFocusable(true);
         setPreferredSize(new Dimension(600, 600));
@@ -28,5 +27,9 @@ public class Help extends JPanel {
     public void paintComponent(Graphics page) {
         super.paintComponent(page);
         bgIcon.paintIcon(this, page, 0, 0);
+    }
+
+    public JButton getGobackBtn() {
+        return gobackBtn;
     }
 }

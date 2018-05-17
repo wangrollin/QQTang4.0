@@ -7,7 +7,7 @@ public class Play extends JFrame implements ActionListener {
     static Mypanel panel;
     static JFrame frame;
     static int moshi = 2, zanting = 0;
-    static Play play, zplay;
+    static Play play;
 
     public Play() {
         panel = new Mypanel();
@@ -21,23 +21,24 @@ public class Play extends JFrame implements ActionListener {
 
         Music.music[9].loop();
         setResizable(false);
-        HomePanel.tuichu.addActionListener(this);
 
-        zhanshiwin.fanhui.addActionListener(this);
-        zhanshiwin.jieshu.addActionListener(this);
-        baoziwin.fanhui.addActionListener(this);
-        baoziwin.jieshu.addActionListener(this);
-        zhanshishu.fanhui.addActionListener(this);
-        zhanshishu.jieshu.addActionListener(this);
-        pingju.fanhui.addActionListener(this);
-        pingju.jieshu.addActionListener(this);
 
-        BattleBiwu.fanhui.addActionListener(this);
-        BattleBiwu.jieshu.addActionListener(this);
-        BattleJingji.fanhui.addActionListener(this);
-        BattleJingji.jieshu.addActionListener(this);
-        BattleAI.fanhui.addActionListener(this);
-        BattleAI.jieshu.addActionListener(this);
+
+        FighterWinPanel.fanhui.addActionListener(this);
+        FighterWinPanel.jieshu.addActionListener(this);
+        BaoziWinPanel.fanhui.addActionListener(this);
+        BaoziWinPanel.jieshu.addActionListener(this);
+        FighterLosePanel.fanhui.addActionListener(this);
+        FighterLosePanel.jieshu.addActionListener(this);
+        DagfallPanel.fanhui.addActionListener(this);
+        DagfallPanel.jieshu.addActionListener(this);
+
+        BattleBiwuPanel.fanhui.addActionListener(this);
+        BattleBiwuPanel.jieshu.addActionListener(this);
+        BattleJingjiPanel.fanhui.addActionListener(this);
+        BattleJingjiPanel.jieshu.addActionListener(this);
+        BattleAIPanel.fanhui.addActionListener(this);
+        BattleAIPanel.jieshu.addActionListener(this);
     }
 
     public static void main(String[] args) {
@@ -48,16 +49,17 @@ public class Play extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Music.stop();
         Music.music[1].play();
-        if (e.getSource() == HomePanel.tuichu || e.getSource() == zhanshiwin.jieshu ||
-                e.getSource() == baoziwin.jieshu || e.getSource() == zhanshishu.jieshu
-                || e.getSource() == pingju.jieshu || e.getSource() == BattleBiwu.jieshu
-                || e.getSource() == BattleJingji.jieshu || e.getSource() == BattleAI.jieshu) {
+        //TODO
+        if (e.getSource() == FighterWinPanel.jieshu ||
+                e.getSource() == BaoziWinPanel.jieshu || e.getSource() == FighterLosePanel.jieshu
+                || e.getSource() == DagfallPanel.jieshu || e.getSource() == BattleBiwuPanel.jieshu
+                || e.getSource() == BattleJingjiPanel.jieshu || e.getSource() == BattleAIPanel.jieshu) {
             System.exit(0);
         }
-        if (e.getSource() == zhanshiwin.fanhui ||
-                e.getSource() == baoziwin.fanhui || e.getSource() == zhanshishu.fanhui
-                || e.getSource() == pingju.fanhui || e.getSource() == BattleBiwu.fanhui
-                || e.getSource() == BattleJingji.fanhui || e.getSource() == BattleAI.fanhui) {
+        if (e.getSource() == FighterWinPanel.fanhui ||
+                e.getSource() == BaoziWinPanel.fanhui || e.getSource() == FighterLosePanel.fanhui
+                || e.getSource() == DagfallPanel.fanhui || e.getSource() == BattleBiwuPanel.fanhui
+                || e.getSource() == BattleJingjiPanel.fanhui || e.getSource() == BattleAIPanel.fanhui) {
             play = new Play();
         }
     }

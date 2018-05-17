@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class BattleJingji extends JPanel {
+public class BattleJingjiPanel extends JPanel {
     protected static JButton fanhui, jieshu;
     //格子数
     protected final static int heng = 13, shu = 8;
@@ -30,7 +30,7 @@ public class BattleJingji extends JPanel {
     protected static int cishu = 0;
 
     //构造出来 初始化****************************************************************************************
-    public BattleJingji() {
+    public BattleJingjiPanel() {
         fanhui = new JButton(new ImageIcon("replay1.png"));
         fanhui.setBounds(10, 10, 128, 50);
         add(fanhui);
@@ -75,13 +75,13 @@ public class BattleJingji extends JPanel {
                 Music.stop();
                 Music.music[8].loop();
                 cishu = 1;
-                Mypanel.lay.show(Play.panel, "zhanwin");
+                Mypanel.lay.show(Play.panel, "fighterWinPanel");
             }
             if (p2.outlooking == 7) {
                 Music.stop();
                 cishu = 1;
                 Music.music[8].loop();
-                Mypanel.lay.show(Play.panel, "baowin");
+                Mypanel.lay.show(Play.panel, "baoziWinPanel");
             }
         }
         //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具

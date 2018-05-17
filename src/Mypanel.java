@@ -7,71 +7,71 @@ import javax.swing.JPanel;
 
 
 public class Mypanel extends JPanel implements ActionListener {
-
-    static int which = 1;
-    static BattleJingji fight;
-    static BattleAI fight2;
-    static BattleBiwu fight3;
+    /**
+     * all panels
+     */
     static HomePanel homePanel;
-    static Help help;
-
+    static HelpPanel helpPanel;
     static ModeSelectPanel modeSelectPanel;
 
-    static zhanshiwin zhanwin;
-    static baoziwin baowin;
-    static zhanshishu zhanshu;
-    static pingju ping;
+    static BattleJingjiPanel battleJingjiPanel;
+    static BattleAIPanel battleAIPanel;
+    static BattleBiwuPanel battleBiwuPanel;
+
+    static FighterWinPanel fighterWinPanel;
+    static BaoziWinPanel baoziWinPanel;
+    static FighterLosePanel fighterLosePanel;
+    static DagfallPanel dagfallPanel;
+
+    static int which = 1;
     private Random a;
     static CardLayout lay = new CardLayout();
 
-    public Mypanel() {
-        zhanwin = new zhanshiwin();
-        baowin = new baoziwin();
-        zhanshu = new zhanshishu();
-        ping = new pingju();
+    Mypanel() {
+        fighterWinPanel = new FighterWinPanel();
+        baoziWinPanel = new BaoziWinPanel();
+        fighterLosePanel = new FighterLosePanel();
+        dagfallPanel = new DagfallPanel();
 
-        fight3 = new BattleBiwu();
-        fight2 = new BattleAI();
-        fight = new BattleJingji();
+        battleBiwuPanel = new BattleBiwuPanel();
+        battleAIPanel = new BattleAIPanel();
+        battleJingjiPanel = new BattleJingjiPanel();
         homePanel = new HomePanel();
-        help = new Help();
+        helpPanel = new HelpPanel();
 
         modeSelectPanel = new ModeSelectPanel();
 
         setLayout(lay);
         setFocusable(true);
 
-        this.add(fight, "fight");
-        this.add(fight2, "fight2");
-        this.add(fight3, "fight3");
-
-        this.add(homePanel, "homePanel");
-        this.add(help, "help");
-
-        this.add(modeSelectPanel, "modeSelectPanel");
-
-        this.add(zhanshu, "zhanshu");
-        this.add(baowin, "baowin");
-        this.add(zhanwin, "zhanwin");
-        this.add(ping, "ping");
+        add(homePanel, "homePanel");
+        add(helpPanel, "helpPanel");
+        add(modeSelectPanel, "modeSelectPanel");
+        add(battleJingjiPanel, "battleJingjiPanel");
+        add(battleAIPanel, "battleAIPanel");
+        add(battleBiwuPanel, "battleBiwuPanel");
+        add(fighterLosePanel, "fighterLosePanel");
+        add(baoziWinPanel, "baoziWinPanel");
+        add(fighterWinPanel, "fighterWinPanel");
+        add(dagfallPanel, "dagfallPanel");
 
         lay.show(this, "homePanel");
 
-        HomePanel.newgame.addActionListener(this);
+        homePanel.getStartGameBtn().addActionListener(this);
+        homePanel.getHelpBtn().addActionListener(this);
+        homePanel.getExitBtn().addActionListener(this);
 
-        HomePanel.bangzhu.addActionListener(this);
+        helpPanel.getGobackBtn().addActionListener(this);
 
-        Help.menuBtn.addActionListener(this);
-
-        modeSelectPanel.menuBtn.addActionListener(this);
-        modeSelectPanel.youxi.addActionListener(this);
-        modeSelectPanel.biwu.addActionListener(this);
-        modeSelectPanel.shuimian.addActionListener(this);
-        modeSelectPanel.kuangdong.addActionListener(this);
-        modeSelectPanel.make.addActionListener(this);
-        modeSelectPanel.biwuModeBtn.addActionListener(this);
-        modeSelectPanel.jingjiModeBtn.addActionListener(this);
-        modeSelectPanel.aiModebtn.addActionListener(this);
+        modeSelectPanel.getGobackBtn().addActionListener(this);
+        modeSelectPanel.getStartGameBtn().addActionListener(this);
+        modeSelectPanel.getBiwuMapbtn().addActionListener(this);
+        modeSelectPanel.getShuimianMapBtn().addActionListener(this);
+        modeSelectPanel.getKuangdongMapBtn().addActionListener(this);
+        modeSelectPanel.getDiyMapBtn().addActionListener(this);
+        modeSelectPanel.getBiwuModeBtn().addActionListener(this);
+        modeSelectPanel.getJingjiModeBtn().addActionListener(this);
+        modeSelectPanel.getAiModebtn().addActionListener(this);
 
         a = new Random();
     }
@@ -79,126 +79,117 @@ public class Mypanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Music.music[1].play();
-        if (e.getSource() == homePanel.newgame) {
+        // TODO
+        if (e.getSource() == homePanel.getExitBtn() || e.getSource() == FighterWinPanel.jieshu ||
+                e.getSource() == BaoziWinPanel.jieshu || e.getSource() == FighterLosePanel.jieshu
+                || e.getSource() == DagfallPanel.jieshu || e.getSource() == BattleBiwuPanel.jieshu
+                || e.getSource() == BattleJingjiPanel.jieshu || e.getSource() == BattleAIPanel.jieshu) {
+            System.exit(0);
+        } else if (e.getSource() == homePanel.getStartGameBtn()) {
             lay.show(this, "modeSelectPanel");
-        }
-        if (e.getSource() == homePanel.bangzhu) {
-            lay.show(this, "help");
-        }
-        if (e.getSource() == help.menuBtn) {
+        } else if (e.getSource() == homePanel.getHelpBtn()) {
+            lay.show(this, "helpPanel");
+        } else if (e.getSource() == helpPanel.getGobackBtn()) {
             lay.show(this, "homePanel");
-        }
-        if (e.getSource() == modeSelectPanel.menuBtn) {
+        } else if (e.getSource() == modeSelectPanel.getGobackBtn()) {
             lay.show(this, "homePanel");
-        }
-        if (e.getSource() == modeSelectPanel.make) {
+        } else if (e.getSource() == modeSelectPanel.getDiyMapBtn()) {
             MapMakerFrame make = new MapMakerFrame();
             MapMakerFrame.frame.setVisible(true);
             Play.frame.setVisible(false);
-        }
-
-        if (e.getSource() == ModeSelectPanel.youxi) {
+        } else if (e.getSource() == modeSelectPanel.getStartGameBtn()) {
             Music.music[9].stop();
             Music.music[6].play();
 
             if (Play.moshi == 1) {
-                lay.show(this, "fight2");
+                lay.show(this, "battleAIPanel");
                 Play.zanting = 1;
                 ;
                 Music.music[11].loop();
-                addKeyListener(BattleAI.p1);
+                addKeyListener(BattleAIPanel.p1);
             }
             if (Play.moshi == 3) {
-                lay.show(this, "fight3");
+                lay.show(this, "battleBiwuPanel");
                 Music.music[3].loop();
 
-                addKeyListener(BattleBiwu.p1);
-                addKeyListener(BattleBiwu.p2);
+                addKeyListener(BattleBiwuPanel.p1);
+                addKeyListener(BattleBiwuPanel.p2);
             }
             if (Play.moshi == 2) {
                 if (which == 1) Music.music[3].loop();
                 if (which == 2) Music.music[10].loop();
                 if (which == 3) Music.music[11].loop();
                 if (which == 4) Music.music[14].loop();
-                lay.show(this, "fight");
-                addKeyListener(BattleJingji.p1);
-                addKeyListener(BattleJingji.p2);
+                lay.show(this, "battleJingjiPanel");
+                addKeyListener(BattleJingjiPanel.p1);
+                addKeyListener(BattleJingjiPanel.p2);
             }
-        }
-
-        if (e.getSource() == modeSelectPanel.biwu) {
-            for (int j = 0; j < BattleJingji.shu; j++)
-                for (int i = 0; i < BattleJingji.heng; i++) {
+        } else if (e.getSource() == modeSelectPanel.getBiwuMapbtn()) {
+            for (int j = 0; j < BattleJingjiPanel.shu; j++)
+                for (int i = 0; i < BattleJingjiPanel.heng; i++) {
                     Map.wallmap[i][j] = null;
                 }
             which = 1;
             WallMap.biwu1();
             Map.dimian = Map.dimian1;
-        }
-
-        if (e.getSource() == modeSelectPanel.shuimian) {
-            for (int j = 0; j < BattleJingji.shu; j++)
-                for (int i = 0; i < BattleJingji.heng; i++) {
+        } else if (e.getSource() == modeSelectPanel.getShuimianMapBtn()) {
+            for (int j = 0; j < BattleJingjiPanel.shu; j++)
+                for (int i = 0; i < BattleJingjiPanel.heng; i++) {
                     Map.wallmap[i][j] = null;
                 }
             which = 2;
             WallMap.putong();
             Map.dimian = Map.dimian2;
-        }
-        if (e.getSource() == ModeSelectPanel.kuangdong) {
+        } else if (e.getSource() == modeSelectPanel.getKuangdongMapBtn()) {
 
-            for (int j = 0; j < BattleJingji.shu; j++)
-                for (int i = 0; i < BattleJingji.heng; i++)
+            for (int j = 0; j < BattleJingjiPanel.shu; j++)
+                for (int i = 0; i < BattleJingjiPanel.heng; i++)
                     Map.wallmap[i][j] = null;
             which = 3;
             WallMap.maoxian();
             Map.dimian = Map.dimian3;
-        }
-        if (e.getSource() == ModeSelectPanel.biwuModeBtn) {
+        } else if (e.getSource() == modeSelectPanel.getBiwuModeBtn()) {
             Play.moshi = 3;
-            BattleBiwu.p1.X = a.nextInt(500) + 50;
-            BattleBiwu.p1.Y = a.nextInt(300) + 50;
-            while (Map.isWall(BattleBiwu.p1.getHeng(), BattleBiwu.p1.getShu())) {
-                BattleBiwu.p1.X = a.nextInt(500) + 50;
-                BattleBiwu.p1.Y = a.nextInt(300) + 50;
+            BattleBiwuPanel.p1.X = a.nextInt(500) + 50;
+            BattleBiwuPanel.p1.Y = a.nextInt(300) + 50;
+            while (Map.isWall(BattleBiwuPanel.p1.getHeng(), BattleBiwuPanel.p1.getShu())) {
+                BattleBiwuPanel.p1.X = a.nextInt(500) + 50;
+                BattleBiwuPanel.p1.Y = a.nextInt(300) + 50;
             }
 
-            BattleBiwu.p2.X = a.nextInt(500) + 50;
-            BattleBiwu.p2.Y = a.nextInt(300) + 50;
-            while (Map.isWall(BattleBiwu.p2.getHeng(), BattleBiwu.p2.getShu())) {
-                BattleBiwu.p2.X = a.nextInt(500) + 50;
-                BattleBiwu.p2.Y = a.nextInt(300) + 50;
+            BattleBiwuPanel.p2.X = a.nextInt(500) + 50;
+            BattleBiwuPanel.p2.Y = a.nextInt(300) + 50;
+            while (Map.isWall(BattleBiwuPanel.p2.getHeng(), BattleBiwuPanel.p2.getShu())) {
+                BattleBiwuPanel.p2.X = a.nextInt(500) + 50;
+                BattleBiwuPanel.p2.Y = a.nextInt(300) + 50;
             }
-        }
-        if (e.getSource() == ModeSelectPanel.aiModebtn) {
+        } else if (e.getSource() == modeSelectPanel.getAiModebtn()) {
             Play.moshi = 1;
-            BattleAI.p1.X = 75;
-            BattleAI.p1.Y = 25;
+            BattleAIPanel.p1.X = 75;
+            BattleAIPanel.p1.Y = 25;
 
-            BattleAI.p6.X = a.nextInt(500) + 50;
-            BattleAI.p6.Y = a.nextInt(300) + 50;
-            while (Map.isWall(BattleAI.p6.getHeng(), BattleAI.p6.getShu()) ||
-                    (BattleAI.p6.getHeng() == BattleAI.p1.getHeng() &&
-                            BattleAI.p6.getShu() == BattleAI.p1.getShu())) {
-                BattleAI.p6.X = a.nextInt(500) + 50;
-                BattleAI.p6.Y = a.nextInt(300) + 50;
+            BattleAIPanel.p6.X = a.nextInt(500) + 50;
+            BattleAIPanel.p6.Y = a.nextInt(300) + 50;
+            while (Map.isWall(BattleAIPanel.p6.getHeng(), BattleAIPanel.p6.getShu()) ||
+                    (BattleAIPanel.p6.getHeng() == BattleAIPanel.p1.getHeng() &&
+                            BattleAIPanel.p6.getShu() == BattleAIPanel.p1.getShu())) {
+                BattleAIPanel.p6.X = a.nextInt(500) + 50;
+                BattleAIPanel.p6.Y = a.nextInt(300) + 50;
             }
 
-        }
-
-        if (e.getSource() == ModeSelectPanel.jingjiModeBtn) {
+        } else if (e.getSource() == modeSelectPanel.getJingjiModeBtn()) {
             Play.moshi = 2;
-            BattleJingji.p1.X = a.nextInt(500) + 50;
-            BattleJingji.p1.Y = a.nextInt(300) + 50;
-            while (Map.isWall(BattleJingji.p1.getHeng(), BattleJingji.p1.getShu())) {
-                BattleJingji.p1.X = a.nextInt(500) + 50;
-                BattleJingji.p1.Y = a.nextInt(300) + 50;
+            BattleJingjiPanel.p1.X = a.nextInt(500) + 50;
+            BattleJingjiPanel.p1.Y = a.nextInt(300) + 50;
+            while (Map.isWall(BattleJingjiPanel.p1.getHeng(), BattleJingjiPanel.p1.getShu())) {
+                BattleJingjiPanel.p1.X = a.nextInt(500) + 50;
+                BattleJingjiPanel.p1.Y = a.nextInt(300) + 50;
             }
-            BattleJingji.p2.X = a.nextInt(500) + 50;
-            BattleJingji.p2.Y = a.nextInt(300) + 50;
-            while (Map.isWall(BattleJingji.p2.getHeng(), BattleJingji.p2.getShu())) {
-                BattleJingji.p2.X = a.nextInt(500) + 50;
-                BattleJingji.p2.Y = a.nextInt(300) + 50;
+            BattleJingjiPanel.p2.X = a.nextInt(500) + 50;
+            BattleJingjiPanel.p2.Y = a.nextInt(300) + 50;
+            while (Map.isWall(BattleJingjiPanel.p2.getHeng(), BattleJingjiPanel.p2.getShu())) {
+                BattleJingjiPanel.p2.X = a.nextInt(500) + 50;
+                BattleJingjiPanel.p2.Y = a.nextInt(300) + 50;
             }
         }
     }

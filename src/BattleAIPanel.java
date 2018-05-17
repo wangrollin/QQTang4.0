@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class BattleAI extends JPanel {
+public class BattleAIPanel extends JPanel {
     protected static JButton fanhui, jieshu;
     //格子数
     protected final static int heng = 13, shu = 8;
@@ -28,7 +28,7 @@ public class BattleAI extends JPanel {
     protected Random aa;
     protected int safe = -1, timecount = 0, jineng = 0, suiji, suiji2, wushi = 0, weizhi;
 
-    public BattleAI() {
+    public BattleAIPanel() {
         timecount = 0;
         aa = new Random();
         fanhui = new JButton(new ImageIcon("replay1.png"));
@@ -56,7 +56,7 @@ public class BattleAI extends JPanel {
         if (p6.beexp() == true) {
             Music.stop();
             Music.music[8].loop();
-            Mypanel.lay.show(Play.panel, "zhanwin");
+            Mypanel.lay.show(Play.panel, "fighterWinPanel");
         }
 
 
@@ -65,7 +65,7 @@ public class BattleAI extends JPanel {
         //不断刷新的
         p1.move();
         if (p1.toDie()) {
-            Mypanel.lay.show(Play.panel, "zhanshu");
+            Mypanel.lay.show(Play.panel, "fighterLosePanel");
         }
         p1.eatdaoju();
         p1.beExp();

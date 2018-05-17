@@ -2,63 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4833e96-b1ee-472d-809a-015415e587c3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/BattleAI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MapMakerPanel.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/BattleCanvas$Mytime.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/BattleCanvas.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/Battlemaoxian$Mytime.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/Battlemaoxian.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/CHOOSE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/Enemy2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/Maker.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/NEWONE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/Timecount.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/chooseelement.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/mapmaker.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Battlemaoxian.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/mapmaker.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/BattleCanvas.java" afterPath="$PROJECT_DIR$/src/BattleJingji.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/CHOOSE.java" afterPath="$PROJECT_DIR$/src/ModeSelectPanel.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Enemy2.java" afterPath="$PROJECT_DIR$/src/AI.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Maker.java" afterPath="$PROJECT_DIR$/src/MapMakerFrame.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/NEWONE.java" afterPath="$PROJECT_DIR$/src/HomePanel.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Timecount.java" afterPath="$PROJECT_DIR$/src/TimeCounter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/chooseelement.java" afterPath="$PROJECT_DIR$/src/WallSelectPanel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/BaoziWinPanel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/BattleBiwuPanel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/HelpPanel.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/BattleAI$Mytime.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/BattleAI.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/BattleJingji$Mytime.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/BattleJingji.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/Battlebiwu$Mytime.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/Battlebiwu.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/HELP.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/baoziwin.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/pingju.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/zhanshishu.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/zhanshiwin.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Battlebiwu.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/HELP.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/baoziwin.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/BattleAI.java" afterPath="$PROJECT_DIR$/src/BattleAIPanel.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/BattleJingji.java" afterPath="$PROJECT_DIR$/src/BattleJingjiPanel.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pingju.java" afterPath="$PROJECT_DIR$/src/DagfallPanel.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/zhanshishu.java" afterPath="$PROJECT_DIR$/src/FighterLosePanel.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/zhanshiwin.java" afterPath="$PROJECT_DIR$/src/FighterWinPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/AI.class" afterPath="$PROJECT_DIR$/bin/AI.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Ball.class" afterPath="$PROJECT_DIR$/bin/Ball.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Battlebiwu$Mytime.class" afterPath="$PROJECT_DIR$/bin/Battlebiwu$Mytime.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Battlebiwu.class" afterPath="$PROJECT_DIR$/bin/Battlebiwu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Constants.class" afterPath="$PROJECT_DIR$/bin/Constants.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Explosion.class" afterPath="$PROJECT_DIR$/bin/Explosion.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/HELP.class" afterPath="$PROJECT_DIR$/bin/HELP.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/HomePanel.class" afterPath="$PROJECT_DIR$/bin/HomePanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Map.class" afterPath="$PROJECT_DIR$/bin/Map.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/MapMakerFrame.class" afterPath="$PROJECT_DIR$/bin/MapMakerFrame.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/ModeSelectPanel.class" afterPath="$PROJECT_DIR$/bin/ModeSelectPanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Mypanel.class" afterPath="$PROJECT_DIR$/bin/Mypanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/P1.class" afterPath="$PROJECT_DIR$/bin/P1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/P2.class" afterPath="$PROJECT_DIR$/bin/P2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/P3.class" afterPath="$PROJECT_DIR$/bin/P3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/P4.class" afterPath="$PROJECT_DIR$/bin/P4.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/P5.class" afterPath="$PROJECT_DIR$/bin/P5.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Play.class" afterPath="$PROJECT_DIR$/bin/Play.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Wallmap.class" afterPath="$PROJECT_DIR$/bin/Wallmap.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/makercanvas$eve.class" afterPath="$PROJECT_DIR$/bin/makercanvas$eve.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/makercanvas.class" afterPath="$PROJECT_DIR$/bin/makercanvas.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/player.class" afterPath="$PROJECT_DIR$/bin/player.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AI.java" afterPath="$PROJECT_DIR$/src/AI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ball.java" afterPath="$PROJECT_DIR$/src/Ball.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Battlebiwu.java" afterPath="$PROJECT_DIR$/src/Battlebiwu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Constants.java" afterPath="$PROJECT_DIR$/src/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Explosion.java" afterPath="$PROJECT_DIR$/src/Explosion.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HELP.java" afterPath="$PROJECT_DIR$/src/HELP.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HomePanel.java" afterPath="$PROJECT_DIR$/src/HomePanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Map.java" afterPath="$PROJECT_DIR$/src/Map.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MapMakerFrame.java" afterPath="$PROJECT_DIR$/src/MapMakerFrame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModeSelectPanel.java" afterPath="$PROJECT_DIR$/src/ModeSelectPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Mypanel.java" afterPath="$PROJECT_DIR$/src/Mypanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P1.java" afterPath="$PROJECT_DIR$/src/P1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P2.java" afterPath="$PROJECT_DIR$/src/P2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P3.java" afterPath="$PROJECT_DIR$/src/P3.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P4.java" afterPath="$PROJECT_DIR$/src/P4.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/P5.java" afterPath="$PROJECT_DIR$/src/P5.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Play.java" afterPath="$PROJECT_DIR$/src/Play.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Wallmap.java" afterPath="$PROJECT_DIR$/src/Wallmap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/makercanvas.java" afterPath="$PROJECT_DIR$/src/makercanvas.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player.java" afterPath="$PROJECT_DIR$/src/player.java" />
     </list>
     <ignored path="666游戏工作室 QQ糖.iws" />
@@ -82,12 +69,81 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ModeSelectPanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Play.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Play.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="51" column="14" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ModeSelectPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ModeSelectPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+            <state relative-caret-position="336">
+              <caret line="116" column="35" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
+              <folding>
+                <element signature="e#2779#2780#0" expanded="true" />
+                <element signature="e#2811#2812#0" expanded="true" />
+                <element signature="e#2852#2853#0" expanded="true" />
+                <element signature="e#2888#2889#0" expanded="true" />
+                <element signature="e#2927#2928#0" expanded="true" />
+                <element signature="e#2961#2962#0" expanded="true" />
+                <element signature="e#2999#3000#0" expanded="true" />
+                <element signature="e#3032#3033#0" expanded="true" />
+                <element signature="e#3074#3075#0" expanded="true" />
+                <element signature="e#3111#3112#0" expanded="true" />
+                <element signature="e#3154#3155#0" expanded="true" />
+                <element signature="e#3192#3193#0" expanded="true" />
+                <element signature="e#3229#3230#0" expanded="true" />
+                <element signature="e#3261#3262#0" expanded="true" />
+                <element signature="e#3330#3331#0" expanded="true" />
+                <element signature="e#3370#3371#0" expanded="true" />
+                <element signature="e#3405#3406#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Mypanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Mypanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="268">
+              <caret line="81" column="15" selection-start-line="81" selection-start-column="15" selection-end-line="81" selection-end-column="15" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HelpPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/HelpPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="468">
+              <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
+              <folding>
+                <element signature="e#746#747#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HomePanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/HomePanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="404">
+              <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+              <folding>
+                <element signature="e#995#996#0" expanded="true" />
+                <element signature="e#1030#1031#0" expanded="true" />
+                <element signature="e#1065#1066#0" expanded="true" />
+                <element signature="e#1095#1096#0" expanded="true" />
+                <element signature="e#1130#1131#0" expanded="true" />
+                <element signature="e#1160#1161#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -112,7 +168,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Play.java" />
         <option value="$PROJECT_DIR$/src/BattleCanvas.java" />
         <option value="$PROJECT_DIR$/src/Battlemaoxian.java" />
         <option value="$PROJECT_DIR$/src/CHOOSE.java" />
@@ -144,7 +199,6 @@
         <option value="$PROJECT_DIR$/src/MapMakerFrame.java" />
         <option value="$PROJECT_DIR$/src/WallSelectPanel.java" />
         <option value="$PROJECT_DIR$/src/AI.java" />
-        <option value="$PROJECT_DIR$/src/HomePanel.java" />
         <option value="$PROJECT_DIR$/src/TimeCounter.java" />
         <option value="$PROJECT_DIR$/src/Map.java" />
         <option value="$PROJECT_DIR$/src/WallMap.java" />
@@ -152,8 +206,12 @@
         <option value="$PROJECT_DIR$/src/Help.java" />
         <option value="$PROJECT_DIR$/src/Constants.java" />
         <option value="$PROJECT_DIR$/src/Player.java" />
-        <option value="$PROJECT_DIR$/src/Mypanel.java" />
         <option value="$PROJECT_DIR$/src/ModeSelectPanel.java" />
+        <option value="$PROJECT_DIR$/src/MyPanelCard.java" />
+        <option value="$PROJECT_DIR$/src/HomePanel.java" />
+        <option value="$PROJECT_DIR$/src/HelpPanel.java" />
+        <option value="$PROJECT_DIR$/src/Mypanel.java" />
+        <option value="$PROJECT_DIR$/src/Play.java" />
       </list>
     </option>
   </component>
@@ -687,12 +745,12 @@
       <option name="presentableId" value="Default" />
       <updated>1526539654063</updated>
       <workItem from="1526539673139" duration="357000" />
-      <workItem from="1526540149001" duration="11792000" />
+      <workItem from="1526540149001" duration="14747000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12149000" />
+    <option name="totallyTimeSpent" value="15104000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="828" extended-state="6" />
@@ -745,7 +803,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/BattleJingji.java">
+    <entry file="file://$PROJECT_DIR$/src/BattleJingjiPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="26" column="10" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
@@ -753,7 +811,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BattleAI.java">
+    <entry file="file://$PROJECT_DIR$/src/BattleAIPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4484">
           <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
@@ -793,7 +851,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pingju.java">
+    <entry file="file://$PROJECT_DIR$/src/DagfallPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
@@ -803,17 +861,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Play.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="37" column="52" selection-start-line="37" selection-start-column="52" selection-end-line="37" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhanshiwin.java">
+    <entry file="file://$PROJECT_DIR$/src/FighterWinPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
@@ -821,7 +869,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhanshishu.java">
+    <entry file="file://$PROJECT_DIR$/src/FighterLosePanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
@@ -837,7 +885,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/baoziwin.java">
+    <entry file="file://$PROJECT_DIR$/src/BaoziWinPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
@@ -845,7 +893,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BattleBiwu.java">
+    <entry file="file://$PROJECT_DIR$/src/BattleBiwuPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
@@ -892,14 +940,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/HomePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -952,14 +992,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Help.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Ball.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2394">
@@ -992,14 +1024,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Mypanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="65" column="9" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/展示2.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1010,11 +1034,77 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/退.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HomePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+          <folding>
+            <element signature="e#995#996#0" expanded="true" />
+            <element signature="e#1030#1031#0" expanded="true" />
+            <element signature="e#1065#1066#0" expanded="true" />
+            <element signature="e#1095#1096#0" expanded="true" />
+            <element signature="e#1130#1131#0" expanded="true" />
+            <element signature="e#1160#1161#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HelpPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
+          <folding>
+            <element signature="e#746#747#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ModeSelectPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+        <state relative-caret-position="336">
+          <caret line="116" column="35" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
+          <folding>
+            <element signature="e#2779#2780#0" expanded="true" />
+            <element signature="e#2811#2812#0" expanded="true" />
+            <element signature="e#2852#2853#0" expanded="true" />
+            <element signature="e#2888#2889#0" expanded="true" />
+            <element signature="e#2927#2928#0" expanded="true" />
+            <element signature="e#2961#2962#0" expanded="true" />
+            <element signature="e#2999#3000#0" expanded="true" />
+            <element signature="e#3032#3033#0" expanded="true" />
+            <element signature="e#3074#3075#0" expanded="true" />
+            <element signature="e#3111#3112#0" expanded="true" />
+            <element signature="e#3154#3155#0" expanded="true" />
+            <element signature="e#3192#3193#0" expanded="true" />
+            <element signature="e#3229#3230#0" expanded="true" />
+            <element signature="e#3261#3262#0" expanded="true" />
+            <element signature="e#3330#3331#0" expanded="true" />
+            <element signature="e#3370#3371#0" expanded="true" />
+            <element signature="e#3405#3406#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Mypanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="81" column="15" selection-start-line="81" selection-start-column="15" selection-end-line="81" selection-end-column="15" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Play.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="51" column="14" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
-public class BattleBiwu extends JPanel {
+public class BattleBiwuPanel extends JPanel {
 
     static JButton fanhui, jieshu;
     //格子数
@@ -32,7 +32,7 @@ public class BattleBiwu extends JPanel {
     TimeCounter timeCounter;
 
     //构造出来 初始化****************************************************************************************
-    public BattleBiwu() {
+    public BattleBiwuPanel() {
         fanhui = new JButton(new ImageIcon("replay1.png"));
         fanhui.setBounds(10, 10, 128, 50);
         add(fanhui);
@@ -162,9 +162,9 @@ public class BattleBiwu extends JPanel {
 
             Music.stop();
             Music.music[8].loop();
-            if (p1.siwangcishu < p2.siwangcishu) Mypanel.lay.show(Play.panel, "zhanwin");
-            if (p1.siwangcishu > p2.siwangcishu) Mypanel.lay.show(Play.panel, "baowin");
-            if (p1.siwangcishu == p2.siwangcishu) Mypanel.lay.show(Play.panel, "ping");
+            if (p1.siwangcishu < p2.siwangcishu) Mypanel.lay.show(Play.panel, "fighterWinPanel");
+            if (p1.siwangcishu > p2.siwangcishu) Mypanel.lay.show(Play.panel, "baoziWinPanel");
+            if (p1.siwangcishu == p2.siwangcishu) Mypanel.lay.show(Play.panel, "dagfallPanel");
         }
 
         //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具

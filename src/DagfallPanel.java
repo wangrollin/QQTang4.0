@@ -6,11 +6,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-public class pingju extends JPanel {
+public class DagfallPanel extends JPanel {
     protected static JButton fanhui, jieshu;
     protected ImageIcon back;
 
-    public pingju() {
+    public DagfallPanel() {
         fanhui = new JButton(new ImageIcon("replay for ƽ.png"));
         fanhui.setBounds(73, 484, 146, 59);
         add(fanhui);

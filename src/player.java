@@ -288,21 +288,21 @@ class Player {
         if (wuditime == FLASH_TIME) wuditime = 0;
         if (outlooking == 5) {
             dietime += 1;
-            if (dietime == BEFORE_DIE_TIME && p == BattleJingji.p1) {
+            if (dietime == BEFORE_DIE_TIME && p == BattleJingjiPanel.p1) {
                 Die();
-                BattleJingji.p2.Win();
+                BattleJingjiPanel.p2.Win();
             }
-            if (dietime == BEFORE_DIE_TIME && p == BattleJingji.p2) {
+            if (dietime == BEFORE_DIE_TIME && p == BattleJingjiPanel.p2) {
                 Die();
-                BattleJingji.p1.Win();
+                BattleJingjiPanel.p1.Win();
             }
-            if (BattleJingji.p1.outlooking != 5 && p == BattleJingji.p2 && BattleJingji.p1.getHeng() == BattleJingji.p2.getHeng() && BattleJingji.p1.getShu() == BattleJingji.p2.getShu()) {
-                BattleJingji.p2.Die();
-                BattleJingji.p1.Win();
+            if (BattleJingjiPanel.p1.outlooking != 5 && p == BattleJingjiPanel.p2 && BattleJingjiPanel.p1.getHeng() == BattleJingjiPanel.p2.getHeng() && BattleJingjiPanel.p1.getShu() == BattleJingjiPanel.p2.getShu()) {
+                BattleJingjiPanel.p2.Die();
+                BattleJingjiPanel.p1.Win();
             }
-            if (BattleJingji.p2.outlooking != 5 && p == BattleJingji.p1 && BattleJingji.p1.getHeng() == BattleJingji.p2.getHeng() && BattleJingji.p1.getShu() == BattleJingji.p2.getShu()) {
-                BattleJingji.p1.Die();
-                BattleJingji.p2.Win();
+            if (BattleJingjiPanel.p2.outlooking != 5 && p == BattleJingjiPanel.p1 && BattleJingjiPanel.p1.getHeng() == BattleJingjiPanel.p2.getHeng() && BattleJingjiPanel.p1.getShu() == BattleJingjiPanel.p2.getShu()) {
+                BattleJingjiPanel.p1.Die();
+                BattleJingjiPanel.p2.Win();
             }
         }
     }
@@ -448,68 +448,68 @@ class Player {
 
     public void beZhu(Player p) {
 
-        if (p == BattleJingji.p1 && (BattleJingji.p2.outlooking == 0 || BattleJingji.p2.outlooking == 1 ||
-                BattleJingji.p2.outlooking == 2 || BattleJingji.p2.outlooking == 3 || BattleJingji.p2.outlooking == 4)) {
-            BattleJingji.p2.outlooking = 4;
-            if (BattleJingji.p2.now == BattleJingji.p2.s) {
-                BattleJingji.p2.setNow();
-                BattleJingji.p2.now = BattleJingji.p2.s;
+        if (p == BattleJingjiPanel.p1 && (BattleJingjiPanel.p2.outlooking == 0 || BattleJingjiPanel.p2.outlooking == 1 ||
+                BattleJingjiPanel.p2.outlooking == 2 || BattleJingjiPanel.p2.outlooking == 3 || BattleJingjiPanel.p2.outlooking == 4)) {
+            BattleJingjiPanel.p2.outlooking = 4;
+            if (BattleJingjiPanel.p2.now == BattleJingjiPanel.p2.s) {
+                BattleJingjiPanel.p2.setNow();
+                BattleJingjiPanel.p2.now = BattleJingjiPanel.p2.s;
             }
-            if (BattleJingji.p2.now == BattleJingji.p2.w) {
-                BattleJingji.p2.setNow();
-                BattleJingji.p2.now = BattleJingji.p2.w;
+            if (BattleJingjiPanel.p2.now == BattleJingjiPanel.p2.w) {
+                BattleJingjiPanel.p2.setNow();
+                BattleJingjiPanel.p2.now = BattleJingjiPanel.p2.w;
             }
-            if (BattleJingji.p2.now == BattleJingji.p2.a) {
-                BattleJingji.p2.setNow();
-                BattleJingji.p2.now = BattleJingji.p2.a;
+            if (BattleJingjiPanel.p2.now == BattleJingjiPanel.p2.a) {
+                BattleJingjiPanel.p2.setNow();
+                BattleJingjiPanel.p2.now = BattleJingjiPanel.p2.a;
             }
-            if (BattleJingji.p2.now == BattleJingji.p2.d) {
-                BattleJingji.p2.setNow();
-                BattleJingji.p2.now = BattleJingji.p2.d;
+            if (BattleJingjiPanel.p2.now == BattleJingjiPanel.p2.d) {
+                BattleJingjiPanel.p2.setNow();
+                BattleJingjiPanel.p2.now = BattleJingjiPanel.p2.d;
             }
-            BattleJingji.p2.wuditime = 1;
-            BattleJingji.p2.bianshentime = 0;
-        } else if (p == BattleJingji.p2 && (BattleJingji.p1.outlooking == 0 || BattleJingji.p1.outlooking == 1 ||
-                BattleJingji.p1.outlooking == 2 || BattleJingji.p1.outlooking == 3 || BattleJingji.p1.outlooking == 4)) {
-            BattleJingji.p1.outlooking = 4;
-            if (BattleJingji.p1.now == BattleJingji.p1.s) {
-                BattleJingji.p1.setNow();
-                BattleJingji.p1.now = BattleJingji.p1.s;
+            BattleJingjiPanel.p2.wuditime = 1;
+            BattleJingjiPanel.p2.bianshentime = 0;
+        } else if (p == BattleJingjiPanel.p2 && (BattleJingjiPanel.p1.outlooking == 0 || BattleJingjiPanel.p1.outlooking == 1 ||
+                BattleJingjiPanel.p1.outlooking == 2 || BattleJingjiPanel.p1.outlooking == 3 || BattleJingjiPanel.p1.outlooking == 4)) {
+            BattleJingjiPanel.p1.outlooking = 4;
+            if (BattleJingjiPanel.p1.now == BattleJingjiPanel.p1.s) {
+                BattleJingjiPanel.p1.setNow();
+                BattleJingjiPanel.p1.now = BattleJingjiPanel.p1.s;
             }
-            if (BattleJingji.p1.now == BattleJingji.p1.w) {
-                BattleJingji.p1.setNow();
-                BattleJingji.p1.now = BattleJingji.p1.w;
+            if (BattleJingjiPanel.p1.now == BattleJingjiPanel.p1.w) {
+                BattleJingjiPanel.p1.setNow();
+                BattleJingjiPanel.p1.now = BattleJingjiPanel.p1.w;
             }
-            if (BattleJingji.p1.now == BattleJingji.p1.a) {
-                BattleJingji.p1.setNow();
-                BattleJingji.p1.now = BattleJingji.p1.a;
+            if (BattleJingjiPanel.p1.now == BattleJingjiPanel.p1.a) {
+                BattleJingjiPanel.p1.setNow();
+                BattleJingjiPanel.p1.now = BattleJingjiPanel.p1.a;
             }
-            if (BattleJingji.p1.now == BattleJingji.p1.d) {
-                BattleJingji.p1.setNow();
-                BattleJingji.p1.now = BattleJingji.p1.d;
+            if (BattleJingjiPanel.p1.now == BattleJingjiPanel.p1.d) {
+                BattleJingjiPanel.p1.setNow();
+                BattleJingjiPanel.p1.now = BattleJingjiPanel.p1.d;
             }
-            BattleJingji.p1.wuditime = 1;
-            BattleJingji.p1.bianshentime = 0;
-        } else if (p == BattleAI.p1 && (BattleAI.p1.outlooking == 0 || BattleAI.p1.outlooking == 1 ||
-                BattleAI.p1.outlooking == 2 || BattleAI.p1.outlooking == 3 || BattleAI.p1.outlooking == 4)) {
-            BattleAI.p1.outlooking = 4;
-            if (BattleAI.p1.now == BattleAI.p1.s) {
-                BattleAI.p1.setNow();
-                BattleAI.p1.now = BattleAI.p1.s;
+            BattleJingjiPanel.p1.wuditime = 1;
+            BattleJingjiPanel.p1.bianshentime = 0;
+        } else if (p == BattleAIPanel.p1 && (BattleAIPanel.p1.outlooking == 0 || BattleAIPanel.p1.outlooking == 1 ||
+                BattleAIPanel.p1.outlooking == 2 || BattleAIPanel.p1.outlooking == 3 || BattleAIPanel.p1.outlooking == 4)) {
+            BattleAIPanel.p1.outlooking = 4;
+            if (BattleAIPanel.p1.now == BattleAIPanel.p1.s) {
+                BattleAIPanel.p1.setNow();
+                BattleAIPanel.p1.now = BattleAIPanel.p1.s;
             }
-            if (BattleAI.p1.now == BattleAI.p1.w) {
-                BattleAI.p1.setNow();
-                BattleAI.p1.now = BattleAI.p1.w;
+            if (BattleAIPanel.p1.now == BattleAIPanel.p1.w) {
+                BattleAIPanel.p1.setNow();
+                BattleAIPanel.p1.now = BattleAIPanel.p1.w;
             }
-            if (BattleAI.p1.now == BattleAI.p1.a) {
-                BattleAI.p1.setNow();
-                BattleAI.p1.now = BattleAI.p1.a;
+            if (BattleAIPanel.p1.now == BattleAIPanel.p1.a) {
+                BattleAIPanel.p1.setNow();
+                BattleAIPanel.p1.now = BattleAIPanel.p1.a;
             }
-            if (BattleAI.p1.now == BattleAI.p1.d) {
-                BattleAI.p1.setNow();
-                BattleAI.p1.now = BattleAI.p1.d;
+            if (BattleAIPanel.p1.now == BattleAIPanel.p1.d) {
+                BattleAIPanel.p1.setNow();
+                BattleAIPanel.p1.now = BattleAIPanel.p1.d;
             }
-            BattleAI.p1.bianshentime = 0;
+            BattleAIPanel.p1.bianshentime = 0;
         }
     }
 
@@ -616,7 +616,7 @@ class Player {
         else if (outlooking == 2) return X - 30;
         else if (outlooking == 3) return X - 25;
         else if (outlooking == 4) return X - 55;
-        else return X - 43 + BattleJingji.jiangeheng;
+        else return X - 43 + BattleJingjiPanel.jiangeheng;
     }
 
     int gety() {
@@ -624,7 +624,7 @@ class Player {
         else if (outlooking == 2) return Y - 48;
         else if (outlooking == 3) return Y - 55;
         else if (outlooking == 4) return Y - 80;
-        else return Y - 73 + BattleJingji.jiangeshu;
+        else return Y - 73 + BattleJingjiPanel.jiangeshu;
     }
 
     public int getX() {

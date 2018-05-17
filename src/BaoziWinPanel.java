@@ -6,11 +6,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-class zhanshishu extends JPanel {
+class BaoziWinPanel extends JPanel {
     static JButton fanhui, jieshu;
     private ImageIcon back;
 
-    zhanshishu() {
+    BaoziWinPanel() {
         fanhui = new JButton(new ImageIcon("replay.png"));
         fanhui.setBounds(5, 407, 185, 72);
         add(fanhui);
@@ -19,7 +19,7 @@ class zhanshishu extends JPanel {
         jieshu.setBounds(3, 501, 190, 73);
         add(jieshu);
 
-        back = new ImageIcon("gameover.png");
+        back = new ImageIcon("包子win.png");
         setFocusable(true);
         setLayout(null);
         setPreferredSize(new Dimension(650, 600));
@@ -29,5 +29,4 @@ class zhanshishu extends JPanel {
         super.paintComponent(page);
         back.paintIcon(this, page, 0, 0);
     }
-
 }

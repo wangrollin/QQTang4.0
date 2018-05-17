@@ -126,12 +126,12 @@ class Ball {
 
     private void remove() {
         Map.boommap[heng][shu] = null;
-        if (owner == 1) BattleJingji.p1.count--;
+        if (owner == 1) BattleJingjiPanel.p1.count--;
 
-        if (owner == 2) BattleJingji.p2.count--;
-        if (owner == 3) BattleAI.p1.count--;
-        if (owner == 4) BattleBiwu.p1.count--;
-        if (owner == 5) BattleBiwu.p2.count--;
+        if (owner == 2) BattleJingjiPanel.p2.count--;
+        if (owner == 3) BattleAIPanel.p1.count--;
+        if (owner == 4) BattleBiwuPanel.p1.count--;
+        if (owner == 5) BattleBiwuPanel.p2.count--;
 
 
     }

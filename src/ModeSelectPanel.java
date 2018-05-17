@@ -7,66 +7,67 @@ import javax.swing.JPanel;
 
 
 public class ModeSelectPanel extends JPanel {
-    protected static JButton menuBtn, youxi;
-    protected static ImageIcon icaidan, iyouxi, beijing;
+    private JButton gobackBtn, startGameBtn;
+    private ImageIcon bgIcon;
 
-    protected static ImageIcon biwuMapIcon, shuimianMapIcon, kuangdongMapIcon, diyMapIcon;
-    protected static JButton biwu, shuimian, kuangdong, make;
+    private JButton biwuMapbtn, shuimianMapBtn, kuangdongMapBtn, diyMapBtn;
 
-    protected static ImageIcon biwuModeIcon, jingjiModeIcon, aiModeIcon;
-    protected static JButton biwuModeBtn, jingjiModeBtn, aiModebtn;
+    private JButton biwuModeBtn, jingjiModeBtn, aiModebtn;
+
     private ImageIcon arrow;
 
     public ModeSelectPanel() {
+        bgIcon = new ImageIcon("111.png");
         arrow = new ImageIcon("guang.png");
-        biwuModeIcon = new ImageIcon("比武.png");
-        biwuModeBtn = new JButton(biwuModeIcon);
+
+        /**
+         * game mode button
+         */
+        biwuModeBtn = new JButton(new ImageIcon("比武.png"));
         biwuModeBtn.setBounds(379, 63, 91, 95);
         add(biwuModeBtn);
-        jingjiModeIcon = new ImageIcon("普通.png");
-        jingjiModeBtn = new JButton(jingjiModeIcon);
+
+        jingjiModeBtn = new JButton(new ImageIcon("普通.png"));
         jingjiModeBtn.setBounds(220, 61, 109, 106);
         add(jingjiModeBtn);
-        aiModeIcon = new ImageIcon("怪物模式.png");
-        aiModebtn = new JButton(aiModeIcon);
+
+        aiModebtn = new JButton(new ImageIcon("怪物模式.png"));
         aiModebtn.setBounds(50, 59, 117, 108);
         add(aiModebtn);
 
-        biwuMapIcon = new ImageIcon("展示1.png");
-        shuimianMapIcon = new ImageIcon("展示2.png");
-        kuangdongMapIcon = new ImageIcon("展示3.png");
+        /**
+         * map button
+         */
+        biwuMapbtn = new JButton(new ImageIcon("展示1.png"));
+        biwuMapbtn.setBounds(248, 389, 153, 96);
+        add(biwuMapbtn);
 
-        biwu = new JButton(biwuMapIcon);
-        biwu.setBounds(248, 389, 153, 96);
+        shuimianMapBtn = new JButton(new ImageIcon("展示2.png"));
+        shuimianMapBtn.setBounds(475, 269, 150, 94);
+        add(shuimianMapBtn);
 
-        shuimian = new JButton(shuimianMapIcon);
-        shuimian.setBounds(475, 269, 150, 94);
+        kuangdongMapBtn = new JButton(new ImageIcon("展示3.png"));
+        kuangdongMapBtn.setBounds(249, 267, 150, 96);
+        add(kuangdongMapBtn);
 
-        kuangdong = new JButton(kuangdongMapIcon);
-        kuangdong.setBounds(249, 267, 150, 96);
+        diyMapBtn = new JButton(new ImageIcon("diy.png"));
+        diyMapBtn.setBounds(469, 389, 159, 101);
+        add(diyMapBtn);
 
-        diyMapIcon = new ImageIcon("diy.png");
-        make = new JButton(diyMapIcon);
-        make.setBounds(469, 389, 159, 101);
+        /**
+         * functional button
+         */
+        gobackBtn = new JButton(new ImageIcon("退.png"));
+        gobackBtn.setBounds(583, 534, 50, 50);
+        add(gobackBtn);
 
-        add(biwu);
-        add(shuimian);
-        add(kuangdong);
-        add(make);
+        startGameBtn = new JButton(new ImageIcon("开.png"));
+        startGameBtn.setBounds(41, 381, 95, 91);
+        add(startGameBtn);
 
-        beijing = new ImageIcon("111.png");
-
-        icaidan = new ImageIcon("退.png");
-        menuBtn = new JButton(icaidan);
-        menuBtn.setBounds(583, 534, 50, 50);
-
-        iyouxi = new ImageIcon("开.png");
-        youxi = new JButton(iyouxi);
-        youxi.setBounds(41, 381, 95, 91);
-
-        add(menuBtn);
-        add(youxi);
-
+        /**
+         * normal settings
+         */
         setFocusable(true);
         setLayout(null);
         setPreferredSize(new Dimension(650, 600));
@@ -74,7 +75,7 @@ public class ModeSelectPanel extends JPanel {
 
     public void paintComponent(Graphics page) {
         super.paintComponent(page);
-        beijing.paintIcon(this, page, 0, 0);
+        bgIcon.paintIcon(this, page, 0, 0);
         if (Play.moshi == 1) arrow.paintIcon(this, page, 114, 180);
         if (Play.moshi == 2) arrow.paintIcon(this, page, 267, 180);
         if (Play.moshi == 3) arrow.paintIcon(this, page, 413, 180);
@@ -83,5 +84,41 @@ public class ModeSelectPanel extends JPanel {
         if (Mypanel.which == 3) arrow.paintIcon(this, page, 407, 314);
         if (Mypanel.which == 4) arrow.paintIcon(this, page, 541, 494);
         repaint();
+    }
+
+    public JButton getAiModebtn() {
+        return aiModebtn;
+    }
+
+    public JButton getJingjiModeBtn() {
+        return jingjiModeBtn;
+    }
+
+    public JButton getBiwuModeBtn() {
+        return biwuModeBtn;
+    }
+
+    public JButton getBiwuMapbtn() {
+        return biwuMapbtn;
+    }
+
+    public JButton getShuimianMapBtn() {
+        return shuimianMapBtn;
+    }
+
+    public JButton getKuangdongMapBtn() {
+        return kuangdongMapBtn;
+    }
+
+    public JButton getDiyMapBtn() {
+        return diyMapBtn;
+    }
+
+    public JButton getGobackBtn() {
+        return gobackBtn;
+    }
+
+    public JButton getStartGameBtn() {
+        return startGameBtn;
     }
 }

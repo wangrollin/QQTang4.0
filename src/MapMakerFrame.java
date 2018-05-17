@@ -32,8 +32,8 @@ public class MapMakerFrame extends JFrame implements ActionListener {
         if (e.getSource() == WallSelectPanel.start) {
             frame.setVisible(false);
             Play.frame.setVisible(true);
-            for (int j = 0; j < BattleJingji.shu; j++)
-                for (int i = 0; i < BattleJingji.heng; i++) {
+            for (int j = 0; j < BattleJingjiPanel.shu; j++)
+                for (int i = 0; i < BattleJingjiPanel.heng; i++) {
                     Map.wallmap[i][j] = null;
                 }
             Mypanel.which = 4;

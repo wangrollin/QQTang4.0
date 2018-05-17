@@ -29,10 +29,10 @@ public class Map {
         dimian3 = new ImageIcon("宝藏地面.png");
         biwumen = new ImageIcon("比武门.png");
 
-        wallmap = new Wall[BattleJingji.heng][BattleJingji.shu];
-        boommap = new Ball[BattleJingji.heng][BattleJingji.shu];
-        expmap = new Explosion[BattleJingji.heng][BattleJingji.shu];
-        daojumap = new Daoju[BattleJingji.heng][BattleJingji.shu];
+        wallmap = new Wall[BattleJingjiPanel.heng][BattleJingjiPanel.shu];
+        boommap = new Ball[BattleJingjiPanel.heng][BattleJingjiPanel.shu];
+        expmap = new Explosion[BattleJingjiPanel.heng][BattleJingjiPanel.shu];
+        daojumap = new Daoju[BattleJingjiPanel.heng][BattleJingjiPanel.shu];
 
         WallMap.biwu1();
         dimian = dimian1;

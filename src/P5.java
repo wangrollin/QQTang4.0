@@ -66,50 +66,50 @@ public class P5 extends Player implements KeyListener {
 
     public void beZhu(Player p) {
 
-        if (p == BattleBiwu.p1 && (BattleBiwu.p2.outlooking == 0 || BattleBiwu.p2.outlooking == 1 ||
-                BattleBiwu.p2.outlooking == 2 || BattleBiwu.p2.outlooking == 3 || BattleBiwu.p2.outlooking == 4)) {
-            BattleBiwu.p2.outlooking = 4;
-            if (BattleBiwu.p2.now == BattleBiwu.p2.s) {
-                BattleBiwu.p2.setNow();
-                BattleBiwu.p2.now = BattleBiwu.p2.s;
+        if (p == BattleBiwuPanel.p1 && (BattleBiwuPanel.p2.outlooking == 0 || BattleBiwuPanel.p2.outlooking == 1 ||
+                BattleBiwuPanel.p2.outlooking == 2 || BattleBiwuPanel.p2.outlooking == 3 || BattleBiwuPanel.p2.outlooking == 4)) {
+            BattleBiwuPanel.p2.outlooking = 4;
+            if (BattleBiwuPanel.p2.now == BattleBiwuPanel.p2.s) {
+                BattleBiwuPanel.p2.setNow();
+                BattleBiwuPanel.p2.now = BattleBiwuPanel.p2.s;
             }
-            if (BattleBiwu.p2.now == BattleBiwu.p2.w) {
-                BattleBiwu.p2.setNow();
-                BattleBiwu.p2.now = BattleBiwu.p2.w;
+            if (BattleBiwuPanel.p2.now == BattleBiwuPanel.p2.w) {
+                BattleBiwuPanel.p2.setNow();
+                BattleBiwuPanel.p2.now = BattleBiwuPanel.p2.w;
             }
-            if (BattleBiwu.p2.now == BattleBiwu.p2.a) {
-                BattleBiwu.p2.setNow();
-                BattleBiwu.p2.now = BattleBiwu.p2.a;
+            if (BattleBiwuPanel.p2.now == BattleBiwuPanel.p2.a) {
+                BattleBiwuPanel.p2.setNow();
+                BattleBiwuPanel.p2.now = BattleBiwuPanel.p2.a;
             }
-            if (BattleBiwu.p2.now == BattleBiwu.p2.d) {
-                BattleBiwu.p2.setNow();
-                BattleBiwu.p2.now = BattleBiwu.p2.d;
+            if (BattleBiwuPanel.p2.now == BattleBiwuPanel.p2.d) {
+                BattleBiwuPanel.p2.setNow();
+                BattleBiwuPanel.p2.now = BattleBiwuPanel.p2.d;
             }
-            BattleBiwu.p2.wuditime = 1;
-            BattleBiwu.p2.bianshentime = 0;
+            BattleBiwuPanel.p2.wuditime = 1;
+            BattleBiwuPanel.p2.bianshentime = 0;
         }
 
-        if (p == BattleBiwu.p2 && (BattleBiwu.p1.outlooking == 0 || BattleBiwu.p1.outlooking == 1 ||
-                BattleBiwu.p1.outlooking == 2 || BattleBiwu.p1.outlooking == 3 || BattleBiwu.p1.outlooking == 4)) {
-            BattleBiwu.p1.outlooking = 4;
-            if (BattleBiwu.p1.now == BattleBiwu.p1.s) {
-                BattleBiwu.p1.setNow();
-                BattleBiwu.p1.now = BattleBiwu.p1.s;
+        if (p == BattleBiwuPanel.p2 && (BattleBiwuPanel.p1.outlooking == 0 || BattleBiwuPanel.p1.outlooking == 1 ||
+                BattleBiwuPanel.p1.outlooking == 2 || BattleBiwuPanel.p1.outlooking == 3 || BattleBiwuPanel.p1.outlooking == 4)) {
+            BattleBiwuPanel.p1.outlooking = 4;
+            if (BattleBiwuPanel.p1.now == BattleBiwuPanel.p1.s) {
+                BattleBiwuPanel.p1.setNow();
+                BattleBiwuPanel.p1.now = BattleBiwuPanel.p1.s;
             }
-            if (BattleBiwu.p1.now == BattleBiwu.p1.w) {
-                BattleBiwu.p1.setNow();
-                BattleBiwu.p1.now = BattleBiwu.p1.w;
+            if (BattleBiwuPanel.p1.now == BattleBiwuPanel.p1.w) {
+                BattleBiwuPanel.p1.setNow();
+                BattleBiwuPanel.p1.now = BattleBiwuPanel.p1.w;
             }
-            if (BattleBiwu.p1.now == BattleBiwu.p1.a) {
-                BattleBiwu.p1.setNow();
-                BattleBiwu.p1.now = BattleBiwu.p1.a;
+            if (BattleBiwuPanel.p1.now == BattleBiwuPanel.p1.a) {
+                BattleBiwuPanel.p1.setNow();
+                BattleBiwuPanel.p1.now = BattleBiwuPanel.p1.a;
             }
-            if (BattleBiwu.p1.now == BattleBiwu.p1.d) {
-                BattleBiwu.p1.setNow();
-                BattleBiwu.p1.now = BattleBiwu.p1.d;
+            if (BattleBiwuPanel.p1.now == BattleBiwuPanel.p1.d) {
+                BattleBiwuPanel.p1.setNow();
+                BattleBiwuPanel.p1.now = BattleBiwuPanel.p1.d;
             }
-            BattleBiwu.p1.wuditime = 1;
-            BattleBiwu.p1.bianshentime = 0;
+            BattleBiwuPanel.p1.wuditime = 1;
+            BattleBiwuPanel.p1.bianshentime = 0;
         }
     }
 
@@ -118,25 +118,25 @@ public class P5 extends Player implements KeyListener {
         if (wuditime == FLASH_TIME) wuditime = 0;
         if (outlooking == 5) {
             dietime += 1;
-            if (dietime == BEFORE_DIE_TIME && p == BattleBiwu.p1) {
+            if (dietime == BEFORE_DIE_TIME && p == BattleBiwuPanel.p1) {
                 Die();
             }
-            if (dietime == BEFORE_DIE_TIME && p == BattleBiwu.p2) {
+            if (dietime == BEFORE_DIE_TIME && p == BattleBiwuPanel.p2) {
                 Die();
             }
-            if (BattleBiwu.p1.outlooking != 5 && p == BattleBiwu.p2 && BattleBiwu.p1.getHeng() == BattleBiwu.p2.getHeng() && BattleBiwu.p1.getShu() == BattleBiwu.p2.getShu()) {
-                BattleBiwu.p2.Die();
-                BattleBiwu.p2.RIGHT = false;
-                BattleBiwu.p2.LEFT = false;
-                BattleBiwu.p2.UP = false;
-                BattleBiwu.p2.DOWN = false;
+            if (BattleBiwuPanel.p1.outlooking != 5 && p == BattleBiwuPanel.p2 && BattleBiwuPanel.p1.getHeng() == BattleBiwuPanel.p2.getHeng() && BattleBiwuPanel.p1.getShu() == BattleBiwuPanel.p2.getShu()) {
+                BattleBiwuPanel.p2.Die();
+                BattleBiwuPanel.p2.RIGHT = false;
+                BattleBiwuPanel.p2.LEFT = false;
+                BattleBiwuPanel.p2.UP = false;
+                BattleBiwuPanel.p2.DOWN = false;
             }
-            if (BattleBiwu.p2.outlooking != 5 && p == BattleBiwu.p1 && BattleBiwu.p1.getHeng() == BattleBiwu.p2.getHeng() && BattleBiwu.p1.getShu() == BattleBiwu.p2.getShu()) {
-                BattleBiwu.p1.Die();
-                BattleBiwu.p1.RIGHT = false;
-                BattleBiwu.p1.LEFT = false;
-                BattleBiwu.p1.UP = false;
-                BattleBiwu.p1.DOWN = false;
+            if (BattleBiwuPanel.p2.outlooking != 5 && p == BattleBiwuPanel.p1 && BattleBiwuPanel.p1.getHeng() == BattleBiwuPanel.p2.getHeng() && BattleBiwuPanel.p1.getShu() == BattleBiwuPanel.p2.getShu()) {
+                BattleBiwuPanel.p1.Die();
+                BattleBiwuPanel.p1.RIGHT = false;
+                BattleBiwuPanel.p1.LEFT = false;
+                BattleBiwuPanel.p1.UP = false;
+                BattleBiwuPanel.p1.DOWN = false;
             }
         }
     }

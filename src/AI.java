@@ -237,10 +237,10 @@ public class AI extends Player {
 
     //象限的名义查找玩家的位置
     public int where() {
-        if (BattleAI.p1.X > X && BattleAI.p1.Y > Y) return 4;
-        if (BattleAI.p1.X < X && BattleAI.p1.Y > Y) return 3;
-        if (BattleAI.p1.X > X && BattleAI.p1.Y < Y) return 1;
-        if (BattleAI.p1.X < X && BattleAI.p1.Y < Y) return 2;
+        if (BattleAIPanel.p1.X > X && BattleAIPanel.p1.Y > Y) return 4;
+        if (BattleAIPanel.p1.X < X && BattleAIPanel.p1.Y > Y) return 3;
+        if (BattleAIPanel.p1.X > X && BattleAIPanel.p1.Y < Y) return 1;
+        if (BattleAIPanel.p1.X < X && BattleAIPanel.p1.Y < Y) return 2;
         return 0;
     }
 
@@ -280,13 +280,13 @@ public class AI extends Player {
 
     //0表示不动
     public int getaway() {
-        if (BattleAI.p1.getHeng() - getHeng() > 0 && ga(getHeng(), getShu()) && jall(getHeng() - 1, getShu()))
+        if (BattleAIPanel.p1.getHeng() - getHeng() > 0 && ga(getHeng(), getShu()) && jall(getHeng() - 1, getShu()))
             return 2;
-        if (BattleAI.p1.getHeng() - getHeng() < 0 && gd(getHeng(), getShu()) && jall(getHeng() + 1, getShu()))
+        if (BattleAIPanel.p1.getHeng() - getHeng() < 0 && gd(getHeng(), getShu()) && jall(getHeng() + 1, getShu()))
             return 4;
-        if (BattleAI.p1.getShu() - getShu() > 0 && gw(getHeng(), getShu()) && jall(getHeng(), getShu() - 1))
+        if (BattleAIPanel.p1.getShu() - getShu() > 0 && gw(getHeng(), getShu()) && jall(getHeng(), getShu() - 1))
             return 1;
-        if (BattleAI.p1.getShu() - getShu() < 0 && gs(getHeng(), getShu()) && jall(getHeng(), getShu() + 1))
+        if (BattleAIPanel.p1.getShu() - getShu() < 0 && gs(getHeng(), getShu()) && jall(getHeng(), getShu() + 1))
             return 3;
 
         if (ga(getHeng(), getShu()) && jall(getHeng() - 1, getShu()))
@@ -302,7 +302,7 @@ public class AI extends Player {
     }
 
     public boolean weixian(int i, int j) {
-        if (Math.abs(BattleAI.p1.getHeng() - getHeng()) <= 2 && Math.abs(BattleAI.p1.getShu() - getShu()) <= 2)
+        if (Math.abs(BattleAIPanel.p1.getHeng() - getHeng()) <= 2 && Math.abs(BattleAIPanel.p1.getShu() - getShu()) <= 2)
             return true;
         else return false;
     }
