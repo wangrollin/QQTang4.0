@@ -21,15 +21,15 @@ import javax.swing.*;
 import java.util.*;
 
 public class mapmaker extends JPanel {
-	chooseelement ch = new chooseelement();
-	makercanvas mc = new makercanvas();
-	public mapmaker()
-	{
-		setLayout(null);
-		this.add(ch);
-		this.add(mc);
-		mc.setBounds(0, 0, 650, 400);
-		ch.setBounds(650, 0, 400, 400);
-		setPreferredSize(new Dimension(1050,400));
-	}
+    chooseelement ch = new chooseelement();
+    makercanvas mc = new makercanvas();
+
+    public mapmaker() {
+        setLayout(null);
+        this.add(ch);
+        this.add(mc);
+        mc.setBounds(0, 0, 650, 400);
+        ch.setBounds(650, 0, 400, 400);
+        setPreferredSize(new Dimension(1050, 400));
+    }
 }

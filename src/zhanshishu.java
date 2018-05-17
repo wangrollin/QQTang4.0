@@ -7,28 +7,27 @@ import javax.swing.JPanel;
 
 
 public class zhanshishu extends JPanel {
-	protected static JButton fanhui,jieshu ;
+    protected static JButton fanhui, jieshu;
     protected ImageIcon back;
-	public zhanshishu()
-	{
-		fanhui=new JButton(new ImageIcon("replay.png"));
-		fanhui.setBounds(5, 407, 185, 72);
-		add(fanhui);
-		
-		jieshu=new JButton(new ImageIcon("exit.png"));
-		jieshu.setBounds(3, 501, 190, 73);
-		add(jieshu);
-		
-		back=new ImageIcon("gameover.png");
-		setFocusable(true);		
-		setLayout(null);
-		setPreferredSize(new Dimension(650,600));
-	}
-	
-	public void paintComponent (  Graphics page) 
-	{
-		super.paintComponent(page);	
-		back.paintIcon(this,page,0,0);
-	}
-	
+
+    public zhanshishu() {
+        fanhui = new JButton(new ImageIcon("replay.png"));
+        fanhui.setBounds(5, 407, 185, 72);
+        add(fanhui);
+
+        jieshu = new JButton(new ImageIcon("exit.png"));
+        jieshu.setBounds(3, 501, 190, 73);
+        add(jieshu);
+
+        back = new ImageIcon("gameover.png");
+        setFocusable(true);
+        setLayout(null);
+        setPreferredSize(new Dimension(650, 600));
+    }
+
+    public void paintComponent(Graphics page) {
+        super.paintComponent(page);
+        back.paintIcon(this, page, 0, 0);
+    }
+
 }
