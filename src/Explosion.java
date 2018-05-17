@@ -6,15 +6,15 @@ import javax.swing.ImageIcon;
 public class Explosion {
     private int time = 0, Booming = 30;
     private int heng, shu;
-    public String fangxiang;
+    public String direction;
     //爆炸中的图  四个方向 中心   w,s,a,d,zw,za,zs,zd,oo,sw,sa,ss,sd
     private ImageIcon now;
 
-    public Explosion(int h, int s, String f) {
+    public Explosion(int h, int s, String _direction) {
         heng = h;
         shu = s;
-        fangxiang = f;
-        switch (fangxiang) {
+        direction = _direction;
+        switch (direction) {
             case "w": {
                 now = new ImageIcon("上头.jpg");
                 break;
@@ -74,7 +74,7 @@ public class Explosion {
     public void addTime() {
         time += 1;
         if (time == Booming) {
-            if (fangxiang.equals("sw") || fangxiang.equals("sd") || fangxiang.equals("ss") || fangxiang.equals("sa")) {
+            if (direction.equals("sw") || direction.equals("sd") || direction.equals("ss") || direction.equals("sa")) {
                 getDaoju();
                 Map.wallmap[heng][shu].remove();
             }
@@ -86,7 +86,6 @@ public class Explosion {
         Random a = new Random();
         int has = a.nextInt(3);
         if (has == 0 || has == 1) Map.daojumap[heng][shu] = new Daoju(heng, shu);
-
     }
 
     public ImageIcon getImage() {

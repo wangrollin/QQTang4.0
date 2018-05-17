@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class BattleCanvas extends JPanel {
+public class BattleJingji extends JPanel {
     protected static JButton fanhui, jieshu;
     //格子数
     protected final static int heng = 13, shu = 8;
@@ -30,7 +30,7 @@ public class BattleCanvas extends JPanel {
     protected static int cishu = 0;
 
     //构造出来 初始化****************************************************************************************
-    public BattleCanvas() {
+    public BattleJingji() {
         fanhui = new JButton(new ImageIcon("replay1.png"));
         fanhui.setBounds(10, 10, 128, 50);
         add(fanhui);
@@ -71,13 +71,13 @@ public class BattleCanvas extends JPanel {
         p2.beBack();
 
         if (cishu == 0) {
-            if (p1.yangzi == 7) {
+            if (p1.outlooking == 7) {
                 Music.stop();
                 Music.music[8].loop();
                 cishu = 1;
                 Mypanel.lay.show(Play.panel, "zhanwin");
             }
-            if (p2.yangzi == 7) {
+            if (p2.outlooking == 7) {
                 Music.stop();
                 cishu = 1;
                 Music.music[8].loop();

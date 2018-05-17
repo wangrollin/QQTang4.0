@@ -17,15 +17,15 @@ import javax.swing.*;
 import java.util.*;
 
 
-public class chooseelement extends JPanel {
+public class WallSelectPanel extends JPanel {
     public static final int chooseelement_WIDTH = 400;
     public static final int DEFAULT_HEIGHT = 400;
     static JButton start, back;
-    JPanel ch;
+    private JPanel ch;
     ImageIcon background = new ImageIcon("背景黄.png");
-    ImageIcon brick1 = new ImageIcon("地图编辑帮助.png");
+    private ImageIcon brick1 = new ImageIcon("地图编辑帮助.png");
 
-    public chooseelement() {
+    WallSelectPanel() {
         setLayout(null);
         ch = new JPanel();
 

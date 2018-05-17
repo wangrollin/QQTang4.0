@@ -1,7 +1,3 @@
-import java.awt.Graphics;
-import java.awt.Image;
-import java.util.HashMap;
-
 import javax.swing.ImageIcon;
 
 
@@ -20,11 +16,11 @@ public class Map {
     //墙地图
     protected static Wall[][] wallmap;
     //爆炸地图
-    protected static Explosion[][] expmap;
+    static Explosion[][] expmap;
     //糖泡地图
     protected static Ball[][] boommap;
     //道具地图
-    protected static Daoju[][] daojumap;
+    static Daoju[][] daojumap;
 
     public Map() {
 
@@ -33,12 +29,12 @@ public class Map {
         dimian3 = new ImageIcon("宝藏地面.png");
         biwumen = new ImageIcon("比武门.png");
 
-        wallmap = new Wall[BattleCanvas.heng][BattleCanvas.shu];
-        boommap = new Ball[BattleCanvas.heng][BattleCanvas.shu];
-        expmap = new Explosion[BattleCanvas.heng][BattleCanvas.shu];
-        daojumap = new Daoju[BattleCanvas.heng][BattleCanvas.shu];
+        wallmap = new Wall[BattleJingji.heng][BattleJingji.shu];
+        boommap = new Ball[BattleJingji.heng][BattleJingji.shu];
+        expmap = new Explosion[BattleJingji.heng][BattleJingji.shu];
+        daojumap = new Daoju[BattleJingji.heng][BattleJingji.shu];
 
-        Wallmap.biwu1();
+        WallMap.biwu1();
         dimian = dimian1;
     }
 

@@ -1,11 +1,10 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 
 
-public class P3 extends player implements KeyListener {
+public class P3 extends Player implements KeyListener {
 
     //现在放下去的糖泡的数量
     protected static int count = 0;
@@ -37,7 +36,7 @@ public class P3 extends player implements KeyListener {
     }
 
     public void move() {
-        if ((yangzi == 0 || yangzi == 1 || yangzi == 2 || yangzi == 3 || yangzi == 4) && RIGHT != true && LEFT != true && DOWN != true && UP != true) {
+        if ((outlooking == 0 || outlooking == 1 || outlooking == 2 || outlooking == 3 || outlooking == 4) && RIGHT != true && LEFT != true && DOWN != true && UP != true) {
             if (now == s) {
                 setNow();
                 now = s;
@@ -56,8 +55,8 @@ public class P3 extends player implements KeyListener {
             }
         }
         setNow();
-        if (yangzi == 0 || yangzi == 1 || yangzi == 2 || yangzi == 4) {
-            if (yangzi == 0 || yangzi == 2 || yangzi == 4) speed = nspeed;
+        if (outlooking == 0 || outlooking == 1 || outlooking == 2 || outlooking == 4) {
+            if (outlooking == 0 || outlooking == 2 || outlooking == 4) speed = nspeed;
             if (RIGHT == true && dRIGHT == 0) {
                 now = d;
                 if (cangod()) X += speed;
@@ -79,7 +78,7 @@ public class P3 extends player implements KeyListener {
                 return;
             }
         }
-        if (yangzi == 3) {
+        if (outlooking == 3) {
             if (LEFT == true && dRIGHT == 0) {
                 if (cangod()) X += speed;
                 now = d;
@@ -104,7 +103,7 @@ public class P3 extends player implements KeyListener {
     }
 
     public void Die() {
-        yangzi = 6;
+        outlooking = 6;
         setNow();
         now = pdie;
         Music.stop();
@@ -114,10 +113,10 @@ public class P3 extends player implements KeyListener {
 
     public boolean toDie() {
         if (wuditime > 0) wuditime += 1;
-        if (wuditime == wudiTime) wuditime = 0;
-        if (yangzi == 5) {
+        if (wuditime == FLASH_TIME) wuditime = 0;
+        if (outlooking == 5) {
             dietime += 1;
-            if (dietime == Dietime) {
+            if (dietime == BEFORE_DIE_TIME) {
                 Die();
                 return true;
             }
@@ -138,7 +137,7 @@ public class P3 extends player implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (yangzi <= 4) {
+        if (outlooking <= 4) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP:
                     dUP = 0;
@@ -176,15 +175,15 @@ public class P3 extends player implements KeyListener {
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 
-            if (yangzi == 0 || yangzi == 1) amount = namount;
-            if (yangzi == 0 || yangzi == 1 || yangzi == 2) power = npower;
+            if (outlooking == 0 || outlooking == 1) amount = namount;
+            if (outlooking == 0 || outlooking == 1 || outlooking == 2) power = npower;
             if (canspace() && USEtangpao == false && count < amount && Map.boommap[getHeng()][getShu()] == null)
                 setBall();
             USEtangpao = true;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_M && USEfork == false) {
-            if (fork > 0 && yangzi == 5) {
+            if (fork > 0 && outlooking == 5) {
                 fork -= 1;
                 fuhuo();
             }
@@ -194,7 +193,7 @@ public class P3 extends player implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (yangzi <= 4) {
+        if (outlooking <= 4) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP:
                     rUP = true;

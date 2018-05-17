@@ -1,9 +1,7 @@
-import java.util.Random;
-
 import javax.swing.ImageIcon;
 
 
-class player {
+class Player {
     //各种道具的最大量
     protected static final int MAXamount = 10, MAXpower = 8, MAXspeed = 3, MAXfork = 3;
 
@@ -46,13 +44,23 @@ class player {
     //计算变身时间
     int bianshentime = 0;
     //变成什么啦？     0原来的样子 1风 2泡 3鬼 4猪   5困住了  6死掉啦  7胜利啦
-    int yangzi = 0;
+    int outlooking = 0;
+    static final int ORIGIN = 0;
+    static final int WIND = 1;
+    static final int CANDY = 2;
+    static final int GHOST = 3;
+    static final int FOX = 4;
+    static final int STUCK = 5;
+    static final int LOSER = 6;
+    static final int WINNER = 7;
     //判断死神的秒表
-    int dietime, Dietime = 600;
+    int dietime;
+    static final int BEFORE_DIE_TIME = 600;
     //无敌时间
-    int wuditime = 0, wudiTime = 300;
+    int wuditime = 0;
+    static final int FLASH_TIME = 300;
 
-    player() {
+    Player() {
         //三个特效人物
         fengw = new ImageIcon("fengw.gif");
         fengs = new ImageIcon("fengs.gif");
@@ -97,7 +105,7 @@ class player {
 
     //决定现在的一套wasd
     void setNow() {
-        switch (yangzi) {
+        switch (outlooking) {
             case 0:
                 if (wuditime == 0) {
                     s = ps;
@@ -191,7 +199,7 @@ class player {
     }
 
     public void move() {
-        if ((yangzi == 0 || yangzi == 1 || yangzi == 2 || yangzi == 3 || yangzi == 4) && !RIGHT && !LEFT && !DOWN && !UP) {
+        if ((outlooking == 0 || outlooking == 1 || outlooking == 2 || outlooking == 3 || outlooking == 4) && !RIGHT && !LEFT && !DOWN && !UP) {
             if (now == s) {
                 setNow();
                 now = s;
@@ -210,8 +218,8 @@ class player {
             }
         }
         setNow();
-        if (yangzi == 0 || yangzi == 1 || yangzi == 2 || yangzi == 4) {
-            if (yangzi == 0 || yangzi == 2 || yangzi == 4) speed = nspeed;
+        if (outlooking == 0 || outlooking == 1 || outlooking == 2 || outlooking == 4) {
+            if (outlooking == 0 || outlooking == 2 || outlooking == 4) speed = nspeed;
             if (RIGHT && dRIGHT == 0) {
                 now = d;
                 if (cangod()) X += speed;
@@ -233,7 +241,7 @@ class player {
                 return;
             }
         }
-        if (yangzi == 3) {
+        if (outlooking == 3) {
             if (LEFT && dRIGHT == 0) {
                 if (cangod()) X += speed;
                 now = d;
@@ -257,11 +265,11 @@ class player {
     }
 
     boolean canspace() {
-        return (yangzi <= 3);
+        return (outlooking <= 3);
     }
 
     public void kunzhu() {
-        yangzi = 5;
+        outlooking = 5;
         setNow();
         now = pkunzhu;
     }
@@ -269,38 +277,38 @@ class player {
     void fuhuo() {
 
         dietime = 0;
-        yangzi = 0;
+        outlooking = 0;
         setNow();
         now = s;
         Music.music[1].play();
     }
 
-    public void toDie(player p) {
+    public void toDie(Player p) {
         if (wuditime > 0) wuditime += 1;
-        if (wuditime == wudiTime) wuditime = 0;
-        if (yangzi == 5) {
+        if (wuditime == FLASH_TIME) wuditime = 0;
+        if (outlooking == 5) {
             dietime += 1;
-            if (dietime == Dietime && p == BattleCanvas.p1) {
+            if (dietime == BEFORE_DIE_TIME && p == BattleJingji.p1) {
                 Die();
-                BattleCanvas.p2.Win();
+                BattleJingji.p2.Win();
             }
-            if (dietime == Dietime && p == BattleCanvas.p2) {
+            if (dietime == BEFORE_DIE_TIME && p == BattleJingji.p2) {
                 Die();
-                BattleCanvas.p1.Win();
+                BattleJingji.p1.Win();
             }
-            if (BattleCanvas.p1.yangzi != 5 && p == BattleCanvas.p2 && BattleCanvas.p1.getHeng() == BattleCanvas.p2.getHeng() && BattleCanvas.p1.getShu() == BattleCanvas.p2.getShu()) {
-                BattleCanvas.p2.Die();
-                BattleCanvas.p1.Win();
+            if (BattleJingji.p1.outlooking != 5 && p == BattleJingji.p2 && BattleJingji.p1.getHeng() == BattleJingji.p2.getHeng() && BattleJingji.p1.getShu() == BattleJingji.p2.getShu()) {
+                BattleJingji.p2.Die();
+                BattleJingji.p1.Win();
             }
-            if (BattleCanvas.p2.yangzi != 5 && p == BattleCanvas.p1 && BattleCanvas.p1.getHeng() == BattleCanvas.p2.getHeng() && BattleCanvas.p1.getShu() == BattleCanvas.p2.getShu()) {
-                BattleCanvas.p1.Die();
-                BattleCanvas.p2.Win();
+            if (BattleJingji.p2.outlooking != 5 && p == BattleJingji.p1 && BattleJingji.p1.getHeng() == BattleJingji.p2.getHeng() && BattleJingji.p1.getShu() == BattleJingji.p2.getShu()) {
+                BattleJingji.p1.Die();
+                BattleJingji.p2.Win();
             }
         }
     }
 
     public void Die() {
-        yangzi = 6;
+        outlooking = 6;
         setNow();
         now = pdie;
         Music.music[7].play();
@@ -308,7 +316,7 @@ class player {
     }
 
     public void Win() {
-        yangzi = 7;
+        outlooking = 7;
         setNow();
         now = pwin;
         Music.music[3].stop();
@@ -317,7 +325,7 @@ class player {
     void beBack() {
         if (bianshentime == MAXbianshen) {
             bianshentime = 0;
-            yangzi = 0;
+            outlooking = 0;
             if (now == s) {
                 setNow();
                 now = s;
@@ -341,7 +349,7 @@ class player {
         if (bianshentime == MAXbianshen + 1) {
             wuditime += 1;
             bianshentime = 0;
-            yangzi = 0;
+            outlooking = 0;
             if (now == s) {
                 setNow();
                 now = s;
@@ -362,7 +370,7 @@ class player {
             power = npower;
             speed = nspeed;
         }
-        if (yangzi == 1 || yangzi == 2 || yangzi == 3 || yangzi == 4) {
+        if (outlooking == 1 || outlooking == 2 || outlooking == 3 || outlooking == 4) {
             bianshentime += 1;
         }
     }
@@ -370,7 +378,7 @@ class player {
     private void beFeng() {
         wuditime = 1;
         bianshentime = 0;
-        yangzi = 1;
+        outlooking = 1;
         if (now == s) {
             setNow();
             now = s;
@@ -393,7 +401,7 @@ class player {
     private void bePao() {
         bianshentime = 0;
         wuditime = 1;
-        yangzi = 2;
+        outlooking = 2;
         if (now == s) {
             setNow();
             now = s;
@@ -416,7 +424,7 @@ class player {
     private void beGui() {
         bianshentime = 0;
         wuditime = 1;
-        yangzi = 3;
+        outlooking = 3;
         if (now == s) {
             setNow();
             now = s;
@@ -438,70 +446,70 @@ class player {
         speed = MAXspeed;
     }
 
-    public void beZhu(player p) {
+    public void beZhu(Player p) {
 
-        if (p == BattleCanvas.p1 && (BattleCanvas.p2.yangzi == 0 || BattleCanvas.p2.yangzi == 1 ||
-                BattleCanvas.p2.yangzi == 2 || BattleCanvas.p2.yangzi == 3 || BattleCanvas.p2.yangzi == 4)) {
-            BattleCanvas.p2.yangzi = 4;
-            if (BattleCanvas.p2.now == BattleCanvas.p2.s) {
-                BattleCanvas.p2.setNow();
-                BattleCanvas.p2.now = BattleCanvas.p2.s;
+        if (p == BattleJingji.p1 && (BattleJingji.p2.outlooking == 0 || BattleJingji.p2.outlooking == 1 ||
+                BattleJingji.p2.outlooking == 2 || BattleJingji.p2.outlooking == 3 || BattleJingji.p2.outlooking == 4)) {
+            BattleJingji.p2.outlooking = 4;
+            if (BattleJingji.p2.now == BattleJingji.p2.s) {
+                BattleJingji.p2.setNow();
+                BattleJingji.p2.now = BattleJingji.p2.s;
             }
-            if (BattleCanvas.p2.now == BattleCanvas.p2.w) {
-                BattleCanvas.p2.setNow();
-                BattleCanvas.p2.now = BattleCanvas.p2.w;
+            if (BattleJingji.p2.now == BattleJingji.p2.w) {
+                BattleJingji.p2.setNow();
+                BattleJingji.p2.now = BattleJingji.p2.w;
             }
-            if (BattleCanvas.p2.now == BattleCanvas.p2.a) {
-                BattleCanvas.p2.setNow();
-                BattleCanvas.p2.now = BattleCanvas.p2.a;
+            if (BattleJingji.p2.now == BattleJingji.p2.a) {
+                BattleJingji.p2.setNow();
+                BattleJingji.p2.now = BattleJingji.p2.a;
             }
-            if (BattleCanvas.p2.now == BattleCanvas.p2.d) {
-                BattleCanvas.p2.setNow();
-                BattleCanvas.p2.now = BattleCanvas.p2.d;
+            if (BattleJingji.p2.now == BattleJingji.p2.d) {
+                BattleJingji.p2.setNow();
+                BattleJingji.p2.now = BattleJingji.p2.d;
             }
-            BattleCanvas.p2.wuditime = 1;
-            BattleCanvas.p2.bianshentime = 0;
-        } else if (p == BattleCanvas.p2 && (BattleCanvas.p1.yangzi == 0 || BattleCanvas.p1.yangzi == 1 ||
-                BattleCanvas.p1.yangzi == 2 || BattleCanvas.p1.yangzi == 3 || BattleCanvas.p1.yangzi == 4)) {
-            BattleCanvas.p1.yangzi = 4;
-            if (BattleCanvas.p1.now == BattleCanvas.p1.s) {
-                BattleCanvas.p1.setNow();
-                BattleCanvas.p1.now = BattleCanvas.p1.s;
+            BattleJingji.p2.wuditime = 1;
+            BattleJingji.p2.bianshentime = 0;
+        } else if (p == BattleJingji.p2 && (BattleJingji.p1.outlooking == 0 || BattleJingji.p1.outlooking == 1 ||
+                BattleJingji.p1.outlooking == 2 || BattleJingji.p1.outlooking == 3 || BattleJingji.p1.outlooking == 4)) {
+            BattleJingji.p1.outlooking = 4;
+            if (BattleJingji.p1.now == BattleJingji.p1.s) {
+                BattleJingji.p1.setNow();
+                BattleJingji.p1.now = BattleJingji.p1.s;
             }
-            if (BattleCanvas.p1.now == BattleCanvas.p1.w) {
-                BattleCanvas.p1.setNow();
-                BattleCanvas.p1.now = BattleCanvas.p1.w;
+            if (BattleJingji.p1.now == BattleJingji.p1.w) {
+                BattleJingji.p1.setNow();
+                BattleJingji.p1.now = BattleJingji.p1.w;
             }
-            if (BattleCanvas.p1.now == BattleCanvas.p1.a) {
-                BattleCanvas.p1.setNow();
-                BattleCanvas.p1.now = BattleCanvas.p1.a;
+            if (BattleJingji.p1.now == BattleJingji.p1.a) {
+                BattleJingji.p1.setNow();
+                BattleJingji.p1.now = BattleJingji.p1.a;
             }
-            if (BattleCanvas.p1.now == BattleCanvas.p1.d) {
-                BattleCanvas.p1.setNow();
-                BattleCanvas.p1.now = BattleCanvas.p1.d;
+            if (BattleJingji.p1.now == BattleJingji.p1.d) {
+                BattleJingji.p1.setNow();
+                BattleJingji.p1.now = BattleJingji.p1.d;
             }
-            BattleCanvas.p1.wuditime = 1;
-            BattleCanvas.p1.bianshentime = 0;
-        } else if (p == Battlemaoxian.p1 && (Battlemaoxian.p1.yangzi == 0 || Battlemaoxian.p1.yangzi == 1 ||
-                Battlemaoxian.p1.yangzi == 2 || Battlemaoxian.p1.yangzi == 3 || Battlemaoxian.p1.yangzi == 4)) {
-            Battlemaoxian.p1.yangzi = 4;
-            if (Battlemaoxian.p1.now == Battlemaoxian.p1.s) {
-                Battlemaoxian.p1.setNow();
-                Battlemaoxian.p1.now = Battlemaoxian.p1.s;
+            BattleJingji.p1.wuditime = 1;
+            BattleJingji.p1.bianshentime = 0;
+        } else if (p == BattleAI.p1 && (BattleAI.p1.outlooking == 0 || BattleAI.p1.outlooking == 1 ||
+                BattleAI.p1.outlooking == 2 || BattleAI.p1.outlooking == 3 || BattleAI.p1.outlooking == 4)) {
+            BattleAI.p1.outlooking = 4;
+            if (BattleAI.p1.now == BattleAI.p1.s) {
+                BattleAI.p1.setNow();
+                BattleAI.p1.now = BattleAI.p1.s;
             }
-            if (Battlemaoxian.p1.now == Battlemaoxian.p1.w) {
-                Battlemaoxian.p1.setNow();
-                Battlemaoxian.p1.now = Battlemaoxian.p1.w;
+            if (BattleAI.p1.now == BattleAI.p1.w) {
+                BattleAI.p1.setNow();
+                BattleAI.p1.now = BattleAI.p1.w;
             }
-            if (Battlemaoxian.p1.now == Battlemaoxian.p1.a) {
-                Battlemaoxian.p1.setNow();
-                Battlemaoxian.p1.now = Battlemaoxian.p1.a;
+            if (BattleAI.p1.now == BattleAI.p1.a) {
+                BattleAI.p1.setNow();
+                BattleAI.p1.now = BattleAI.p1.a;
             }
-            if (Battlemaoxian.p1.now == Battlemaoxian.p1.d) {
-                Battlemaoxian.p1.setNow();
-                Battlemaoxian.p1.now = Battlemaoxian.p1.d;
+            if (BattleAI.p1.now == BattleAI.p1.d) {
+                BattleAI.p1.setNow();
+                BattleAI.p1.now = BattleAI.p1.d;
             }
-            Battlemaoxian.p1.bianshentime = 0;
+            BattleAI.p1.bianshentime = 0;
         }
     }
 
@@ -560,8 +568,8 @@ class player {
     }
 
     void beExp() {
-        if (Map.isExp(getHeng(), getShu()) && yangzi == 0 && wuditime == 0) kunzhu();
-        if (Map.isExp(getHeng(), getShu()) && (yangzi == 1 || yangzi == 2 || yangzi == 3 || yangzi == 4) && wuditime == 0) {
+        if (Map.isExp(getHeng(), getShu()) && outlooking == 0 && wuditime == 0) kunzhu();
+        if (Map.isExp(getHeng(), getShu()) && (outlooking == 1 || outlooking == 2 || outlooking == 3 || outlooking == 4) && wuditime == 0) {
             bianshentime = MAXbianshen + 1;
             beBack();
         }
@@ -587,8 +595,8 @@ class player {
             fork += 1;
     }
 
-    /*public void setYangzi(int yangzi) {
-        this.yangzi = yangzi;
+    /*public void setYangzi(int outlooking) {
+        this.outlooking = outlooking;
     }*/
 
     public ImageIcon getBall() {
@@ -604,19 +612,19 @@ class player {
     }
 
     int getx() {
-        if (yangzi == 1) return X - 25;
-        else if (yangzi == 2) return X - 30;
-        else if (yangzi == 3) return X - 25;
-        else if (yangzi == 4) return X - 55;
-        else return X - 43 + BattleCanvas.jiangeheng;
+        if (outlooking == 1) return X - 25;
+        else if (outlooking == 2) return X - 30;
+        else if (outlooking == 3) return X - 25;
+        else if (outlooking == 4) return X - 55;
+        else return X - 43 + BattleJingji.jiangeheng;
     }
 
     int gety() {
-        if (yangzi == 1) return Y - 75;
-        else if (yangzi == 2) return Y - 48;
-        else if (yangzi == 3) return Y - 55;
-        else if (yangzi == 4) return Y - 80;
-        else return Y - 73 + BattleCanvas.jiangeshu;
+        if (outlooking == 1) return Y - 75;
+        else if (outlooking == 2) return Y - 48;
+        else if (outlooking == 3) return Y - 55;
+        else if (outlooking == 4) return Y - 80;
+        else return Y - 73 + BattleJingji.jiangeshu;
     }
 
     public int getX() {
@@ -628,7 +636,7 @@ class player {
     }
 
     boolean cangow() {
-        if (yangzi <= 4) {
+        if (outlooking <= 4) {
             boolean wall = false;
             boolean ball = false;
             boolean bianjie = false;
@@ -649,7 +657,7 @@ class player {
     }
 
     boolean cangoa() {
-        if (yangzi <= 4) {
+        if (outlooking <= 4) {
             boolean wall = false;
             boolean ball = false;
             boolean bianjie = false;
@@ -668,7 +676,7 @@ class player {
     }
 
     boolean cangos() {
-        if (yangzi <= 4) {
+        if (outlooking <= 4) {
             boolean wall = false;
             boolean ball = false;
             boolean bianjie = false;
@@ -687,7 +695,7 @@ class player {
     }
 
     boolean cangod() {
-        if (yangzi <= 4) {
+        if (outlooking <= 4) {
             boolean wall = false;
             boolean ball = false;
             boolean bianjie = false;

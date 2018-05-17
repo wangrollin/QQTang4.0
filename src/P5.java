@@ -4,7 +4,7 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-public class P5 extends player implements KeyListener {
+public class P5 extends Player implements KeyListener {
     //现在放下去的糖泡的数量
     protected static int count = 0;
     Random aa;
@@ -34,7 +34,7 @@ public class P5 extends player implements KeyListener {
 
     public void Die() {
         siwangcishu += 1;
-        yangzi = 6;
+        outlooking = 6;
         setNow();
         now = pdie;
         Music.music[7].play();
@@ -48,10 +48,10 @@ public class P5 extends player implements KeyListener {
     ///////////改变的地方
     //死后复活
     public void chusheng() {
-        if (yangzi == 6) {
+        if (outlooking == 6) {
             fuhuoshijian += 1;
             if (fuhuoshijian == MAX) {
-                yangzi = 0;
+                outlooking = 0;
                 X = aa.nextInt(500) + 50;
                 Y = aa.nextInt(300) + 50;
                 while (Map.isWall(getHeng(), getShu())) {
@@ -64,79 +64,79 @@ public class P5 extends player implements KeyListener {
         }
     }
 
-    public void beZhu(player p) {
+    public void beZhu(Player p) {
 
-        if (p == Battlebiwu.p1 && (Battlebiwu.p2.yangzi == 0 || Battlebiwu.p2.yangzi == 1 ||
-                Battlebiwu.p2.yangzi == 2 || Battlebiwu.p2.yangzi == 3 || Battlebiwu.p2.yangzi == 4)) {
-            Battlebiwu.p2.yangzi = 4;
-            if (Battlebiwu.p2.now == Battlebiwu.p2.s) {
-                Battlebiwu.p2.setNow();
-                Battlebiwu.p2.now = Battlebiwu.p2.s;
+        if (p == BattleBiwu.p1 && (BattleBiwu.p2.outlooking == 0 || BattleBiwu.p2.outlooking == 1 ||
+                BattleBiwu.p2.outlooking == 2 || BattleBiwu.p2.outlooking == 3 || BattleBiwu.p2.outlooking == 4)) {
+            BattleBiwu.p2.outlooking = 4;
+            if (BattleBiwu.p2.now == BattleBiwu.p2.s) {
+                BattleBiwu.p2.setNow();
+                BattleBiwu.p2.now = BattleBiwu.p2.s;
             }
-            if (Battlebiwu.p2.now == Battlebiwu.p2.w) {
-                Battlebiwu.p2.setNow();
-                Battlebiwu.p2.now = Battlebiwu.p2.w;
+            if (BattleBiwu.p2.now == BattleBiwu.p2.w) {
+                BattleBiwu.p2.setNow();
+                BattleBiwu.p2.now = BattleBiwu.p2.w;
             }
-            if (Battlebiwu.p2.now == Battlebiwu.p2.a) {
-                Battlebiwu.p2.setNow();
-                Battlebiwu.p2.now = Battlebiwu.p2.a;
+            if (BattleBiwu.p2.now == BattleBiwu.p2.a) {
+                BattleBiwu.p2.setNow();
+                BattleBiwu.p2.now = BattleBiwu.p2.a;
             }
-            if (Battlebiwu.p2.now == Battlebiwu.p2.d) {
-                Battlebiwu.p2.setNow();
-                Battlebiwu.p2.now = Battlebiwu.p2.d;
+            if (BattleBiwu.p2.now == BattleBiwu.p2.d) {
+                BattleBiwu.p2.setNow();
+                BattleBiwu.p2.now = BattleBiwu.p2.d;
             }
-            Battlebiwu.p2.wuditime = 1;
-            Battlebiwu.p2.bianshentime = 0;
+            BattleBiwu.p2.wuditime = 1;
+            BattleBiwu.p2.bianshentime = 0;
         }
 
-        if (p == Battlebiwu.p2 && (Battlebiwu.p1.yangzi == 0 || Battlebiwu.p1.yangzi == 1 ||
-                Battlebiwu.p1.yangzi == 2 || Battlebiwu.p1.yangzi == 3 || Battlebiwu.p1.yangzi == 4)) {
-            Battlebiwu.p1.yangzi = 4;
-            if (Battlebiwu.p1.now == Battlebiwu.p1.s) {
-                Battlebiwu.p1.setNow();
-                Battlebiwu.p1.now = Battlebiwu.p1.s;
+        if (p == BattleBiwu.p2 && (BattleBiwu.p1.outlooking == 0 || BattleBiwu.p1.outlooking == 1 ||
+                BattleBiwu.p1.outlooking == 2 || BattleBiwu.p1.outlooking == 3 || BattleBiwu.p1.outlooking == 4)) {
+            BattleBiwu.p1.outlooking = 4;
+            if (BattleBiwu.p1.now == BattleBiwu.p1.s) {
+                BattleBiwu.p1.setNow();
+                BattleBiwu.p1.now = BattleBiwu.p1.s;
             }
-            if (Battlebiwu.p1.now == Battlebiwu.p1.w) {
-                Battlebiwu.p1.setNow();
-                Battlebiwu.p1.now = Battlebiwu.p1.w;
+            if (BattleBiwu.p1.now == BattleBiwu.p1.w) {
+                BattleBiwu.p1.setNow();
+                BattleBiwu.p1.now = BattleBiwu.p1.w;
             }
-            if (Battlebiwu.p1.now == Battlebiwu.p1.a) {
-                Battlebiwu.p1.setNow();
-                Battlebiwu.p1.now = Battlebiwu.p1.a;
+            if (BattleBiwu.p1.now == BattleBiwu.p1.a) {
+                BattleBiwu.p1.setNow();
+                BattleBiwu.p1.now = BattleBiwu.p1.a;
             }
-            if (Battlebiwu.p1.now == Battlebiwu.p1.d) {
-                Battlebiwu.p1.setNow();
-                Battlebiwu.p1.now = Battlebiwu.p1.d;
+            if (BattleBiwu.p1.now == BattleBiwu.p1.d) {
+                BattleBiwu.p1.setNow();
+                BattleBiwu.p1.now = BattleBiwu.p1.d;
             }
-            Battlebiwu.p1.wuditime = 1;
-            Battlebiwu.p1.bianshentime = 0;
+            BattleBiwu.p1.wuditime = 1;
+            BattleBiwu.p1.bianshentime = 0;
         }
     }
 
-    public void toDie(player p) {
+    public void toDie(Player p) {
         if (wuditime > 0) wuditime += 1;
-        if (wuditime == wudiTime) wuditime = 0;
-        if (yangzi == 5) {
+        if (wuditime == FLASH_TIME) wuditime = 0;
+        if (outlooking == 5) {
             dietime += 1;
-            if (dietime == Dietime && p == Battlebiwu.p1) {
+            if (dietime == BEFORE_DIE_TIME && p == BattleBiwu.p1) {
                 Die();
             }
-            if (dietime == Dietime && p == Battlebiwu.p2) {
+            if (dietime == BEFORE_DIE_TIME && p == BattleBiwu.p2) {
                 Die();
             }
-            if (Battlebiwu.p1.yangzi != 5 && p == Battlebiwu.p2 && Battlebiwu.p1.getHeng() == Battlebiwu.p2.getHeng() && Battlebiwu.p1.getShu() == Battlebiwu.p2.getShu()) {
-                Battlebiwu.p2.Die();
-                Battlebiwu.p2.RIGHT = false;
-                Battlebiwu.p2.LEFT = false;
-                Battlebiwu.p2.UP = false;
-                Battlebiwu.p2.DOWN = false;
+            if (BattleBiwu.p1.outlooking != 5 && p == BattleBiwu.p2 && BattleBiwu.p1.getHeng() == BattleBiwu.p2.getHeng() && BattleBiwu.p1.getShu() == BattleBiwu.p2.getShu()) {
+                BattleBiwu.p2.Die();
+                BattleBiwu.p2.RIGHT = false;
+                BattleBiwu.p2.LEFT = false;
+                BattleBiwu.p2.UP = false;
+                BattleBiwu.p2.DOWN = false;
             }
-            if (Battlebiwu.p2.yangzi != 5 && p == Battlebiwu.p1 && Battlebiwu.p1.getHeng() == Battlebiwu.p2.getHeng() && Battlebiwu.p1.getShu() == Battlebiwu.p2.getShu()) {
-                Battlebiwu.p1.Die();
-                Battlebiwu.p1.RIGHT = false;
-                Battlebiwu.p1.LEFT = false;
-                Battlebiwu.p1.UP = false;
-                Battlebiwu.p1.DOWN = false;
+            if (BattleBiwu.p2.outlooking != 5 && p == BattleBiwu.p1 && BattleBiwu.p1.getHeng() == BattleBiwu.p2.getHeng() && BattleBiwu.p1.getShu() == BattleBiwu.p2.getShu()) {
+                BattleBiwu.p1.Die();
+                BattleBiwu.p1.RIGHT = false;
+                BattleBiwu.p1.LEFT = false;
+                BattleBiwu.p1.UP = false;
+                BattleBiwu.p1.DOWN = false;
             }
         }
     }
@@ -147,7 +147,7 @@ public class P5 extends player implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (yangzi <= 4) {
+        if (outlooking <= 4) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_R:
                     dUP = 0;
@@ -184,15 +184,15 @@ public class P5 extends player implements KeyListener {
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_Q) {
-            if (yangzi == 0 || yangzi == 1) amount = namount;
-            if (yangzi == 0 || yangzi == 1 || yangzi == 2) power = npower;
+            if (outlooking == 0 || outlooking == 1) amount = namount;
+            if (outlooking == 0 || outlooking == 1 || outlooking == 2) power = npower;
             if (canspace() && USEtangpao == false && count < amount && Map.boommap[getHeng()][getShu()] == null)
                 setBall();
             USEtangpao = true;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_W && USEfork == false) {
-            if (fork > 0 && yangzi == 5) {
+            if (fork > 0 && outlooking == 5) {
                 fork -= 1;
                 fuhuo();
             }
@@ -202,7 +202,7 @@ public class P5 extends player implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (yangzi <= 4) {
+        if (outlooking <= 4) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_R:
                     rUP = true;

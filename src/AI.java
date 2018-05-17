@@ -2,12 +2,12 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-public class Enemy2 extends player {
+public class AI extends Player {
     protected int amount = MAXamount, power = 5, speed = MAXspeed + 2;
     protected int myheng, myshu, hengcount, shucount, findheng, findshu, ws, ad, way;
     protected Random aa;
 
-    public Enemy2() {
+    public AI() {
 
         super();
         //X=125;
@@ -237,10 +237,10 @@ public class Enemy2 extends player {
 
     //象限的名义查找玩家的位置
     public int where() {
-        if (Battlemaoxian.p1.X > X && Battlemaoxian.p1.Y > Y) return 4;
-        if (Battlemaoxian.p1.X < X && Battlemaoxian.p1.Y > Y) return 3;
-        if (Battlemaoxian.p1.X > X && Battlemaoxian.p1.Y < Y) return 1;
-        if (Battlemaoxian.p1.X < X && Battlemaoxian.p1.Y < Y) return 2;
+        if (BattleAI.p1.X > X && BattleAI.p1.Y > Y) return 4;
+        if (BattleAI.p1.X < X && BattleAI.p1.Y > Y) return 3;
+        if (BattleAI.p1.X > X && BattleAI.p1.Y < Y) return 1;
+        if (BattleAI.p1.X < X && BattleAI.p1.Y < Y) return 2;
         return 0;
     }
 
@@ -280,13 +280,13 @@ public class Enemy2 extends player {
 
     //0表示不动
     public int getaway() {
-        if (Battlemaoxian.p1.getHeng() - getHeng() > 0 && ga(getHeng(), getShu()) && jall(getHeng() - 1, getShu()))
+        if (BattleAI.p1.getHeng() - getHeng() > 0 && ga(getHeng(), getShu()) && jall(getHeng() - 1, getShu()))
             return 2;
-        if (Battlemaoxian.p1.getHeng() - getHeng() < 0 && gd(getHeng(), getShu()) && jall(getHeng() + 1, getShu()))
+        if (BattleAI.p1.getHeng() - getHeng() < 0 && gd(getHeng(), getShu()) && jall(getHeng() + 1, getShu()))
             return 4;
-        if (Battlemaoxian.p1.getShu() - getShu() > 0 && gw(getHeng(), getShu()) && jall(getHeng(), getShu() - 1))
+        if (BattleAI.p1.getShu() - getShu() > 0 && gw(getHeng(), getShu()) && jall(getHeng(), getShu() - 1))
             return 1;
-        if (Battlemaoxian.p1.getShu() - getShu() < 0 && gs(getHeng(), getShu()) && jall(getHeng(), getShu() + 1))
+        if (BattleAI.p1.getShu() - getShu() < 0 && gs(getHeng(), getShu()) && jall(getHeng(), getShu() + 1))
             return 3;
 
         if (ga(getHeng(), getShu()) && jall(getHeng() - 1, getShu()))
@@ -302,7 +302,7 @@ public class Enemy2 extends player {
     }
 
     public boolean weixian(int i, int j) {
-        if (Math.abs(Battlemaoxian.p1.getHeng() - getHeng()) <= 2 && Math.abs(Battlemaoxian.p1.getShu() - getShu()) <= 2)
+        if (Math.abs(BattleAI.p1.getHeng() - getHeng()) <= 2 && Math.abs(BattleAI.p1.getShu() - getShu()) <= 2)
             return true;
         else return false;
     }

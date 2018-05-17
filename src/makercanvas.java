@@ -15,30 +15,30 @@ public class makercanvas extends JPanel {
     public static int[][] mapshuzu = new int[13][8];//表示某位置地形的数字
     private static JLabel[][] ditukuai = new JLabel[13][8];//地图块，存放某位置的地形图片
 
-    ImageIcon background1 = new ImageIcon("比武地面.png");
+    private ImageIcon background1 = new ImageIcon("比武地面.png");
     ImageIcon background2 = new ImageIcon(".png");
     ImageIcon background3 = new ImageIcon(".png");
     ImageIcon now = new ImageIcon("小怪.gif");
-    ImageIcon pic1 = new ImageIcon("冰墙.png");
-    ImageIcon pic2 = new ImageIcon("沙墙.png");
-    ImageIcon pic3 = new ImageIcon("比.png");
-    ImageIcon pic4 = new ImageIcon("武.png");
-    ImageIcon pic11 = new ImageIcon("沙.png");
-    ImageIcon pic12 = new ImageIcon("水1.png");
-    ImageIcon pic13 = new ImageIcon("水2.png");
-    ImageIcon pic14 = new ImageIcon("水3.png");
-    ImageIcon pic15 = new ImageIcon("水4.png");
-    ImageIcon pic16 = new ImageIcon("桶.png");
+    private ImageIcon pic1 = new ImageIcon("冰墙.png");
+    private ImageIcon pic2 = new ImageIcon("沙墙.png");
+    private ImageIcon pic3 = new ImageIcon("比.png");
+    private ImageIcon pic4 = new ImageIcon("武.png");
+    private ImageIcon pic11 = new ImageIcon("沙.png");
+    private ImageIcon pic12 = new ImageIcon("水1.png");
+    private ImageIcon pic13 = new ImageIcon("水2.png");
+    private ImageIcon pic14 = new ImageIcon("水3.png");
+    private ImageIcon pic15 = new ImageIcon("水4.png");
+    private ImageIcon pic16 = new ImageIcon("桶.png");
 
-    JLabel bg1;
+    private JLabel bg1;
     JLabel bg2;
     JLabel bg3;
-    JLabel n;
+    private JLabel n;
     static int x = 0;//now的当前指示坐标
     static int y = 0;
     static int z = 0;//指示有按键，要paint一次
 
-    public makercanvas() {
+    makercanvas() {
 
         setLayout(null);
 
@@ -54,7 +54,7 @@ public class makercanvas extends JPanel {
         this.addKeyListener(new eve());
         this.requestFocus(true);
 
-        System.out.print("1成功");
+        //System.out.print("1成功");
     }
 
     public void paintComponent(Graphics page) {
@@ -69,7 +69,7 @@ public class makercanvas extends JPanel {
         add(bg1);
     }
 
-    public void paintwall(int a, int b) {
+    private void paintwall(int a, int b) {
         if (mapshuzu[a][b] == 1) {
             ditukuai[a][b] = new JLabel(pic1);
             ditukuai[a][b].setBounds(50 * x, 50 * y, now_WIDTH, now_HEIGHT);
@@ -134,10 +134,9 @@ public class makercanvas extends JPanel {
 
     }
 
-    class eve implements KeyListener {
+    private class eve implements KeyListener {
         @Override
         public void keyPressed(KeyEvent e) {
-            // TODO Auto-generated method stub
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_SPACE:
                     mapshuzu[x][y] = 0;

@@ -1,16 +1,16 @@
 
-class Timecount {
+class TimeCounter {
 
     static int minute = 3, scond = 0;
     static boolean over = false;
-    private static int onescond = 0;
-    private static final int Onescond = 100;
+    private static int oneSecond = 0;
+    private static final int OneSecond = 100;
 
     void count() {
         if (!over) {
-            onescond += 1;
-            if (onescond == Onescond) {
-                onescond = 0;
+            oneSecond += 1;
+            if (oneSecond == OneSecond) {
+                oneSecond = 0;
                 if (scond > 0) {
                     scond -= 1;
                     return;

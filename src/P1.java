@@ -1,10 +1,9 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-public class P1 extends player implements KeyListener {
+public class P1 extends Player implements KeyListener {
     //现在放下去的糖泡的数量
     protected static int count = 0;
 
@@ -41,7 +40,7 @@ public class P1 extends player implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (yangzi <= 4) {
+        if (outlooking <= 4) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP:
                     dUP = 0;
@@ -80,15 +79,15 @@ public class P1 extends player implements KeyListener {
 
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 
-            if (yangzi == 0 || yangzi == 1) amount = namount;
-            if (yangzi == 0 || yangzi == 1 || yangzi == 2) power = npower;
+            if (outlooking == 0 || outlooking == 1) amount = namount;
+            if (outlooking == 0 || outlooking == 1 || outlooking == 2) power = npower;
             if (canspace() && USEtangpao == false && count < amount && Map.boommap[getHeng()][getShu()] == null)
                 setBall();
             USEtangpao = true;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_M && USEfork == false) {
-            if (fork > 0 && yangzi == 5) {
+            if (fork > 0 && outlooking == 5) {
                 fork -= 1;
                 fuhuo();
             }
@@ -98,7 +97,7 @@ public class P1 extends player implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (yangzi <= 4) {
+        if (outlooking <= 4) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP:
                     rUP = true;

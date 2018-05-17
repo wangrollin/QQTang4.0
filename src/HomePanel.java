@@ -7,11 +7,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class NEWONE extends JPanel {
+public class HomePanel extends JPanel {
     protected static JButton newgame, shezhi, bangzhu, tuichu;
     protected static ImageIcon inewgame, ishezhi, ibangzhu, ituichu, beijing;
 
-    public NEWONE() {
+    public HomePanel() {
         setLayout(null);
 
         beijing = new ImageIcon("1.png");

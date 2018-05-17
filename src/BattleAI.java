@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Battlemaoxian extends JPanel {
+public class BattleAI extends JPanel {
     protected static JButton fanhui, jieshu;
     //格子数
     protected final static int heng = 13, shu = 8;
@@ -23,12 +23,12 @@ public class Battlemaoxian extends JPanel {
     static Map map;
     //人物登场
     static P3 p1;
-    static Enemy2 p6;
+    static AI p6;
 
     protected Random aa;
     protected int safe = -1, timecount = 0, jineng = 0, suiji, suiji2, wushi = 0, weizhi;
 
-    public Battlemaoxian() {
+    public BattleAI() {
         timecount = 0;
         aa = new Random();
         fanhui = new JButton(new ImageIcon("replay1.png"));
@@ -42,7 +42,7 @@ public class Battlemaoxian extends JPanel {
 
         map = new Map();
         p1 = new P3();
-        p6 = new Enemy2();
+        p6 = new AI();
         timer = new Timer(DELAY, new Mytime());
         setLayout(null);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));

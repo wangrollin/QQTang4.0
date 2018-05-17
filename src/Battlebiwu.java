@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
-public class Battlebiwu extends JPanel {
+public class BattleBiwu extends JPanel {
 
     static JButton fanhui, jieshu;
     //格子数
@@ -29,10 +29,10 @@ public class Battlebiwu extends JPanel {
     static P5 p2;
     private ImageIcon num, num0, num1, num2, num3, num4, num5, num6, num7, num8, num9;
     protected static boolean timeover = false;
-    Timecount timecount;
+    TimeCounter timeCounter;
 
     //构造出来 初始化****************************************************************************************
-    public Battlebiwu() {
+    public BattleBiwu() {
         fanhui = new JButton(new ImageIcon("replay1.png"));
         fanhui.setBounds(10, 10, 128, 50);
         add(fanhui);
@@ -53,7 +53,7 @@ public class Battlebiwu extends JPanel {
         num0 = new ImageIcon("0.png");
         Music.Musicload();
         map = new Map();
-        timecount = new Timecount();
+        timeCounter = new TimeCounter();
         p1 = new P4();
         p2 = new P5();
         timer = new Timer(DELAY, new Mytime());
@@ -83,34 +83,34 @@ public class Battlebiwu extends JPanel {
         p1.chusheng();
         p2.chusheng();
 
-        if (Timecount.minute == 3) num3.paintIcon(this, page, 240, 5);
-        if (Timecount.minute == 2) num2.paintIcon(this, page, 240, 5);
-        if (Timecount.minute == 1) num1.paintIcon(this, page, 240, 5);
-        if (Timecount.minute == 0) num0.paintIcon(this, page, 240, 5);
+        if (TimeCounter.minute == 3) num3.paintIcon(this, page, 240, 5);
+        if (TimeCounter.minute == 2) num2.paintIcon(this, page, 240, 5);
+        if (TimeCounter.minute == 1) num1.paintIcon(this, page, 240, 5);
+        if (TimeCounter.minute == 0) num0.paintIcon(this, page, 240, 5);
 
         num.paintIcon(this, page, 275, 20);
 
-        if (Timecount.scond / 10 == 0) num0.paintIcon(this, page, 335, 5);
-        if (Timecount.scond / 10 == 1) num1.paintIcon(this, page, 335, 5);
-        if (Timecount.scond / 10 == 2) num2.paintIcon(this, page, 335, 5);
-        if (Timecount.scond / 10 == 3) num3.paintIcon(this, page, 335, 5);
-        if (Timecount.scond / 10 == 4) num4.paintIcon(this, page, 335, 5);
-        if (Timecount.scond / 10 == 5) num5.paintIcon(this, page, 335, 5);
-        if (Timecount.scond / 10 == 6) num6.paintIcon(this, page, 335, 5);
-        if (Timecount.scond / 10 == 7) num7.paintIcon(this, page, 335, 5);
-        if (Timecount.scond / 10 == 8) num8.paintIcon(this, page, 335, 5);
-        if (Timecount.scond / 10 == 9) num9.paintIcon(this, page, 335, 5);
+        if (TimeCounter.scond / 10 == 0) num0.paintIcon(this, page, 335, 5);
+        if (TimeCounter.scond / 10 == 1) num1.paintIcon(this, page, 335, 5);
+        if (TimeCounter.scond / 10 == 2) num2.paintIcon(this, page, 335, 5);
+        if (TimeCounter.scond / 10 == 3) num3.paintIcon(this, page, 335, 5);
+        if (TimeCounter.scond / 10 == 4) num4.paintIcon(this, page, 335, 5);
+        if (TimeCounter.scond / 10 == 5) num5.paintIcon(this, page, 335, 5);
+        if (TimeCounter.scond / 10 == 6) num6.paintIcon(this, page, 335, 5);
+        if (TimeCounter.scond / 10 == 7) num7.paintIcon(this, page, 335, 5);
+        if (TimeCounter.scond / 10 == 8) num8.paintIcon(this, page, 335, 5);
+        if (TimeCounter.scond / 10 == 9) num9.paintIcon(this, page, 335, 5);
 
-        if (Timecount.scond % 10 == 0) num0.paintIcon(this, page, 410, 5);
-        if (Timecount.scond % 10 == 1) num1.paintIcon(this, page, 410, 5);
-        if (Timecount.scond % 10 == 2) num2.paintIcon(this, page, 410, 5);
-        if (Timecount.scond % 10 == 3) num3.paintIcon(this, page, 410, 5);
-        if (Timecount.scond % 10 == 4) num4.paintIcon(this, page, 410, 5);
-        if (Timecount.scond % 10 == 5) num5.paintIcon(this, page, 410, 5);
-        if (Timecount.scond % 10 == 6) num6.paintIcon(this, page, 410, 5);
-        if (Timecount.scond % 10 == 7) num7.paintIcon(this, page, 410, 5);
-        if (Timecount.scond % 10 == 8) num8.paintIcon(this, page, 410, 5);
-        if (Timecount.scond % 10 == 9) num9.paintIcon(this, page, 410, 5);
+        if (TimeCounter.scond % 10 == 0) num0.paintIcon(this, page, 410, 5);
+        if (TimeCounter.scond % 10 == 1) num1.paintIcon(this, page, 410, 5);
+        if (TimeCounter.scond % 10 == 2) num2.paintIcon(this, page, 410, 5);
+        if (TimeCounter.scond % 10 == 3) num3.paintIcon(this, page, 410, 5);
+        if (TimeCounter.scond % 10 == 4) num4.paintIcon(this, page, 410, 5);
+        if (TimeCounter.scond % 10 == 5) num5.paintIcon(this, page, 410, 5);
+        if (TimeCounter.scond % 10 == 6) num6.paintIcon(this, page, 410, 5);
+        if (TimeCounter.scond % 10 == 7) num7.paintIcon(this, page, 410, 5);
+        if (TimeCounter.scond % 10 == 8) num8.paintIcon(this, page, 410, 5);
+        if (TimeCounter.scond % 10 == 9) num9.paintIcon(this, page, 410, 5);
 
         if (p1.siwangcishu / 10 == 0) num0.paintIcon(this, page, 505, 100);
         if (p1.siwangcishu / 10 == 1) num1.paintIcon(this, page, 505, 100);
@@ -156,9 +156,9 @@ public class Battlebiwu extends JPanel {
         if (p2.siwangcishu % 10 == 8) num8.paintIcon(this, page, 75, 100);
         if (p2.siwangcishu % 10 == 9) num9.paintIcon(this, page, 75, 100);
 
-        timecount.count();
+        timeCounter.count();
 
-        if (Timecount.over == true) {
+        if (TimeCounter.over == true) {
 
             Music.stop();
             Music.music[8].loop();

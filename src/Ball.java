@@ -39,7 +39,7 @@ class Ball {
         return power;
     }
 
-    public ImageIcon getBallIcon() {
+    ImageIcon getBallIcon() {
         return ballIcon;
     }
 
@@ -126,12 +126,12 @@ class Ball {
 
     private void remove() {
         Map.boommap[heng][shu] = null;
-        if (owner == 1) BattleCanvas.p1.count--;
+        if (owner == 1) BattleJingji.p1.count--;
 
-        if (owner == 2) BattleCanvas.p2.count--;
-        if (owner == 3) Battlemaoxian.p1.count--;
-        if (owner == 4) Battlebiwu.p1.count--;
-        if (owner == 5) Battlebiwu.p2.count--;
+        if (owner == 2) BattleJingji.p2.count--;
+        if (owner == 3) BattleAI.p1.count--;
+        if (owner == 4) BattleBiwu.p1.count--;
+        if (owner == 5) BattleBiwu.p2.count--;
 
 
     }
