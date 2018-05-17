@@ -280,7 +280,7 @@ public class Battlemaoxian extends JPanel {
                     map.daojumap[i][j].beExo();
                 }
                 if (map.boommap[i][j] != null) {
-                    map.boommap[i][j].getBall().paintIcon(this, page, i * 50, j * 50 + 200);
+                    map.boommap[i][j].getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
                     map.boommap[i][j].addTime();
                 }
                 if (map.expmap[i][j] != null) {

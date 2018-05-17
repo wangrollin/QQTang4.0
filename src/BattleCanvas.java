@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -89,7 +88,7 @@ public class BattleCanvas extends JPanel {
         for (int j = 0; j < shu; j++)
             for (int i = 0; i < heng; i++) {
                 if (map.boommap[i][j] != null) {
-                    map.boommap[i][j].getBall().paintIcon(this, page, i * 50, j * 50 + 200);
+                    map.boommap[i][j].getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
                     map.boommap[i][j].addTime();
                 }
                 if (map.wallmap[i][j] != null && (!map.wallmap[i][j].isRuin()))

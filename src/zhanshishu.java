@@ -6,11 +6,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-public class zhanshishu extends JPanel {
-    protected static JButton fanhui, jieshu;
-    protected ImageIcon back;
+class zhanshishu extends JPanel {
+    static JButton fanhui, jieshu;
+    private ImageIcon back;
 
-    public zhanshishu() {
+    zhanshishu() {
         fanhui = new JButton(new ImageIcon("replay.png"));
         fanhui.setBounds(5, 407, 185, 72);
         add(fanhui);

@@ -11,7 +11,7 @@ import javax.swing.Timer;
 
 public class Battlebiwu extends JPanel {
 
-    protected static JButton fanhui, jieshu;
+    static JButton fanhui, jieshu;
     //格子数
     protected final static int heng = 13, shu = 8;
     //长宽
@@ -21,13 +21,13 @@ public class Battlebiwu extends JPanel {
     //时间监听毫秒
     private final int DELAY = 15;
     //时间老人
-    Timer timer;
+    private Timer timer;
     //地图
     static Map map;
     //人物登场
     static P4 p1;
     static P5 p2;
-    protected ImageIcon num, num0, num1, num2, num3, num4, num5, num6, num7, num8, num9;
+    private ImageIcon num, num0, num1, num2, num3, num4, num5, num6, num7, num8, num9;
     protected static boolean timeover = false;
     Timecount timecount;
 
@@ -171,7 +171,7 @@ public class Battlebiwu extends JPanel {
         for (int j = 0; j < shu; j++)
             for (int i = 0; i < heng; i++) {
                 if (map.boommap[i][j] != null) {
-                    map.boommap[i][j].getBall().paintIcon(this, page, i * 50, j * 50 + 200);
+                    map.boommap[i][j].getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
                     map.boommap[i][j].addTime();
                 }
                 if (map.wallmap[i][j] != null && (!map.wallmap[i][j].isRuin()))

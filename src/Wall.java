@@ -1,8 +1,6 @@
-import java.util.Random;
-
 import javax.swing.ImageIcon;
 
-public class Wall {
+class Wall {
     //定义各种墙  brick=1,iron=2;
     private int type;
     //细分各种墙  tt
@@ -14,11 +12,11 @@ public class Wall {
     //墙碎了
     // private ImageIcon sw,sa,ss,sd;
     //判断有没有墙
-    private boolean alive, ruin, die;
+    private boolean ruin, alive, die;
     //0没有 12有
-    private int has;
+    /*private int has;*/
 
-    public Wall(int t, int tt, int heng, int shu) {
+    Wall(int t, int tt, int heng, int shu) {
         this.type = t;
         if (type == 1) {
             if (tt == 1) now = new ImageIcon("比.png");
@@ -42,31 +40,32 @@ public class Wall {
         Map.wallmap[heng][shu] = this;
     }
 
-    public int getType() {
+    int getType() {
         return type;
     }
 
-    public ImageIcon getImage() {
+    ImageIcon getImage() {
         return now;
     }
 
-    public void Ruin() {
+    void Ruin() {
         ruin = true;
     }
 
-    public boolean isRuin() {
+    boolean isRuin() {
         return ruin;
     }
 
-    public void remove() {
+    void remove() {
         Map.wallmap[heng][shu] = null;
     }
 
-    public int getx() {
+
+/*    public int getx() {
         return heng * 50;
     }
 
     public int gety() {
         return shu * 50 + 12;
-    }
+    }*/
 }

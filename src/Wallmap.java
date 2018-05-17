@@ -1,6 +1,6 @@
 
-public class Wallmap {
-    public static void maker(int[][] a) {
+class Wallmap {
+    static void maker(int[][] a) {
         for (int i = 0; i < 13; i++) {
             for (int j = 0; j < 8; j++) {
                 if (a[i][j] == 1)
@@ -28,7 +28,7 @@ public class Wallmap {
     }
 
     //比武地图1
-    public static void biwu1() {
+    static void biwu1() {
         new Wall(1, 1, 0, 2);
         new Wall(1, 1, 0, 3);
         new Wall(1, 1, 0, 4);
@@ -123,7 +123,7 @@ public class Wallmap {
         new Wall(1, 1, 12, 5);
     }
 
-    public static void putong() {
+    static void putong() {
         new Wall(2, 2, 0, 0);
         new Wall(1, 4, 0, 1);
         new Wall(1, 4, 0, 5);
@@ -186,7 +186,7 @@ public class Wallmap {
         new Wall(2, 5, 12, 7);
     }
 
-    public static void maoxian() {
+    static void maoxian() {
         new Wall(2, 3, 0, 0);
         new Wall(1, 3, 0, 1);
         new Wall(1, 3, 0, 2);

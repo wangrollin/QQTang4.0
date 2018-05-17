@@ -3,54 +3,56 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 
-public class player {
+class player {
     //各种道具的最大量
     protected static final int MAXamount = 10, MAXpower = 8, MAXspeed = 3, MAXfork = 3;
+
+
     //各种道具的持有量  收集用这个
-    protected int namount = 2, npower = 1, nspeed = 1;
+    int namount = 2, npower = 1, nspeed = 1;
     //protected int namount=10,npower=5,nspeed=4;
     //各种道具的持有量 最终显示效果用这个改变这个
-    protected int amount = 2, power = 1, speed = 1, fork = 0;
+    int amount = 2, power = 1, speed = 1, fork = 0;
     //各个时期的玩家图片
-    protected ImageIcon now, pa, ps, pd, pw, pkunzhu, pdie, pwin, w, a, s, d;
+    ImageIcon now, pa, ps, pd, pw, pkunzhu, pdie, pwin, w, a, s, d;
     //特效之后的样子
-    protected ImageIcon fengw, fenga, fengs, fengd;
-    protected ImageIcon paow, paoa, paos, paod;
-    protected ImageIcon guiw, guia, guis, guid;
-    protected ImageIcon zhuw, zhua, zhus, zhud;
+    private ImageIcon fengw, fenga, fengs, fengd;
+    private ImageIcon paow, paoa, paos, paod;
+    private ImageIcon guiw, guia, guis, guid;
+    private ImageIcon zhuw, zhua, zhus, zhud;
     //闪图
-    protected ImageIcon sfengw, sfenga, sfengs, sfengd;
-    protected ImageIcon spaow, spaoa, spaos, spaod;
-    protected ImageIcon sguiw, sguia, sguis, sguid;
-    protected ImageIcon szhuw, szhua, szhus, szhud;
-    protected ImageIcon spa, sps, spd, spw;
+    private ImageIcon sfengw, sfenga, sfengs, sfengd;
+    private ImageIcon spaow, spaoa, spaos, spaod;
+    private ImageIcon sguiw, sguia, sguis, sguid;
+    private ImageIcon szhuw, szhua, szhus, szhud;
+    ImageIcon spa, sps, spd, spw;
     //玩家专属糖泡
-    protected ImageIcon ball;
+    ImageIcon ball;
     //xy表示贴图坐标  XY表示判定位置
     protected int x, y, X, Y;
     //方向按键的值
-    protected boolean UP = false, DOWN = false, LEFT = false, RIGHT = false;
+    boolean UP = false, DOWN = false, LEFT = false, RIGHT = false;
     //被打断的次数
-    protected int dUP = 0, dDOWN = 0, dLEFT = 0, dRIGHT = 0;
+    int dUP = 0, dDOWN = 0, dLEFT = 0, dRIGHT = 0;
     //按键的松开值
-    protected boolean rUP = true, rDOWN = true, rLEFT = true, rRIGHT = true;
+    boolean rUP = true, rDOWN = true, rLEFT = true, rRIGHT = true;
 
     //判断是否按下一个键（为流畅的走位） 是否在使用叉子   判断是否被困住  是否变身
-    protected boolean USEtangpao = false, USEfork = false;
+    boolean USEtangpao = false, USEfork = false;
     //困住 死亡
     protected boolean kunzhu = false, die = false;
     //变身总时间
-    protected static final int MAXbianshen = 1000;
+    private static final int MAXbianshen = 1000;
     //计算变身时间
-    protected int bianshentime = 0;
+    int bianshentime = 0;
     //变成什么啦？     0原来的样子 1风 2泡 3鬼 4猪   5困住了  6死掉啦  7胜利啦
-    protected int yangzi = 0;
+    int yangzi = 0;
     //判断死神的秒表
-    protected int dietime, Dietime = 600;
+    int dietime, Dietime = 600;
     //无敌时间
-    protected int wuditime = 0, wudiTime = 300;
+    int wuditime = 0, wudiTime = 300;
 
-    public player() {
+    player() {
         //三个特效人物
         fengw = new ImageIcon("fengw.gif");
         fengs = new ImageIcon("fengs.gif");
@@ -94,7 +96,7 @@ public class player {
     }
 
     //决定现在的一套wasd
-    public void setNow() {
+    void setNow() {
         switch (yangzi) {
             case 0:
                 if (wuditime == 0) {
@@ -189,7 +191,7 @@ public class player {
     }
 
     public void move() {
-        if ((yangzi == 0 || yangzi == 1 || yangzi == 2 || yangzi == 3 || yangzi == 4) && RIGHT != true && LEFT != true && DOWN != true && UP != true) {
+        if ((yangzi == 0 || yangzi == 1 || yangzi == 2 || yangzi == 3 || yangzi == 4) && !RIGHT && !LEFT && !DOWN && !UP) {
             if (now == s) {
                 setNow();
                 now = s;
@@ -210,52 +212,51 @@ public class player {
         setNow();
         if (yangzi == 0 || yangzi == 1 || yangzi == 2 || yangzi == 4) {
             if (yangzi == 0 || yangzi == 2 || yangzi == 4) speed = nspeed;
-            if (RIGHT == true && dRIGHT == 0) {
+            if (RIGHT && dRIGHT == 0) {
                 now = d;
                 if (cangod()) X += speed;
                 return;
             }
-            if (LEFT == true && dLEFT == 0) {
+            if (LEFT && dLEFT == 0) {
                 now = a;
                 if (cangoa()) X -= speed;
                 return;
             }
-            if (DOWN == true && dDOWN == 0) {
+            if (DOWN && dDOWN == 0) {
                 now = s;
                 if (cangos()) Y += speed;
                 return;
             }
-            if (UP == true && dUP == 0) {
+            if (UP && dUP == 0) {
                 now = w;
                 if (cangow()) Y -= speed;
                 return;
             }
         }
         if (yangzi == 3) {
-            if (LEFT == true && dRIGHT == 0) {
+            if (LEFT && dRIGHT == 0) {
                 if (cangod()) X += speed;
                 now = d;
                 return;
             }
-            if (RIGHT == true && dLEFT == 0) {
+            if (RIGHT && dLEFT == 0) {
                 if (cangoa()) X -= speed;
                 now = a;
                 return;
             }
-            if (UP == true && dDOWN == 0) {
+            if (UP && dDOWN == 0) {
                 if (cangos()) Y += speed;
                 now = s;
                 return;
             }
-            if (DOWN == true && dUP == 0) {
+            if (DOWN && dUP == 0) {
                 if (cangow()) Y -= speed;
                 now = w;
-                return;
             }
         }
     }
 
-    public boolean canspace() {
+    boolean canspace() {
         return (yangzi <= 3);
     }
 
@@ -265,7 +266,7 @@ public class player {
         now = pkunzhu;
     }
 
-    public void fuhuo() {
+    void fuhuo() {
 
         dietime = 0;
         yangzi = 0;
@@ -313,7 +314,7 @@ public class player {
         Music.music[3].stop();
     }
 
-    public void beBack() {
+    void beBack() {
         if (bianshentime == MAXbianshen) {
             bianshentime = 0;
             yangzi = 0;
@@ -366,7 +367,7 @@ public class player {
         }
     }
 
-    public void beFeng() {
+    private void beFeng() {
         wuditime = 1;
         bianshentime = 0;
         yangzi = 1;
@@ -389,7 +390,7 @@ public class player {
         speed = MAXspeed;
     }
 
-    public void bePao() {
+    private void bePao() {
         bianshentime = 0;
         wuditime = 1;
         yangzi = 2;
@@ -412,7 +413,7 @@ public class player {
         amount = MAXamount;
     }
 
-    public void beGui() {
+    private void beGui() {
         bianshentime = 0;
         wuditime = 1;
         yangzi = 3;
@@ -558,7 +559,7 @@ public class player {
         }
     }
 
-    public void beExp() {
+    void beExp() {
         if (Map.isExp(getHeng(), getShu()) && yangzi == 0 && wuditime == 0) kunzhu();
         if (Map.isExp(getHeng(), getShu()) && (yangzi == 1 || yangzi == 2 || yangzi == 3 || yangzi == 4) && wuditime == 0) {
             bianshentime = MAXbianshen + 1;
@@ -566,29 +567,29 @@ public class player {
         }
     }
 
-    public void addAmount() {
+    private void addAmount() {
         if (namount < MAXamount)
             namount += 1;
     }
 
-    public void addPower() {
+    private void addPower() {
         if (npower < MAXpower)
             npower += 1;
     }
 
-    public void addSpeed() {
+    private void addSpeed() {
         if (nspeed < MAXspeed)
             nspeed += 1;
     }
 
-    public void addFork() {
+    private void addFork() {
         if (fork < MAXfork)
             fork += 1;
     }
 
-    public void setYangzi(int yangzi) {
+    /*public void setYangzi(int yangzi) {
         this.yangzi = yangzi;
-    }
+    }*/
 
     public ImageIcon getBall() {
         return ball;
@@ -602,7 +603,7 @@ public class player {
         return Y / 50;
     }
 
-    public int getx() {
+    int getx() {
         if (yangzi == 1) return X - 25;
         else if (yangzi == 2) return X - 30;
         else if (yangzi == 3) return X - 25;
@@ -610,7 +611,7 @@ public class player {
         else return X - 43 + BattleCanvas.jiangeheng;
     }
 
-    public int gety() {
+    int gety() {
         if (yangzi == 1) return Y - 75;
         else if (yangzi == 2) return Y - 48;
         else if (yangzi == 3) return Y - 55;
@@ -626,20 +627,20 @@ public class player {
         return Y;
     }
 
-    public boolean cangow() {
+    boolean cangow() {
         if (yangzi <= 4) {
             boolean wall = false;
             boolean ball = false;
             boolean bianjie = false;
             if (Y >= 6)
                 bianjie = true;
-            if ((getShu() - 1 >= 0 && Map.isWall(getHeng(), getShu() - 1) == false)
-                    || (getShu() - 1 >= 0 && Map.isWall(getHeng(), getShu() - 1) == true && Y > ((getShu() - 1) * 50 + 65))
-                    || (getShu() - 1 < 0 && Map.isWall(getHeng(), getShu()) == false))
+            if ((getShu() - 1 >= 0 && !Map.isWall(getHeng(), getShu() - 1))
+                    || (getShu() - 1 >= 0 && Map.isWall(getHeng(), getShu() - 1) && Y > ((getShu() - 1) * 50 + 65))
+                    || (getShu() - 1 < 0 && !Map.isWall(getHeng(), getShu())))
                 wall = true;
-            if ((getShu() - 1 >= 0 && Map.isBoom(getHeng(), getShu() - 1) == false)
-                    || (getShu() - 1 >= 0 && Map.isBoom(getHeng(), getShu() - 1) == true && Y > ((getShu() - 1) * 50 + 65))
-                    || (getShu() - 1 < 0 && Map.isBoom(getHeng(), getShu()) == false))
+            if ((getShu() - 1 >= 0 && !Map.isBoom(getHeng(), getShu() - 1))
+                    || (getShu() - 1 >= 0 && Map.isBoom(getHeng(), getShu() - 1) && Y > ((getShu() - 1) * 50 + 65))
+                    || (getShu() - 1 < 0 && !Map.isBoom(getHeng(), getShu())))
                 ball = true;
 
             return (wall && ball && bianjie);
@@ -647,58 +648,58 @@ public class player {
         } else return false;
     }
 
-    public boolean cangoa() {
+    boolean cangoa() {
         if (yangzi <= 4) {
             boolean wall = false;
             boolean ball = false;
             boolean bianjie = false;
             if (X >= 6)
                 bianjie = true;
-            if ((getHeng() - 1 >= 0 && Map.isBoom(getHeng() - 1, getShu()) == false)
-                    || (getHeng() - 1 >= 0 && Map.isBoom(getHeng() - 1, getShu()) == true && X > (getHeng() - 1) * 50 + 65)
-                    || (getHeng() - 1 < 0 && Map.isBoom(getHeng(), getShu()) == false))
+            if ((getHeng() - 1 >= 0 && !Map.isBoom(getHeng() - 1, getShu()))
+                    || (getHeng() - 1 >= 0 && Map.isBoom(getHeng() - 1, getShu()) && X > (getHeng() - 1) * 50 + 65)
+                    || (getHeng() - 1 < 0 && !Map.isBoom(getHeng(), getShu())))
                 ball = true;
-            if ((getHeng() - 1 >= 0 && Map.isWall(getHeng() - 1, getShu()) == false)
-                    || (getHeng() - 1 >= 0 && Map.isWall(getHeng() - 1, getShu()) == true && X > (getHeng() - 1) * 50 + 65)
-                    || (getHeng() - 1 < 0 && Map.isWall(getHeng(), getShu()) == false))
+            if ((getHeng() - 1 >= 0 && !Map.isWall(getHeng() - 1, getShu()))
+                    || (getHeng() - 1 >= 0 && Map.isWall(getHeng() - 1, getShu()) && X > (getHeng() - 1) * 50 + 65)
+                    || (getHeng() - 1 < 0 && !Map.isWall(getHeng(), getShu())))
                 wall = true;
             return (wall && ball && bianjie);
         } else return false;
     }
 
-    public boolean cangos() {
+    boolean cangos() {
         if (yangzi <= 4) {
             boolean wall = false;
             boolean ball = false;
             boolean bianjie = false;
             if (Y <= 394)
                 bianjie = true;
-            if ((getShu() + 1 <= 7 && Map.isBoom(getHeng(), getShu() + 1) == false)
-                    || (getShu() + 1 <= 7 && Map.isBoom(getHeng(), getShu() + 1) == true && Y < ((getShu() + 1) * 50 - 15))
-                    || (getShu() + 1 > 7 && Map.isBoom(getHeng(), getShu()) == false))
+            if ((getShu() + 1 <= 7 && !Map.isBoom(getHeng(), getShu() + 1))
+                    || (getShu() + 1 <= 7 && Map.isBoom(getHeng(), getShu() + 1) && Y < ((getShu() + 1) * 50 - 15))
+                    || (getShu() + 1 > 7 && !Map.isBoom(getHeng(), getShu())))
                 ball = true;
-            if ((getShu() + 1 <= 7 && Map.isWall(getHeng(), getShu() + 1) == false)
-                    || (getShu() + 1 <= 7 && Map.isWall(getHeng(), getShu() + 1) == true && Y < ((getShu() + 1) * 50 - 15))
-                    || (getShu() + 1 > 7 && Map.isWall(getHeng(), getShu()) == false))
+            if ((getShu() + 1 <= 7 && !Map.isWall(getHeng(), getShu() + 1))
+                    || (getShu() + 1 <= 7 && Map.isWall(getHeng(), getShu() + 1) && Y < ((getShu() + 1) * 50 - 15))
+                    || (getShu() + 1 > 7 && !Map.isWall(getHeng(), getShu())))
                 wall = true;
             return (wall && ball && bianjie);
         } else return false;
     }
 
-    public boolean cangod() {
+    boolean cangod() {
         if (yangzi <= 4) {
             boolean wall = false;
             boolean ball = false;
             boolean bianjie = false;
             if (X <= 644)
                 bianjie = true;
-            if ((getHeng() + 1 <= 12 && Map.isBoom(getHeng() + 1, getShu()) == false)
-                    || (getHeng() + 1 <= 12 && Map.isBoom(getHeng() + 1, getShu()) == true && X < (getHeng() + 1) * 50 - 15)
-                    || (getHeng() + 1 > 12 && Map.isBoom(getHeng(), getShu()) == false))
+            if ((getHeng() + 1 <= 12 && !Map.isBoom(getHeng() + 1, getShu()))
+                    || (getHeng() + 1 <= 12 && Map.isBoom(getHeng() + 1, getShu()) && X < (getHeng() + 1) * 50 - 15)
+                    || (getHeng() + 1 > 12 && !Map.isBoom(getHeng(), getShu())))
                 ball = true;
-            if ((getHeng() + 1 <= 12 && Map.isWall(getHeng() + 1, getShu()) == false)
-                    || (getHeng() + 1 <= 12 && Map.isWall(getHeng() + 1, getShu()) == true && X < (getHeng() + 1) * 50 - 15)
-                    || (getHeng() + 1 > 12 && Map.isWall(getHeng(), getShu()) == false))
+            if ((getHeng() + 1 <= 12 && !Map.isWall(getHeng() + 1, getShu()))
+                    || (getHeng() + 1 <= 12 && Map.isWall(getHeng() + 1, getShu()) && X < (getHeng() + 1) * 50 - 15)
+                    || (getHeng() + 1 > 12 && !Map.isWall(getHeng(), getShu())))
                 wall = true;
             return (wall && ball && bianjie);
         } else return false;

@@ -1,13 +1,13 @@
 
-public class Timecount {
+class Timecount {
 
-    protected static int minute = 3, scond = 0;
-    protected static boolean over = false;
-    protected static int onescond = 0;
-    private static int Onescond = 100;
+    static int minute = 3, scond = 0;
+    static boolean over = false;
+    private static int onescond = 0;
+    private static final int Onescond = 100;
 
-    public void count() {
-        if (over == false) {
+    void count() {
+        if (!over) {
             onescond += 1;
             if (onescond == Onescond) {
                 onescond = 0;
@@ -22,7 +22,6 @@ public class Timecount {
                 }
                 if (scond == 0 && minute == 0) {
                     over = true;
-                    return;
                 }
             }
         }
