@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class BattleJingjiPanel extends JPanel {
-    protected static JButton fanhui, jieshu;
+    private JButton gobackBtn, exitBtn;
     //格子数
     protected final static int heng = 13, shu = 8;
     //长宽
@@ -31,13 +31,13 @@ public class BattleJingjiPanel extends JPanel {
 
     //构造出来 初始化****************************************************************************************
     public BattleJingjiPanel() {
-        fanhui = new JButton(new ImageIcon("replay1.png"));
-        fanhui.setBounds(10, 10, 128, 50);
-        add(fanhui);
+        gobackBtn = new JButton(new ImageIcon("replay1.png"));
+        gobackBtn.setBounds(10, 10, 128, 50);
+        add(gobackBtn);
 
-        jieshu = new JButton(new ImageIcon("exit1.png"));
-        jieshu.setBounds(510, 10, 130, 50);
-        add(jieshu);
+        exitBtn = new JButton(new ImageIcon("exit1.png"));
+        exitBtn.setBounds(510, 10, 130, 50);
+        add(exitBtn);
         //音乐准备
         Music.Musicload();
 
@@ -123,5 +123,13 @@ public class BattleJingjiPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             repaint();
         }
+    }
+
+    public JButton getGobackBtn() {
+        return gobackBtn;
+    }
+
+    public JButton getExitBtn() {
+        return exitBtn;
     }
 }

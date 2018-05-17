@@ -1,3 +1,8 @@
+import panel.result.BaoziWinPanel;
+import panel.result.DagfallPanel;
+import panel.result.FighterLosePanel;
+import panel.result.FighterWinPanel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,23 +27,6 @@ public class Play extends JFrame implements ActionListener {
         Music.music[9].loop();
         setResizable(false);
 
-
-
-        FighterWinPanel.fanhui.addActionListener(this);
-        FighterWinPanel.jieshu.addActionListener(this);
-        BaoziWinPanel.fanhui.addActionListener(this);
-        BaoziWinPanel.jieshu.addActionListener(this);
-        FighterLosePanel.fanhui.addActionListener(this);
-        FighterLosePanel.jieshu.addActionListener(this);
-        DagfallPanel.fanhui.addActionListener(this);
-        DagfallPanel.jieshu.addActionListener(this);
-
-        BattleBiwuPanel.fanhui.addActionListener(this);
-        BattleBiwuPanel.jieshu.addActionListener(this);
-        BattleJingjiPanel.fanhui.addActionListener(this);
-        BattleJingjiPanel.jieshu.addActionListener(this);
-        BattleAIPanel.fanhui.addActionListener(this);
-        BattleAIPanel.jieshu.addActionListener(this);
     }
 
     public static void main(String[] args) {
@@ -47,20 +35,20 @@ public class Play extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Music.stop();
+        /*Music.stop();
         Music.music[1].play();
-        //TODO
-        if (e.getSource() == FighterWinPanel.jieshu ||
-                e.getSource() == BaoziWinPanel.jieshu || e.getSource() == FighterLosePanel.jieshu
-                || e.getSource() == DagfallPanel.jieshu || e.getSource() == BattleBiwuPanel.jieshu
-                || e.getSource() == BattleJingjiPanel.jieshu || e.getSource() == BattleAIPanel.jieshu) {
+
+        if (e.getSource() == FighterWinPanel.exitBtn ||
+                e.getSource() == BaoziWinPanel.exitBtn || e.getSource() == FighterLosePanel.exitBtn
+                || e.getSource() == DagfallPanel.exitBtn || e.getSource() == BattleBiwuPanel.exitBtn
+                || e.getSource() == BattleJingjiPanel.exitBtn || e.getSource() == BattleAIPanel.exitBtn) {
             System.exit(0);
         }
-        if (e.getSource() == FighterWinPanel.fanhui ||
-                e.getSource() == BaoziWinPanel.fanhui || e.getSource() == FighterLosePanel.fanhui
-                || e.getSource() == DagfallPanel.fanhui || e.getSource() == BattleBiwuPanel.fanhui
-                || e.getSource() == BattleJingjiPanel.fanhui || e.getSource() == BattleAIPanel.fanhui) {
+        if (e.getSource() == FighterWinPanel.gobackBtn ||
+                e.getSource() == BaoziWinPanel.gobackBtn || e.getSource() == FighterLosePanel.gobackBtn
+                || e.getSource() == DagfallPanel.gobackBtn || e.getSource() == BattleBiwuPanel.gobackBtn
+                || e.getSource() == BattleJingjiPanel.gobackBtn || e.getSource() == BattleAIPanel.gobackBtn) {
             play = new Play();
-        }
+        }*/
     }
 }

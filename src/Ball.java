@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 
-class Ball {
+public class Ball {
     //哪个格子
     private int heng, shu;
     //威力大小
@@ -19,7 +19,7 @@ class Ball {
     //事先预警
     private Explosion just;
 
-    Ball(int f, int heng, int shu, int power, ImageIcon image) {
+    public Ball(int f, int heng, int shu, int power, ImageIcon image) {
         owner = f;
         if (owner == 1) P1.count++;
         if (owner == 2) P2.count++;
@@ -35,7 +35,7 @@ class Ball {
         just = Map.expmap[heng][shu];
     }
 
-    int getweili() {
+    public int getweili() {
         return power;
     }
 
@@ -43,7 +43,7 @@ class Ball {
         return ballIcon;
     }
 
-    void addTime() {
+    public void addTime() {
         timeCounter += 1;
         if (timeCounter == MAX_TIME || (Map.isExp(heng, shu) && just != Map.expmap[heng][shu])) {
             booit();

@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class BattleAIPanel extends JPanel {
-    protected static JButton fanhui, jieshu;
+    private JButton gobackBtn, exitBtn;
     //格子数
     protected final static int heng = 13, shu = 8;
     //长宽
@@ -31,13 +31,13 @@ public class BattleAIPanel extends JPanel {
     public BattleAIPanel() {
         timecount = 0;
         aa = new Random();
-        fanhui = new JButton(new ImageIcon("replay1.png"));
-        fanhui.setBounds(10, 10, 128, 50);
-        add(fanhui);
+        gobackBtn = new JButton(new ImageIcon("replay1.png"));
+        gobackBtn.setBounds(10, 10, 128, 50);
+        add(gobackBtn);
 
-        jieshu = new JButton(new ImageIcon("exit1.png"));
-        jieshu.setBounds(510, 10, 130, 50);
-        add(jieshu);
+        exitBtn = new JButton(new ImageIcon("exit1.png"));
+        exitBtn.setBounds(510, 10, 130, 50);
+        add(exitBtn);
         Music.Musicload();
 
         map = new Map();
@@ -304,4 +304,11 @@ public class BattleAIPanel extends JPanel {
         }
     }
 
+    public JButton getGobackBtn() {
+        return gobackBtn;
+    }
+
+    public JButton getExitBtn() {
+        return exitBtn;
+    }
 }

@@ -1,3 +1,8 @@
+import panel.result.BaoziWinPanel;
+import panel.result.DagfallPanel;
+import panel.result.FighterLosePanel;
+import panel.result.FighterWinPanel;
+
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,9 +30,15 @@ public class Mypanel extends JPanel implements ActionListener {
 
     static int which = 1;
     private Random a;
-    static CardLayout lay = new CardLayout();
+    static CardLayout lay;
 
     Mypanel() {
+        a = new Random();
+
+        lay = new CardLayout();
+        setLayout(lay);
+        setFocusable(true);
+
         fighterWinPanel = new FighterWinPanel();
         baoziWinPanel = new BaoziWinPanel();
         fighterLosePanel = new FighterLosePanel();
@@ -41,15 +52,17 @@ public class Mypanel extends JPanel implements ActionListener {
 
         modeSelectPanel = new ModeSelectPanel();
 
-        setLayout(lay);
-        setFocusable(true);
-
+        /**
+         * add panels
+         */
         add(homePanel, "homePanel");
         add(helpPanel, "helpPanel");
         add(modeSelectPanel, "modeSelectPanel");
+
         add(battleJingjiPanel, "battleJingjiPanel");
         add(battleAIPanel, "battleAIPanel");
         add(battleBiwuPanel, "battleBiwuPanel");
+
         add(fighterLosePanel, "fighterLosePanel");
         add(baoziWinPanel, "baoziWinPanel");
         add(fighterWinPanel, "fighterWinPanel");
@@ -57,6 +70,9 @@ public class Mypanel extends JPanel implements ActionListener {
 
         lay.show(this, "homePanel");
 
+        /**
+         * add button listener
+         */
         homePanel.getStartGameBtn().addActionListener(this);
         homePanel.getHelpBtn().addActionListener(this);
         homePanel.getExitBtn().addActionListener(this);
@@ -73,18 +89,38 @@ public class Mypanel extends JPanel implements ActionListener {
         modeSelectPanel.getJingjiModeBtn().addActionListener(this);
         modeSelectPanel.getAiModebtn().addActionListener(this);
 
-        a = new Random();
+        battleBiwuPanel.getGobackBtn().addActionListener(this);
+        battleBiwuPanel.getExitBtn().addActionListener(this);
+        battleJingjiPanel.getGobackBtn().addActionListener(this);
+        battleJingjiPanel.getExitBtn().addActionListener(this);
+        battleAIPanel.getGobackBtn().addActionListener(this);
+        battleAIPanel.getExitBtn().addActionListener(this);
+
+        fighterWinPanel.getGobackBtn().addActionListener(this);
+        fighterWinPanel.getExitBtn().addActionListener(this);
+        baoziWinPanel.getGobackBtn().addActionListener(this);
+        baoziWinPanel.getExitbtn().addActionListener(this);
+        fighterLosePanel.getGobackBtn().addActionListener(this);
+        fighterLosePanel.getExitBtn().addActionListener(this);
+        dagfallPanel.getGobackBtn().addActionListener(this);
+        dagfallPanel.getExitBtn().addActionListener(this);
+
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Music.music[1].play();
-        // TODO
-        if (e.getSource() == homePanel.getExitBtn() || e.getSource() == FighterWinPanel.jieshu ||
-                e.getSource() == BaoziWinPanel.jieshu || e.getSource() == FighterLosePanel.jieshu
-                || e.getSource() == DagfallPanel.jieshu || e.getSource() == BattleBiwuPanel.jieshu
-                || e.getSource() == BattleJingjiPanel.jieshu || e.getSource() == BattleAIPanel.jieshu) {
+        if (e.getSource() == homePanel.getExitBtn() || e.getSource() == fighterWinPanel.getExitBtn() ||
+                e.getSource() == baoziWinPanel.getExitbtn() || e.getSource() == fighterLosePanel.getExitBtn()
+                || e.getSource() == dagfallPanel.getExitBtn() || e.getSource() == battleBiwuPanel.getExitBtn()
+                || e.getSource() == battleJingjiPanel.getExitBtn() || e.getSource() == battleAIPanel.getExitBtn()) {
             System.exit(0);
+        } else if (e.getSource() == fighterWinPanel.getGobackBtn() ||
+                e.getSource() == baoziWinPanel.getGobackBtn() || e.getSource() == fighterLosePanel.getGobackBtn()
+                || e.getSource() == dagfallPanel.getGobackBtn() || e.getSource() == battleBiwuPanel.getGobackBtn()
+                || e.getSource() == battleJingjiPanel.getGobackBtn() || e.getSource() == battleAIPanel.getGobackBtn()) {
+            // TODO goback
         } else if (e.getSource() == homePanel.getStartGameBtn()) {
             lay.show(this, "modeSelectPanel");
         } else if (e.getSource() == homePanel.getHelpBtn()) {
