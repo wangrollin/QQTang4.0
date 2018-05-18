@@ -1,6 +1,6 @@
 
-class WallMap {
-    static void maker(int[][] a) {
+public class WallMap {
+    public static void maker(int[][] a) {
         for (int i = 0; i < 13; i++) {
             for (int j = 0; j < 8; j++) {
                 if (a[i][j] == 1)

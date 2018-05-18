@@ -1,3 +1,5 @@
+import constants.GameConstants;
+
 import javax.swing.ImageIcon;
 
 
@@ -29,10 +31,10 @@ public class Map {
         dimian3 = new ImageIcon("宝藏地面.png");
         biwumen = new ImageIcon("比武门.png");
 
-        wallmap = new Wall[BattleJingjiPanel.heng][BattleJingjiPanel.shu];
-        boommap = new Ball[BattleJingjiPanel.heng][BattleJingjiPanel.shu];
-        expmap = new Explosion[BattleJingjiPanel.heng][BattleJingjiPanel.shu];
-        daojumap = new Daoju[BattleJingjiPanel.heng][BattleJingjiPanel.shu];
+        wallmap = new Wall[GameConstants.HENG][GameConstants.SHU];
+        boommap = new Ball[GameConstants.HENG][GameConstants.SHU];
+        expmap = new Explosion[GameConstants.HENG][GameConstants.SHU];
+        daojumap = new Daoju[GameConstants.HENG][GameConstants.SHU];
 
         WallMap.biwu1();
         dimian = dimian1;

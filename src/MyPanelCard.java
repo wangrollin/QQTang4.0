@@ -1,3 +1,4 @@
+import constants.GameConstants;
 import panel.result.BaoziWinPanel;
 import panel.result.DagfallPanel;
 import panel.result.FighterLosePanel;
@@ -11,46 +12,55 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 
-public class Mypanel extends JPanel implements ActionListener {
+public class MyPanelCard extends JPanel implements ActionListener {
     /**
      * all panels
      */
-    static HomePanel homePanel;
-    static HelpPanel helpPanel;
-    static ModeSelectPanel modeSelectPanel;
+    private HomePanel homePanel;
+    private HelpPanel helpPanel;
+    private ModeSelectPanel modeSelectPanel;
+    private BattleJingjiPanel battleJingjiPanel;
+    private BattleAIPanel battleAIPanel;
+    private BattleBiwuPanel battleBiwuPanel;
 
-    static BattleJingjiPanel battleJingjiPanel;
-    static BattleAIPanel battleAIPanel;
-    static BattleBiwuPanel battleBiwuPanel;
+    private FighterWinPanel fighterWinPanel;
+    private BaoziWinPanel baoziWinPanel;
+    private FighterLosePanel fighterLosePanel;
+    private DagfallPanel dagfallPanel;
 
-    static FighterWinPanel fighterWinPanel;
-    static BaoziWinPanel baoziWinPanel;
-    static FighterLosePanel fighterLosePanel;
-    static DagfallPanel dagfallPanel;
-
-    static int which = 1;
+    private Play play;
+    //TODO replace which
+    //private String currentPanel;
+    //public static final
+    public static int which = 1;
     private Random a;
     static CardLayout lay;
 
-    Mypanel() {
+    MyPanelCard(Play play) {
+        this.play = play;
         a = new Random();
 
         lay = new CardLayout();
         setLayout(lay);
         setFocusable(true);
 
-        fighterWinPanel = new FighterWinPanel();
-        baoziWinPanel = new BaoziWinPanel();
-        fighterLosePanel = new FighterLosePanel();
-        dagfallPanel = new DagfallPanel();
 
-        battleBiwuPanel = new BattleBiwuPanel();
-        battleAIPanel = new BattleAIPanel();
-        battleJingjiPanel = new BattleJingjiPanel();
+        /**
+         * init panels
+         */
         homePanel = new HomePanel();
         helpPanel = new HelpPanel();
 
         modeSelectPanel = new ModeSelectPanel();
+
+        battleBiwuPanel = new BattleBiwuPanel(this, lay);
+        battleAIPanel = new BattleAIPanel(this, lay);
+        battleJingjiPanel = new BattleJingjiPanel(this, lay);
+
+        fighterWinPanel = new FighterWinPanel();
+        baoziWinPanel = new BaoziWinPanel();
+        fighterLosePanel = new FighterLosePanel();
+        dagfallPanel = new DagfallPanel();
 
         /**
          * add panels
@@ -69,6 +79,7 @@ public class Mypanel extends JPanel implements ActionListener {
         add(dagfallPanel, "dagfallPanel");
 
         lay.show(this, "homePanel");
+        System.out.println(lay.toString());
 
         /**
          * add button listener
@@ -130,9 +141,9 @@ public class Mypanel extends JPanel implements ActionListener {
         } else if (e.getSource() == modeSelectPanel.getGobackBtn()) {
             lay.show(this, "homePanel");
         } else if (e.getSource() == modeSelectPanel.getDiyMapBtn()) {
-            MapMakerFrame make = new MapMakerFrame();
-            MapMakerFrame.frame.setVisible(true);
-            Play.frame.setVisible(false);
+            MapMakerFrame mapMakerFrame = new MapMakerFrame(this.play);
+            this.play.setVisible(false);
+            mapMakerFrame.setVisible(true);
         } else if (e.getSource() == modeSelectPanel.getStartGameBtn()) {
             Music.music[9].stop();
             Music.music[6].play();
@@ -161,16 +172,16 @@ public class Mypanel extends JPanel implements ActionListener {
                 addKeyListener(BattleJingjiPanel.p2);
             }
         } else if (e.getSource() == modeSelectPanel.getBiwuMapbtn()) {
-            for (int j = 0; j < BattleJingjiPanel.shu; j++)
-                for (int i = 0; i < BattleJingjiPanel.heng; i++) {
+            for (int j = 0; j < GameConstants.SHU; j++)
+                for (int i = 0; i < GameConstants.HENG; i++) {
                     Map.wallmap[i][j] = null;
                 }
             which = 1;
             WallMap.biwu1();
             Map.dimian = Map.dimian1;
         } else if (e.getSource() == modeSelectPanel.getShuimianMapBtn()) {
-            for (int j = 0; j < BattleJingjiPanel.shu; j++)
-                for (int i = 0; i < BattleJingjiPanel.heng; i++) {
+            for (int j = 0; j < GameConstants.SHU; j++)
+                for (int i = 0; i < GameConstants.HENG; i++) {
                     Map.wallmap[i][j] = null;
                 }
             which = 2;
@@ -178,8 +189,8 @@ public class Mypanel extends JPanel implements ActionListener {
             Map.dimian = Map.dimian2;
         } else if (e.getSource() == modeSelectPanel.getKuangdongMapBtn()) {
 
-            for (int j = 0; j < BattleJingjiPanel.shu; j++)
-                for (int i = 0; i < BattleJingjiPanel.heng; i++)
+            for (int j = 0; j < GameConstants.SHU; j++)
+                for (int i = 0; i < GameConstants.HENG; i++)
                     Map.wallmap[i][j] = null;
             which = 3;
             WallMap.maoxian();

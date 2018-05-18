@@ -1,3 +1,5 @@
+package map_maker;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,7 +8,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
-public class makercanvas extends JPanel {
+public class WallSetPanel extends JPanel {
     public static final int makercanvas_WIDTH = 650;
     public static final int DEFAULT_HEIGHT = 400;
     public static final int now_WIDTH = 50;
@@ -38,7 +40,7 @@ public class makercanvas extends JPanel {
     static int y = 0;
     static int z = 0;//指示有按键，要paint一次
 
-    makercanvas() {
+    WallSetPanel() {
 
         setLayout(null);
 

@@ -1,5 +1,6 @@
-import java.awt.Dimension;
-import java.awt.Graphics;
+import constants.GameConstants;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -9,12 +10,15 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+
+
 public class BattleAIPanel extends JPanel {
+    private MyPanelCard myPanelCard;
+    private CardLayout cardLayout;
+
+
+
     private JButton gobackBtn, exitBtn;
-    //格子数
-    protected final static int heng = 13, shu = 8;
-    //长宽
-    private final int WIDTH = 650, HEIGHT = 400 + 200;
     //时间监听毫秒
     private final int DELAY = 15;
     //时间老人
@@ -28,7 +32,10 @@ public class BattleAIPanel extends JPanel {
     protected Random aa;
     protected int safe = -1, timecount = 0, jineng = 0, suiji, suiji2, wushi = 0, weizhi;
 
-    public BattleAIPanel() {
+    public BattleAIPanel(MyPanelCard myPanelCard, CardLayout cardLayout) {
+        this.myPanelCard = myPanelCard;
+        this.cardLayout = cardLayout;
+
         timecount = 0;
         aa = new Random();
         gobackBtn = new JButton(new ImageIcon("replay1.png"));
@@ -56,7 +63,8 @@ public class BattleAIPanel extends JPanel {
         if (p6.beexp() == true) {
             Music.stop();
             Music.music[8].loop();
-            Mypanel.lay.show(Play.panel, "fighterWinPanel");
+            //MyPanelCard.lay.show(Play.panel, "fighterWinPanel");
+            cardLayout.show(myPanelCard, "fighterWinPanel");
         }
 
 
@@ -65,7 +73,8 @@ public class BattleAIPanel extends JPanel {
         //不断刷新的
         p1.move();
         if (p1.toDie()) {
-            Mypanel.lay.show(Play.panel, "fighterLosePanel");
+            //MyPanelCard.lay.show(Play.panel, "fighterLosePanel");
+            cardLayout.show(myPanelCard, "fighterLosePanel");
         }
         p1.eatdaoju();
         p1.beExp();
@@ -262,16 +271,11 @@ public class BattleAIPanel extends JPanel {
         }
         ////////////////////////////////////////////////////////////////
 
-        ////////////////////////////////////////////////////////
-        /*for(int i=0;i<100000;++i)
-		{
-			i=i+100-100;
-		}*/
 
 
         //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具
-        for (int j = 0; j < shu; j++)
-            for (int i = 0; i < heng; i++) {
+        for (int j = 0; j < GameConstants.SHU; j++)
+            for (int i = 0; i < GameConstants.HENG; i++) {
 
                 if (map.wallmap[i][j] != null && (!map.wallmap[i][j].isRuin()))
                     map.wallmap[i][j].getImage().paintIcon(this, page, i * 50, j * 50 - 12 + 200);

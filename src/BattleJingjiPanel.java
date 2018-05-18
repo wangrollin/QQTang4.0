@@ -1,5 +1,6 @@
-import java.awt.Dimension;
-import java.awt.Graphics;
+import constants.GameConstants;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,16 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class BattleJingjiPanel extends JPanel {
+    private MyPanelCard myPanelCard;
+    private CardLayout cardLayout;
+
     private JButton gobackBtn, exitBtn;
-    //格子数
-    protected final static int heng = 13, shu = 8;
-    //长宽
-    private final int WIDTH = 650, HEIGHT = 400 + 200;
     //闪出来的长度
     protected final static int jiangeheng = 0, jiangeshu = 0;
     //时间监听毫秒
     private final int DELAY = 15;
-
     //时间老人
     Timer timer;
     //地图
@@ -30,7 +29,10 @@ public class BattleJingjiPanel extends JPanel {
     protected static int cishu = 0;
 
     //构造出来 初始化****************************************************************************************
-    public BattleJingjiPanel() {
+    public BattleJingjiPanel(MyPanelCard myPanelCard, CardLayout cardLayout) {
+        this.myPanelCard = myPanelCard;
+        this.cardLayout = cardLayout;
+
         gobackBtn = new JButton(new ImageIcon("replay1.png"));
         gobackBtn.setBounds(10, 10, 128, 50);
         add(gobackBtn);
@@ -75,18 +77,18 @@ public class BattleJingjiPanel extends JPanel {
                 Music.stop();
                 Music.music[8].loop();
                 cishu = 1;
-                Mypanel.lay.show(Play.panel, "fighterWinPanel");
+                cardLayout.show(myPanelCard, "fighterWinPanel");
             }
             if (p2.outlooking == 7) {
                 Music.stop();
                 cishu = 1;
                 Music.music[8].loop();
-                Mypanel.lay.show(Play.panel, "baoziWinPanel");
+                cardLayout.show(myPanelCard, "baoziWinPanel");
             }
         }
         //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具
-        for (int j = 0; j < shu; j++)
-            for (int i = 0; i < heng; i++) {
+        for (int j = 0; j < GameConstants.SHU; j++)
+            for (int i = 0; i < GameConstants.HENG; i++) {
                 if (map.boommap[i][j] != null) {
                     map.boommap[i][j].getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
                     map.boommap[i][j].addTime();

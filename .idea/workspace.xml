@@ -2,31 +2,43 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4833e96-b1ee-472d-809a-015415e587c3" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/BaoziWinPanel.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/DagfallPanel.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/FighterLosePanel.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/FighterWinPanel.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/BaoziWinPanel.java" afterPath="$PROJECT_DIR$/src/panel/result/BaoziWinPanel.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/DagfallPanel.java" afterPath="$PROJECT_DIR$/src/panel/result/DagfallPanel.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/FighterLosePanel.java" afterPath="$PROJECT_DIR$/src/panel/result/FighterLosePanel.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/FighterWinPanel.java" afterPath="$PROJECT_DIR$/src/panel/result/FighterWinPanel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/constants/GameConstants.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/Constants.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/MapMakerPanel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/Mypanel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/WallSelectPanel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/makercanvas$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/makercanvas$eve.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/makercanvas.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Constants.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/MapMakerPanel.java" afterPath="$PROJECT_DIR$/src/map_maker/MapMakerPanel.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Mypanel.java" afterPath="$PROJECT_DIR$/src/MyPanelCard.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/WallSelectPanel.java" afterPath="$PROJECT_DIR$/src/map_maker/WallDisplayPanel.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/makercanvas.java" afterPath="$PROJECT_DIR$/src/map_maker/WallSetPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/AI.class" afterPath="$PROJECT_DIR$/bin/AI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Ball.class" afterPath="$PROJECT_DIR$/bin/Ball.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/BattleAIPanel$Mytime.class" afterPath="$PROJECT_DIR$/bin/BattleAIPanel$Mytime.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/BattleAIPanel.class" afterPath="$PROJECT_DIR$/bin/BattleAIPanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/BattleBiwuPanel$Mytime.class" afterPath="$PROJECT_DIR$/bin/BattleBiwuPanel$Mytime.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/BattleBiwuPanel.class" afterPath="$PROJECT_DIR$/bin/BattleBiwuPanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/BattleJingjiPanel$Mytime.class" afterPath="$PROJECT_DIR$/bin/BattleJingjiPanel$Mytime.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/BattleJingjiPanel.class" afterPath="$PROJECT_DIR$/bin/BattleJingjiPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Mypanel.class" afterPath="$PROJECT_DIR$/bin/Mypanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Map.class" afterPath="$PROJECT_DIR$/bin/Map.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/MapMakerFrame.class" afterPath="$PROJECT_DIR$/bin/MapMakerFrame.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/ModeSelectPanel.class" afterPath="$PROJECT_DIR$/bin/ModeSelectPanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/P1.class" afterPath="$PROJECT_DIR$/bin/P1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/P2.class" afterPath="$PROJECT_DIR$/bin/P2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/P3.class" afterPath="$PROJECT_DIR$/bin/P3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Play.class" afterPath="$PROJECT_DIR$/bin/Play.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Wallmap.class" afterPath="$PROJECT_DIR$/bin/Wallmap.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ball.java" afterPath="$PROJECT_DIR$/src/Ball.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BattleAIPanel.java" afterPath="$PROJECT_DIR$/src/BattleAIPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BattleBiwuPanel.java" afterPath="$PROJECT_DIR$/src/BattleBiwuPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BattleJingjiPanel.java" afterPath="$PROJECT_DIR$/src/BattleJingjiPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Mypanel.java" afterPath="$PROJECT_DIR$/src/Mypanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Map.java" afterPath="$PROJECT_DIR$/src/Map.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MapMakerFrame.java" afterPath="$PROJECT_DIR$/src/MapMakerFrame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModeSelectPanel.java" afterPath="$PROJECT_DIR$/src/ModeSelectPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Play.java" afterPath="$PROJECT_DIR$/src/Play.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Wallmap.java" afterPath="$PROJECT_DIR$/src/Wallmap.java" />
     </list>
     <ignored path="666游戏工作室 QQ糖.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,63 +64,78 @@
       <file leaf-file-name="Play.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Play.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Mypanel.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Mypanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="112" column="30" selection-start-line="112" selection-start-column="30" selection-end-line="112" selection-end-column="30" />
+            <state relative-caret-position="144">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BattleAIPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BattleAIPanel.java">
+      <file leaf-file-name="MyPanelCard.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MyPanelCard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="308" column="5" selection-start-line="308" selection-start-column="5" selection-end-line="308" selection-end-column="5" />
+            <state relative-caret-position="792">
+              <caret line="143" column="71" selection-start-line="143" selection-start-column="71" selection-end-line="143" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MapMakerFrame.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MapMakerFrame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Music.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Music.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WallMap.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/WallMap.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MapMakerPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/map_maker/MapMakerPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="468">
+              <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
               <folding>
-                <element signature="e#11170#11171#0" expanded="true" />
-                <element signature="e#11202#11203#0" expanded="true" />
-                <element signature="e#11237#11238#0" expanded="true" />
-                <element signature="e#11267#11268#0" expanded="true" />
+                <element signature="e#588#589#0" expanded="true" />
+                <element signature="e#640#641#0" expanded="true" />
+                <element signature="e#678#679#0" expanded="true" />
+                <element signature="e#733#734#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BattleBiwuPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BattleBiwuPanel.java">
+      <file leaf-file-name="WallDisplayPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/map_maker/WallDisplayPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="211" column="35" selection-start-line="211" selection-start-column="35" selection-end-line="211" selection-end-column="35" />
+            <state relative-caret-position="277">
+              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding>
-                <element signature="e#10112#10113#0" expanded="true" />
-                <element signature="e#10147#10148#0" expanded="true" />
-                <element signature="e#10177#10178#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BattleJingjiPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BattleJingjiPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="127" column="35" selection-start-line="127" selection-start-column="35" selection-end-line="127" selection-end-column="35" />
-              <folding>
-                <element signature="e#4643#4644#0" expanded="true" />
-                <element signature="e#4678#4679#0" expanded="true" />
-                <element signature="e#4708#4709#0" expanded="true" />
+                <element signature="e#976#977#0" expanded="true" />
+                <element signature="e#1006#1007#0" expanded="true" />
+                <element signature="e#1044#1045#0" expanded="true" />
+                <element signature="e#1077#1078#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -134,12 +161,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/chooseelement.java" />
-        <option value="$PROJECT_DIR$/src/Daoju.java" />
-        <option value="$PROJECT_DIR$/src/Enemy2.java" />
-        <option value="$PROJECT_DIR$/src/HELP.java" />
-        <option value="$PROJECT_DIR$/src/mapmaker.java" />
-        <option value="$PROJECT_DIR$/src/Music.java" />
         <option value="$PROJECT_DIR$/src/NEWONE.java" />
         <option value="$PROJECT_DIR$/src/P1.java" />
         <option value="$PROJECT_DIR$/src/P2.java" />
@@ -158,18 +179,14 @@
         <option value="$PROJECT_DIR$/src/makercanvas.java" />
         <option value="$PROJECT_DIR$/src/MapMaker.java" />
         <option value="$PROJECT_DIR$/src/Maker.java" />
-        <option value="$PROJECT_DIR$/src/MapMakerFrame.java" />
         <option value="$PROJECT_DIR$/src/WallSelectPanel.java" />
         <option value="$PROJECT_DIR$/src/AI.java" />
         <option value="$PROJECT_DIR$/src/TimeCounter.java" />
-        <option value="$PROJECT_DIR$/src/Map.java" />
-        <option value="$PROJECT_DIR$/src/WallMap.java" />
         <option value="$PROJECT_DIR$/src/Explosion.java" />
         <option value="$PROJECT_DIR$/src/Help.java" />
         <option value="$PROJECT_DIR$/src/Constants.java" />
         <option value="$PROJECT_DIR$/src/Player.java" />
         <option value="$PROJECT_DIR$/src/ModeSelectPanel.java" />
-        <option value="$PROJECT_DIR$/src/MyPanelCard.java" />
         <option value="$PROJECT_DIR$/src/HomePanel.java" />
         <option value="$PROJECT_DIR$/src/HelpPanel.java" />
         <option value="$PROJECT_DIR$/src/Ball.java" />
@@ -180,11 +197,21 @@
         <option value="$PROJECT_DIR$/src/panel/result/DagfallPanel.java" />
         <option value="$PROJECT_DIR$/src/panel/result/FighterLosePanel.java" />
         <option value="$PROJECT_DIR$/src/panel/result/FighterWinPanel.java" />
+        <option value="$PROJECT_DIR$/src/constants/Constants.java" />
+        <option value="$PROJECT_DIR$/src/Mypanel.java" />
+        <option value="$PROJECT_DIR$/src/Map.java" />
         <option value="$PROJECT_DIR$/src/BattleAIPanel.java" />
         <option value="$PROJECT_DIR$/src/BattleBiwuPanel.java" />
         <option value="$PROJECT_DIR$/src/BattleJingjiPanel.java" />
+        <option value="$PROJECT_DIR$/src/map_maker/makercanvas.java" />
+        <option value="$PROJECT_DIR$/src/map_maker/WallSelectPanel.java" />
         <option value="$PROJECT_DIR$/src/Play.java" />
-        <option value="$PROJECT_DIR$/src/Mypanel.java" />
+        <option value="$PROJECT_DIR$/src/map_maker/WallDisplayPanel.java" />
+        <option value="$PROJECT_DIR$/src/map_maker/MapMakerPanel.java" />
+        <option value="$PROJECT_DIR$/src/WallMap.java" />
+        <option value="$PROJECT_DIR$/src/MyPanelCard.java" />
+        <option value="$PROJECT_DIR$/src/map_maker/MapMakerFrame.java" />
+        <option value="$PROJECT_DIR$/src/MapMakerFrame.java" />
       </list>
     </option>
   </component>
@@ -303,6 +330,42 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="666游戏工作室 QQ糖" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="666游戏工作室 QQ糖" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="map_maker" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="666游戏工作室 QQ糖" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="666游戏工作室 QQ糖" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="constants" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -327,7 +390,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="SearchEverywhereHistoryKey" value="outlook&#9;PSI&#9;JAVA://Player#outlooking&#10;Booming&#9;PSI&#9;JAVA://Explosion#Booming" />
   </component>
@@ -771,16 +834,16 @@
       <option name="presentableId" value="Default" />
       <updated>1526539654063</updated>
       <workItem from="1526539673139" duration="357000" />
-      <workItem from="1526540149001" duration="16419000" />
+      <workItem from="1526540149001" duration="24332000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16776000" />
+    <option name="totallyTimeSpent" value="24689000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="828" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -794,7 +857,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2067239" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20702006" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957748" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -837,14 +900,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Music.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="57" selection-start-line="24" selection-start-column="57" selection-end-line="24" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/P3.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3561">
@@ -865,41 +920,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="188" column="30" selection-start-line="188" selection-start-column="30" selection-end-line="188" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/makercanvas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2376">
-          <caret line="138" column="44" selection-start-line="138" selection-start-column="44" selection-end-line="138" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MapMakerPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MapMakerFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
-          <folding>
-            <element signature="e#756#757#0" expanded="true" />
-            <element signature="e#791#792#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WallSelectPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -952,34 +972,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="66" selection-start-line="11" selection-start-column="66" selection-end-line="11" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Wall.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="8" column="20" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/WallMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="189" column="29" selection-start-line="189" selection-start-column="29" selection-end-line="189" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1029,23 +1025,23 @@
         <state relative-caret-position="336">
           <caret line="116" column="35" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
           <folding>
-            <element signature="e#2779#2780#0" expanded="true" />
-            <element signature="e#2811#2812#0" expanded="true" />
-            <element signature="e#2852#2853#0" expanded="true" />
-            <element signature="e#2888#2889#0" expanded="true" />
-            <element signature="e#2927#2928#0" expanded="true" />
-            <element signature="e#2961#2962#0" expanded="true" />
-            <element signature="e#2999#3000#0" expanded="true" />
-            <element signature="e#3032#3033#0" expanded="true" />
-            <element signature="e#3074#3075#0" expanded="true" />
-            <element signature="e#3111#3112#0" expanded="true" />
-            <element signature="e#3154#3155#0" expanded="true" />
-            <element signature="e#3192#3193#0" expanded="true" />
-            <element signature="e#3229#3230#0" expanded="true" />
-            <element signature="e#3261#3262#0" expanded="true" />
-            <element signature="e#3330#3331#0" expanded="true" />
-            <element signature="e#3370#3371#0" expanded="true" />
-            <element signature="e#3405#3406#0" expanded="true" />
+            <element signature="e#2795#2796#0" expanded="true" />
+            <element signature="e#2827#2828#0" expanded="true" />
+            <element signature="e#2868#2869#0" expanded="true" />
+            <element signature="e#2904#2905#0" expanded="true" />
+            <element signature="e#2943#2944#0" expanded="true" />
+            <element signature="e#2977#2978#0" expanded="true" />
+            <element signature="e#3015#3016#0" expanded="true" />
+            <element signature="e#3048#3049#0" expanded="true" />
+            <element signature="e#3090#3091#0" expanded="true" />
+            <element signature="e#3127#3128#0" expanded="true" />
+            <element signature="e#3170#3171#0" expanded="true" />
+            <element signature="e#3208#3209#0" expanded="true" />
+            <element signature="e#3245#3246#0" expanded="true" />
+            <element signature="e#3277#3278#0" expanded="true" />
+            <element signature="e#3346#3347#0" expanded="true" />
+            <element signature="e#3386#3387#0" expanded="true" />
+            <element signature="e#3421#3422#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1108,57 +1104,118 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BattleAIPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/constants/GameConstants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="308" column="5" selection-start-line="308" selection-start-column="5" selection-end-line="308" selection-end-column="5" />
-          <folding>
-            <element signature="e#11170#11171#0" expanded="true" />
-            <element signature="e#11202#11203#0" expanded="true" />
-            <element signature="e#11237#11238#0" expanded="true" />
-            <element signature="e#11267#11268#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="90">
+          <caret line="5" column="26" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BattleBiwuPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="211" column="35" selection-start-line="211" selection-start-column="35" selection-end-line="211" selection-end-column="35" />
-          <folding>
-            <element signature="e#10112#10113#0" expanded="true" />
-            <element signature="e#10147#10148#0" expanded="true" />
-            <element signature="e#10177#10178#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Play.java">
+    <entry file="file://$PROJECT_DIR$/src/Map.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
-          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+          <caret line="36" column="66" selection-start-line="36" selection-start-column="66" selection-end-line="36" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/BattleBiwuPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="165" column="34" selection-start-line="165" selection-start-column="34" selection-end-line="165" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/BattleJingjiPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="127" column="35" selection-start-line="127" selection-start-column="35" selection-end-line="127" selection-end-column="35" />
+        <state relative-caret-position="290">
+          <caret line="85" column="43" selection-start-line="85" selection-start-column="43" selection-end-line="85" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BattleAIPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/map_maker/WallSetPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/map_maker/WallDisplayPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding>
-            <element signature="e#4643#4644#0" expanded="true" />
-            <element signature="e#4678#4679#0" expanded="true" />
-            <element signature="e#4708#4709#0" expanded="true" />
+            <element signature="e#976#977#0" expanded="true" />
+            <element signature="e#1006#1007#0" expanded="true" />
+            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1077#1078#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Mypanel.java">
+    <entry file="file://$PROJECT_DIR$/src/Play.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="112" column="30" selection-start-line="112" selection-start-column="30" selection-end-line="112" selection-end-column="30" />
+        <state relative-caret-position="144">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyPanelCard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="143" column="71" selection-start-line="143" selection-start-column="71" selection-end-line="143" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Music.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/map_maker/MapMakerPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
+          <folding>
+            <element signature="e#588#589#0" expanded="true" />
+            <element signature="e#640#641#0" expanded="true" />
+            <element signature="e#678#679#0" expanded="true" />
+            <element signature="e#733#734#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MapMakerFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WallMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
           <folding />
         </state>
       </provider>

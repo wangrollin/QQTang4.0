@@ -79,10 +79,10 @@ public class ModeSelectPanel extends JPanel {
         if (Play.moshi == 1) arrow.paintIcon(this, page, 114, 180);
         if (Play.moshi == 2) arrow.paintIcon(this, page, 267, 180);
         if (Play.moshi == 3) arrow.paintIcon(this, page, 413, 180);
-        if (Mypanel.which == 1) arrow.paintIcon(this, page, 407, 437);
-        if (Mypanel.which == 2) arrow.paintIcon(this, page, 630, 302);
-        if (Mypanel.which == 3) arrow.paintIcon(this, page, 407, 314);
-        if (Mypanel.which == 4) arrow.paintIcon(this, page, 541, 494);
+        if (MyPanelCard.which == 1) arrow.paintIcon(this, page, 407, 437);
+        if (MyPanelCard.which == 2) arrow.paintIcon(this, page, 630, 302);
+        if (MyPanelCard.which == 3) arrow.paintIcon(this, page, 407, 314);
+        if (MyPanelCard.which == 4) arrow.paintIcon(this, page, 541, 494);
         repaint();
     }
 
