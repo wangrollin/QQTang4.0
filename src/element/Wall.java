@@ -64,4 +64,7 @@ public class Wall {
         if (this.wallType == WALL_TYPE9) wallIcon = new ImageIcon("水4.png");
     }
 
+    public int getWallType() {
+        return wallType;
+    }
 }

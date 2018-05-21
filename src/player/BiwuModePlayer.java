@@ -16,8 +16,8 @@ public class BiwuModePlayer extends Player {
     private Random random;
     public int deathFrequency = 0, rebornTime = 0, rebornMaxTime = 500;
 
-    public BiwuModePlayer(int playerNumber, Maps maps) {
-        super(playerNumber, maps);
+    public BiwuModePlayer(int playerNumber, Maps maps, Player anotherPlayer) {
+        super(playerNumber, maps, anotherPlayer);
         random = new Random();
 
         if (getPlayerNumber() == GameConstants.PLAYER1) {
@@ -63,12 +63,12 @@ public class BiwuModePlayer extends Player {
         outlooking = OUTLOOKING_LOSER;
         setIconsByOutlooking();
         currentPlayerIcon = deadIcon;
-        MusicTool.music[7].play();
+        MusicTool.PLAYER_EXPLODE.play();
     }
 
-    public void keepDoing(Player anotherPlayer) {
+    public void keepDoing() {
         move();
-        dieIfPossible(anotherPlayer);
+        dieIfPossible(getAnotherPlayer());
         pickupItem();
         beBombed();
         transformToOrigin();
@@ -93,16 +93,16 @@ public class BiwuModePlayer extends Player {
         }
     }
 
-    public void dieIfPossible(Player anotherPlayer) {
+    public void dieIfPossible() {
         if (flashTime > 0) flashTime += 1;
         if (flashTime == Player.FLASH_MAX_TIME) flashTime = 0;
         if (outlooking == OUTLOOKING_STUCK) {
             stuckTime += 1;
             if (stuckTime == Player.BEFORE_DIE_TIME) {
                 die();
-            } else if (anotherPlayer.outlooking != OUTLOOKING_STUCK
-                    && getHeng() == anotherPlayer.getHeng()
-                    && getShu() == anotherPlayer.getShu()) {
+            } else if (getAnotherPlayer().outlooking != OUTLOOKING_STUCK
+                    && getHeng() == getAnotherPlayer().getHeng()
+                    && getShu() == getAnotherPlayer().getShu()) {
                 die();
                 RIGHT = false;
                 LEFT = false;

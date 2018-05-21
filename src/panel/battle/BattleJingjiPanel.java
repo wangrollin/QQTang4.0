@@ -4,10 +4,12 @@ import constants.GameConstants;
 import element.Maps;
 import element.MusicTool;
 import element.Wall;
+import element.WallMapTool;
 import panel.MyPanelCard;
 import player.JingjiModePlayer;
 import player.Player;
 
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,33 +25,28 @@ public class BattleJingjiPanel extends JPanel {
     private CardLayout cardLayout;
 
     private JButton gobackBtn, exitBtn;
-    //闪出来的长度
-    public final static int jiangeheng = 0, jiangeshu = 0;
+
     //时间监听毫秒
-    private final int DELAY = 15;
+    private static final int DELAY = 15;
     //时间老人
     Timer timer;
-    //地图
-    //static element.Maps maps;
+
     private Maps maps = new Maps();
 
-    public void setWallMap(Wall[][] wallMap) {
-        this.maps.setWallMap(wallMap);
+    public void setWallMapAndWallMapType(Wall[][] wallMap, int wallMapType) {
+        this.maps.setWallMap(wallMap, wallMapType);
     }
+    public void setGroundIconByType(int groundType) {
+        this.maps.setGroundIconByType(groundType);
+    }
+
     //人物登场
-    private JingjiModePlayer p1 = new JingjiModePlayer(GameConstants.PLAYER1, maps);
-    private JingjiModePlayer p2 = new JingjiModePlayer(GameConstants.PLAYER2, maps);
-    //public static abandon.JingjiModePlayer2 p2;
+    private JingjiModePlayer p1;
+    private JingjiModePlayer p2;
 
-    protected static int cishu = 0;
+    private static int cishu = 0;
 
-    public Player getPlayer1() {
-        return p1;
-    }
 
-    public Player getPlayer2() {
-        return p2;
-    }
     public void initPlayerPosition() {
         Random random = new Random();
         p1.setJudgeXPosition(random.nextInt(500) + 50);
@@ -58,6 +55,7 @@ public class BattleJingjiPanel extends JPanel {
             p1.setJudgeXPosition(random.nextInt(500) + 50);
             p1.setJudgeYPosition(random.nextInt(300) + 50);
         }
+
         p2.setJudgeXPosition(random.nextInt(500) + 50);
         p2.setJudgeYPosition(random.nextInt(300) + 50);
         while (maps.isWall(p2.getHeng(), p2.getShu())) {
@@ -66,10 +64,65 @@ public class BattleJingjiPanel extends JPanel {
         }
     }
 
+    // TODO
+    public void closeGameAndJumpAway(String panelName, AudioClip bgmToPlay) {
+        MusicTool.stopAllMusic();
+        myPanelCard.removeKeyListener(p1);
+        myPanelCard.removeKeyListener(p2);
+        p1 = null;
+        p2 = null;
+
+        cardLayout.show(myPanelCard, panelName);
+        bgmToPlay.play();
+    }
+// TODO 返回游戏 再次游戏 使用closeGame() initAndStartGame()
+//开始游戏 直接返回 游戏结束跳到结束panel
+    public void initAndShowAndStartGame() {
+        /**
+         * init maps
+         */
+        maps = new Maps();
+        setWallMapAndWallMapType(WallMapTool.copyWallMap(myPanelCard.getWallMap()), myPanelCard.getWallMapType());
+        setGroundIconByType(myPanelCard.getGroundType());
+
+        /**
+         * init players
+         */
+        p1 = new JingjiModePlayer(GameConstants.PLAYER1, maps, p2);
+        p2 = new JingjiModePlayer(GameConstants.PLAYER2, maps, p1);
+        initPlayerPosition();
+        myPanelCard.addKeyListener(p1);
+        myPanelCard.addKeyListener(p2);
+
+
+        cishu = 0; // TODO
+
+        cardLayout.show(myPanelCard, "battleJingjiPanel");
+
+        /**
+         * play music, loop bgm
+         */
+        MusicTool.READ_GO.play();
+        if (this.maps.getWallMapType() == GameConstants.BIWU_MAP) {
+            MusicTool.BIWU_MAP_BGM.loop();
+        } else if (this.maps.getWallMapType() == GameConstants.SHUIMIAN_MAP) {
+            MusicTool.SHUIMIAN_MAP_BGM.loop();
+        } else if (this.maps.getWallMapType() == GameConstants.KUANGDONG_MAP) {
+            MusicTool.KUANGDONG_MAP_BGM.loop();
+        } else if (this.maps.getWallMapType() == GameConstants.DIY_MAP) {
+            MusicTool.DIY_MAP_BGM.loop();
+        }
+
+    }
+
     //构造出来 初始化****************************************************************************************
     public BattleJingjiPanel(MyPanelCard myPanelCard, CardLayout cardLayout) {
         this.myPanelCard = myPanelCard;
         this.cardLayout = cardLayout;
+
+
+        p1 = new JingjiModePlayer(GameConstants.PLAYER1, maps, p2);
+        p2 = new JingjiModePlayer(GameConstants.PLAYER2, maps, p1);
 
         gobackBtn = new JButton(new ImageIcon("replay1.png"));
         gobackBtn.setBounds(10, 10, 128, 50);
@@ -78,19 +131,12 @@ public class BattleJingjiPanel extends JPanel {
         exitBtn = new JButton(new ImageIcon("exit1.png"));
         exitBtn.setBounds(510, 10, 130, 50);
         add(exitBtn);
-        //音乐准备
-        MusicTool.Musicload();
 
-        //maps = new element.Maps();
-        //p1 = new player.JingjiModePlayer();
-        //p2 = new abandon.JingjiModePlayer2();
         timer = new Timer(DELAY, new Mytime());
-        //addKeyListener(Listener);
         setLayout(null);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
         timer.start();
-
     }
 
     //画图啦**********************************************************************************************
@@ -99,21 +145,18 @@ public class BattleJingjiPanel extends JPanel {
         maps.getBiwumenIcon().paintIcon(this, page, 0, 0);
         maps.getGroundIcon().paintIcon(this, page, 0, 200);
 
+        //TODO
         p1.keepDoing(p2);
         p2.keepDoing(p1);
 
         if (cishu == 0) {
-            if (p1.outlooking == 7) {
-                MusicTool.stop();
-                MusicTool.music[8].loop();
+            if (p1.outlooking == Player.OUTLOOKING_WINNER) {
                 cishu = 1;
-                cardLayout.show(myPanelCard, "fighterWinPanel");
+                closeGameAndJumpAway("fighterWinPanel", MusicTool.WINNING_BGM);
             }
-            if (p2.outlooking == 7) {
-                MusicTool.stop();
+            if (p2.outlooking == Player.OUTLOOKING_WINNER) {
                 cishu = 1;
-                MusicTool.music[8].loop();
-                cardLayout.show(myPanelCard, "baoziWinPanel");
+                closeGameAndJumpAway("baoziWinPanel", MusicTool.WINNING_BGM);
             }
         }
         //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具

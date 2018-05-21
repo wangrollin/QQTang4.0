@@ -35,15 +35,14 @@ public class MapMakerFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MusicTool.music[1].play();
+        MusicTool.PRESS_BUTTON.play();
         if (e.getSource() == mapMakerPanel.getSaveBtn()) {
             setVisible(false);
             play.setVisible(true);
 
-            myPanelCard.setWallMapType(GameConstants.DIY_MAP);
-            //panel.MyPanelCard.which = 4;
-            myPanelCard.setGroundType(GameConstants.BIWU_GROUND);
             myPanelCard.setWallMap(mapMakerPanel.getWallMap());
+            myPanelCard.setWallMapType(GameConstants.DIY_MAP);
+            myPanelCard.setGroundType(GameConstants.BIWU_GROUND);
         } else if (e.getSource() == mapMakerPanel.getAbandonBtn()) {
             setVisible(false);
             play.setVisible(true);

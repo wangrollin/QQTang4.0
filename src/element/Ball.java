@@ -19,8 +19,6 @@ public class Ball {
     //谁放的
 
     private Player player;
-    //等待中 爆炸中  存在吗
-    //private boolean wait=true,die=false,booing=false;
     //事先预警
     private Explosion just;
     private Maps maps;
@@ -34,7 +32,7 @@ public class Ball {
         this.ballIcon = icon;
         this.maps = maps;
 
-        maps.setBall(heng, shu, this);
+        //maps.setBall(this);
         this.just = maps.getExplosion(heng, shu);
     }
 
@@ -44,6 +42,14 @@ public class Ball {
 
     public ImageIcon getBallIcon() {
         return ballIcon;
+    }
+
+    public int getHeng() {
+        return heng;
+    }
+
+    public int getShu() {
+        return shu;
     }
 
     public void addTime() {
@@ -56,34 +62,31 @@ public class Ball {
     }
 
     private void booit() {
-        MusicTool.music[2].stop();
-        MusicTool.music[2].play();
+        MusicTool.BALL_EXPLODE.stop();
+        MusicTool.BALL_EXPLODE.play();// TODO
         //maps.getExplosionMap()[heng][shu] = new Explosion(heng, shu, "oo", maps);
-        new Explosion(heng, shu, "oo", maps);
+        maps.setExplosion(new Explosion(heng, shu, "oo", maps));
         //0能炸过去     1遇到了墙能炸碎     2遇到了便边界 或者炸不碎的墙
         //s
         for (int i = 1; i <= power; i++) {
             if (canExplodeDown(i) == 0) {
                 if (i == power) {
-                    //maps.getExplosionMap()[heng][shu + i] = new Explosion(heng, shu + i, "s", maps);
-                    new Explosion(heng, shu + i, "s", maps);
+                    maps.setExplosion(new Explosion(heng, shu + i, "s", maps));
                 }
                 if (i != power) {
-                    //maps.getExplosionMap()[heng][shu + i] = new Explosion(heng, shu + i, "zs", maps);
-                    new Explosion(heng, shu + i, "zs", maps);
+                    maps.setExplosion(new Explosion(heng, shu + i, "zs", maps));
+
                 }
                 maps.removeItem(heng, shu + i);
             }
             if (canExplodeDown(i) == 1) {
                 maps.getWall(heng, shu + i).beRuined();
-                //maps.getExplosionMap()[heng][shu + i] = new Explosion(heng, shu + i, "ss", maps);
-                new Explosion(heng, shu + i, "ss", maps);
+                maps.setExplosion(new Explosion(heng, shu + i, "ss", maps));
                 break;
             }
             if (canExplodeDown(i) == 2) {
                 if (i != 1) {
-                    //maps.getExplosionMap()[heng][shu + i - 1] = new Explosion(heng, shu + i - 1, "zs", maps);
-                    new Explosion(heng, shu + i - 1, "zs", maps);
+                    maps.setExplosion(new Explosion(heng, shu + i - 1, "zs", maps));
                 }
                 break;
             }
@@ -92,25 +95,21 @@ public class Ball {
         for (int i = 1; i <= power; i++) {
             if (canExplodeUp(i) == 0) {
                 if (i == power) {
-                    //maps.getExplosionMap()[heng][shu - i] = new Explosion(heng, shu - i, "w", maps);
-                    new Explosion(heng, shu - i, "w", maps);
+                    maps.setExplosion(new Explosion(heng, shu - i, "w", maps));
                 }
                 if (i != power) {
-                    //maps.getExplosionMap()[heng][shu - i] = new Explosion(heng, shu - i, "zw", maps);
-                    new Explosion(heng, shu - i, "zw", maps);
+                    maps.setExplosion(new Explosion(heng, shu - i, "zw", maps));
                 }
                 maps.removeItem(heng, shu - i);
             }
             if (canExplodeUp(i) == 1) {
                 maps.getWall(heng, shu - i).beRuined();
-                //maps.getExplosionMap()[heng][shu - i] = new Explosion(heng, shu - i, "sw", maps);
-                new Explosion(heng, shu - i, "sw", maps);
+                maps.setExplosion(new Explosion(heng, shu - i, "sw", maps));
                 break;
             }
             if (canExplodeUp(i) == 2) {
                 if (i != 1) {
-                    //maps.getExplosionMap()[heng][shu - i + 1] = new Explosion(heng, shu - i + 1, "zw", maps);
-                    new Explosion(heng, shu - i + 1, "zw", maps);
+                    maps.setExplosion(new Explosion(heng, shu - i + 1, "zw", maps));
                 }
                 break;
             }
@@ -119,23 +118,22 @@ public class Ball {
         for (int i = 1; i <= power; i++) {
             if (canExplodeLeft(i) == 0) {
                 if (i == power) {
-                    //maps.getExplosionMap()[heng - i][shu] = new Explosion(heng - i, shu, "a", maps);
-                    new Explosion(heng - i, shu, "a", maps);
+                    maps.setExplosion(new Explosion(heng - i, shu, "a", maps));
                 }
 
                 if (i != power) {
-                    new Explosion(heng - i, shu, "za", maps);
+                    maps.setExplosion(new Explosion(heng - i, shu, "za", maps));
                 }
                 maps.removeItem(heng - i, shu);
             }
             if (canExplodeLeft(i) == 1) {
                 maps.getWall(heng - i, shu).beRuined();
-                new Explosion(heng - i, shu, "sa", maps);
+                maps.setExplosion(new Explosion(heng - i, shu, "sa", maps));
                 break;
             }
             if (canExplodeLeft(i) == 2) {
                 if (i != 1) {
-                    new Explosion(heng - i + 1, shu, "za", maps);
+                    maps.setExplosion(new Explosion(heng - i + 1, shu, "za", maps));
                 }
                 break;
             }
@@ -144,21 +142,22 @@ public class Ball {
         for (int i = 1; i <= power; i++) {
             if (canExplodeRight(i) == 0) {
                 if (i == power) {
-                    new Explosion(heng + i, shu, "d", maps);
+                    maps.setExplosion(new Explosion(heng + i, shu, "d", maps));
                 }
                 if (i != power) {
-                    new Explosion(heng + i, shu, "zd", maps);
+                    maps.setExplosion(new Explosion(heng + i, shu, "zd", maps));
                 }
                 maps.removeItem(heng + i, shu);
             }
             if (canExplodeRight(i) == 1) {
                 maps.getWall(heng + i, shu).beRuined();
-                new Explosion(heng + i, shu, "sd", maps);
+                maps.setExplosion(new Explosion(heng + i, shu, "sd", maps));
                 break;
             }
             if (canExplodeRight(i) == 2) {
                 if (i != 1) {
-                    new Explosion(heng + i - 1, shu, "zd", maps);
+                    maps.setExplosion(new Explosion(heng + i - 1, shu, "zd", maps));
+
                 }
                 break;
             }

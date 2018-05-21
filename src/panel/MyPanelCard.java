@@ -1,7 +1,6 @@
 package panel;
 
 import constants.GameConstants;
-import element.Maps;
 import element.MusicTool;
 import element.Wall;
 import element.WallMapTool;
@@ -55,11 +54,22 @@ public class MyPanelCard extends JPanel implements ActionListener {
 
 
     private int groundType = GameConstants.KUANGDONG_GROUND;
+
+    public int getGroundType() {
+        return groundType;
+    }
+
     public void setGroundType(int groundType) {
         this.groundType = groundType;
     }
 
+
     private Wall[][] wallMap;
+
+    public Wall[][] getWallMap() {
+        return wallMap;
+    }
+
     public void setWallMap(Wall[][] wallMap) {
         this.wallMap = wallMap;
     }
@@ -75,6 +85,9 @@ public class MyPanelCard extends JPanel implements ActionListener {
         setFocusable(true);
 
         this.wallMap = WallMapTool.createKuangdongMap();
+
+        MusicTool.Musicload();
+        MusicTool.HOME_BGM.play();
         /**
          * init panels
          */
@@ -151,17 +164,25 @@ public class MyPanelCard extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MusicTool.music[1].play();
+        MusicTool.PRESS_BUTTON.play();
         if (e.getSource() == homePanel.getExitBtn() || e.getSource() == fighterWinPanel.getExitBtn() ||
                 e.getSource() == baoziWinPanel.getExitbtn() || e.getSource() == fighterLosePanel.getExitBtn()
                 || e.getSource() == dagfallPanel.getExitBtn() || e.getSource() == battleBiwuPanel.getExitBtn()
                 || e.getSource() == battleJingjiPanel.getExitBtn() || e.getSource() == battleAIPanel.getExitBtn()) {
             System.exit(0);
-        } else if (e.getSource() == fighterWinPanel.getGobackBtn() ||
-                e.getSource() == baoziWinPanel.getGobackBtn() || e.getSource() == fighterLosePanel.getGobackBtn()
-                || e.getSource() == dagfallPanel.getGobackBtn() || e.getSource() == battleBiwuPanel.getGobackBtn()
-                || e.getSource() == battleJingjiPanel.getGobackBtn() || e.getSource() == battleAIPanel.getGobackBtn()) {
-            // TODO goback
+        }
+
+        else if (e.getSource() == fighterWinPanel.getGobackBtn()
+                || e.getSource() == baoziWinPanel.getGobackBtn()
+                || e.getSource() == fighterLosePanel.getGobackBtn()
+                || e.getSource() == dagfallPanel.getGobackBtn()) {
+            cardLayout.show(this, "modeSelectPanel");
+        } else if (e.getSource() == battleBiwuPanel.getGobackBtn()) {
+            battleBiwuPanel.closeGameAndJumpAway("modeSelectPanel", MusicTool.HOME_BGM);
+        } else if (e.getSource() == battleJingjiPanel.getGobackBtn()) {
+            battleJingjiPanel.closeGameAndJumpAway("modeSelectPanel", MusicTool.HOME_BGM);
+        } else if (e.getSource() == battleAIPanel.getGobackBtn()) {
+            battleAIPanel.closeGameAndJumpAway("modeSelectPanel", MusicTool.HOME_BGM);
         }
 
         /**
@@ -181,53 +202,15 @@ public class MyPanelCard extends JPanel implements ActionListener {
         else if (e.getSource() == modeSelectPanel.getGobackBtn()) {
             cardLayout.show(this, "homePanel");
         } else if (e.getSource() == modeSelectPanel.getStartGameBtn()) {
-            MusicTool.music[9].stop();
-            MusicTool.music[6].play();
+            MusicTool.HOME_BGM.stop();
 
             if (this.gameMode == GameConstants.AI_MODE) {
-                /*if (this.wallMapType == GameConstants.BIWU_MAP) {
-
-                } else if (this.wallMapType == GameConstants.SHUIMIAN_MAP) {
-
-                } else if (this.wallMapType == GameConstants.KUANGDONG_MAP) {
-
-                }*/
-                battleAIPanel.setWallMap(this.wallMap);
-                battleAIPanel.setGroundType(this.groundType);
-                battleAIPanel.initPlayerPosition();
-
-
-                cardLayout.show(this, "battleAIPanel");
-                Play.zanting = 1;
-
-                MusicTool.music[11].loop();
-
-                addKeyListener(battleAIPanel.getPlayer1());
+                //Play.zanting = 1;
+                battleAIPanel.initAndShowAndStartGame();
             } else if (this.gameMode == GameConstants.BIWU_MODE) {
-                battleBiwuPanel.setWallMap(this.wallMap);
-                battleAIPanel.setGroundType(this.groundType);
-                battleBiwuPanel.initPlayerPosition();
-
-                cardLayout.show(this, "battleBiwuPanel");
-
-                MusicTool.music[3].loop();
-
-                addKeyListener(battleBiwuPanel.getPlayer1());
-                addKeyListener(battleBiwuPanel.getPlayer2());
+                battleBiwuPanel.initAndShowAndStartGame();
             } else if (this.gameMode == GameConstants.JINGJI_MODE) {
-                battleJingjiPanel.setWallMap(this.wallMap);
-                battleAIPanel.setGroundType(this.groundType);
-                battleJingjiPanel.initPlayerPosition();
-
-                cardLayout.show(this, "battleJingjiPanel");
-
-                if (this.wallMapType == GameConstants.BIWU_MAP) MusicTool.music[3].loop();
-                if (this.wallMapType == GameConstants.SHUIMIAN_MAP) MusicTool.music[10].loop();
-                if (this.wallMapType == GameConstants.KUANGDONG_MAP) MusicTool.music[11].loop();
-                if (this.wallMapType == GameConstants.DIY_MAP) MusicTool.music[14].loop();
-
-                addKeyListener(battleJingjiPanel.getPlayer1());
-                addKeyListener(battleJingjiPanel.getPlayer2());
+                battleJingjiPanel.initAndShowAndStartGame();
             }
         }
 
@@ -235,31 +218,18 @@ public class MyPanelCard extends JPanel implements ActionListener {
          * modeSelectPanel select wallmap button
          */
         else if (e.getSource() == modeSelectPanel.getBiwuMapbtn()) {
-           /* for (int j = 0; j < GameConstants.SHU; j++)
-                for (int i = 0; i < GameConstants.HENG; i++) {
-                    element.Maps.wallMap[i][j] = null;
-                }
-            which = 1;*/
             this.wallMapType = GameConstants.BIWU_MAP;
             this.wallMap = WallMapTool.createBiwuMap();
+
+
+
             this.groundType = GameConstants.BIWU_GROUND;
         } else if (e.getSource() == modeSelectPanel.getShuimianMapBtn()) {
-            /*for (int j = 0; j < GameConstants.SHU; j++)
-                for (int i = 0; i < GameConstants.HENG; i++) {
-                    element.Maps.wallMap[i][j] = null;
-                }
-            which = 2;*/
             this.wallMapType = GameConstants.SHUIMIAN_MAP;
-            //element.WallMapTool.putong();
             this.wallMap = WallMapTool.createShuimianMap();
             this.groundType = GameConstants.SHUIMIAN_GROUND;
         } else if (e.getSource() == modeSelectPanel.getKuangdongMapBtn()) {
-            /*for (int j = 0; j < GameConstants.SHU; j++)
-                for (int i = 0; i < GameConstants.HENG; i++)
-                    element.Maps.wallMap[i][j] = null;
-            which = 3;*/
             this.wallMapType = GameConstants.KUANGDONG_MAP;
-            //element.WallMapTool.maoxian();
             this.wallMap = WallMapTool.createKuangdongMap();
             this.groundType = GameConstants.KUANGDONG_GROUND;
         }  else if (e.getSource() == modeSelectPanel.getDiyMapBtn()) {
@@ -272,13 +242,10 @@ public class MyPanelCard extends JPanel implements ActionListener {
          * modeSelectPanel game mode button
          */
         else if (e.getSource() == modeSelectPanel.getBiwuModeBtn()) {
-            //panel.Play.moshi = 3;
             this.gameMode = GameConstants.BIWU_MODE;
         } else if (e.getSource() == modeSelectPanel.getAiModebtn()) {
-            //panel.Play.moshi = 1;
             this.gameMode = GameConstants.AI_MODE;
         } else if (e.getSource() == modeSelectPanel.getJingjiModeBtn()) {
-            //panel.Play.moshi = 2;
             this.gameMode = GameConstants.JINGJI_MODE;
         }
     }

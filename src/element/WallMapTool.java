@@ -257,4 +257,15 @@ public class WallMapTool {
 
         return wallMap;
     }
+
+    public static Wall[][] copyWallMap(Wall[][] oldWallMap) {
+
+        Wall[][] copyWallMap = new Wall[GameConstants.HENG][GameConstants.SHU];
+        for (int i = 0; i < GameConstants.HENG; i++) {
+            for (int j = 0; j < GameConstants.SHU; j++) {
+                copyWallMap[i][j] = oldWallMap[i][j] == null? null:new Wall(oldWallMap[i][j].getWallType());
+            }
+        }
+        return copyWallMap;
+    }
 }

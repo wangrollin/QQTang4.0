@@ -20,18 +20,11 @@ public class Maps {
     private int groundType = GameConstants.BIWU_GROUND;
     private ImageIcon groundIcon = new ImageIcon("比武地面.png");;
 
-    public void setGroundType(int groundType) {
-        this.groundType = groundType;
-        if (this.groundType == GameConstants.BIWU_GROUND) {
-            this.groundIcon = new ImageIcon("比武地面.png");
-        } else if (this.groundType == GameConstants.SHUIMIAN_GROUND) {
-            this.groundIcon = new ImageIcon("水面地面.png");
-        } else if (this.groundType == GameConstants.KUANGDONG_GROUND) {
-            this.groundIcon = new ImageIcon("宝藏地面.png");
-        }
+    private int wallMapType;
+
+    public int getWallMapType() {
+        return wallMapType;
     }
-//墙的图像
-    //private ImageIcon brick, iron, now;
 
     private Wall[][] wallMap;
     private Explosion[][] explosionMap;
@@ -118,12 +111,12 @@ public class Maps {
         this.wallMap[heng][shu] = wall;
     }
 
-    public void setExplosion(int heng, int shu, Explosion explosion) {
-        this.explosionMap[heng][shu] = explosion;
+    public void setExplosion(Explosion explosion) {
+        this.explosionMap[explosion.getHeng()][explosion.getShu()] = explosion;
     }
 
-    public void setBall(int heng, int shu, Ball ball) {
-        this.ballMap[heng][shu] = ball;
+    public void setBall(Ball ball) {
+        this.ballMap[ball.getHeng()][ball.getShu()] = ball;
     }
 
     public void setItem(int heng, int shu, Item item) {
@@ -154,7 +147,20 @@ public class Maps {
         return itemMap;
     }*/
 
-    public void setWallMap(Wall[][] wallMap) {
+    public void setWallMap(Wall[][] wallMap, int wallMapType) {
         this.wallMap = wallMap;
+        this.wallMapType = wallMapType;
     }
+
+    public void setGroundIconByType(int groundType) {
+        this.groundType = groundType;
+        if (this.groundType == GameConstants.BIWU_GROUND) {
+            this.groundIcon = new ImageIcon("比武地面.png");
+        } else if (this.groundType == GameConstants.SHUIMIAN_GROUND) {
+            this.groundIcon = new ImageIcon("水面地面.png");
+        } else if (this.groundType == GameConstants.KUANGDONG_GROUND) {
+            this.groundIcon = new ImageIcon("宝藏地面.png");
+        }
+    }
+
 }

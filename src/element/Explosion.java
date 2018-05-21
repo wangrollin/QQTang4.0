@@ -34,7 +34,7 @@ public class Explosion {
         this.maps = maps;
 
         setExplosionIcon();
-        maps.setExplosion(heng, shu, this);
+        //maps.setExplosion(this);
     }
 
     private void setExplosionIcon() {
@@ -120,5 +120,13 @@ public class Explosion {
 
     public void remove() {
         maps.removeExplosion(heng, shu);
+    }
+
+    public int getHeng() {
+        return heng;
+    }
+
+    public int getShu() {
+        return shu;
     }
 }

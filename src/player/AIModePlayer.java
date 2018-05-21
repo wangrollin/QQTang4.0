@@ -12,8 +12,8 @@ public class AIModePlayer extends Player {
     protected int nspeed = 4;
     protected int speed = 4;
 
-    public AIModePlayer(Maps maps) {
-        super(GameConstants.PLAYER1, maps);
+    public AIModePlayer(Maps maps, Player anotherPlayer) {
+        super(GameConstants.PLAYER1, maps, anotherPlayer);
         judgeXPosition = 125;
         judgeYPosition = 75;
 
@@ -106,9 +106,7 @@ public class AIModePlayer extends Player {
         outlooking = OUTLOOKING_LOSER;
         setIconsByOutlooking();
         currentPlayerIcon = deadIcon;
-        MusicTool.stop();
-        MusicTool.music[7].play();
-        MusicTool.music[13].loop();
+        MusicTool.PLAYER_EXPLODE.play();
     }
 
     public boolean toDie() {

@@ -97,14 +97,20 @@ public class Player implements KeyListener {
     public static final int FLASH_MAX_TIME = 300;
 
     private int playerNumber;
+    private Player anotherPlayer;
+
+    public Player getAnotherPlayer() {
+        return anotherPlayer;
+    }
 
     public int getPlayerNumber() {
         return playerNumber;
     }
 
-    public Player(int playNumber, Maps maps) {
+    public Player(int playNumber, Maps maps, Player anotherPlayer) {
         this.playerNumber = playNumber;
         this.maps = maps;
+        this.anotherPlayer = anotherPlayer;
 
         windGoUpIcon = new ImageIcon("fengw.gif");
         windGoDownIcon = new ImageIcon("fengs.gif");
@@ -321,7 +327,7 @@ public class Player implements KeyListener {
         outlooking = OUTLOOKING_ORIGIN;
         setIconsByOutlooking();
         currentPlayerIcon = currentGoDownIcon;
-        MusicTool.music[1].play();
+        MusicTool.ESCAPE.play();
     }
 
 
@@ -354,15 +360,14 @@ public class Player implements KeyListener {
         outlooking = OUTLOOKING_LOSER;
         setIconsByOutlooking();
         currentPlayerIcon = deadIcon;
-        MusicTool.music[7].play();
-        MusicTool.music[8].play();
+        MusicTool.PLAYER_EXPLODE.play();
     }
 
     private void win() {
         outlooking = OUTLOOKING_WINNER;
         setIconsByOutlooking();
         currentPlayerIcon = winningIcon;
-        MusicTool.music[3].stop();
+        //MusicTool.music[3].stop();
     }
 
     public void transformToOrigin() {
@@ -547,8 +552,8 @@ public class Player implements KeyListener {
                 }
             }
             maps.removeItem(getHeng(),getShu());
-            MusicTool.music[4].stop();
-            MusicTool.music[4].play();
+            MusicTool.PICKUP_ITEM.stop();
+            MusicTool.PICKUP_ITEM.play();//TODO
         }
     }
 
@@ -602,7 +607,7 @@ public class Player implements KeyListener {
         else if (outlooking == OUTLOOKING_CANDY) return judgeXPosition - 30;
         else if (outlooking == OUTLOOKING_GHOST) return judgeXPosition - 25;
         else if (outlooking == OUTLOOKING_FOX) return judgeXPosition - 55;
-        else return judgeXPosition - 43 + BattleJingjiPanel.jiangeheng;
+        else return judgeXPosition - 43;
     }
 
     public int gety() {
@@ -610,7 +615,7 @@ public class Player implements KeyListener {
         else if (outlooking == OUTLOOKING_CANDY) return judgeYPosition - 48;
         else if (outlooking == OUTLOOKING_GHOST) return judgeYPosition - 55;
         else if (outlooking == OUTLOOKING_FOX) return judgeYPosition - 80;
-        else return judgeYPosition - 73 + BattleJingjiPanel.jiangeshu;
+        else return judgeYPosition - 73;
     }
 
     public int getJudgeXPosition() {
@@ -719,8 +724,9 @@ public class Player implements KeyListener {
     }
 
     public void setBall() {
-        new Ball(this, getHeng(), getShu(), power, getBallIcon(), maps);
-        MusicTool.music[5].play();
+        maps.setBall(new Ball(this, getHeng(), getShu(), power, getBallIcon(), maps));
+
+        MusicTool.SET_BALL.play();
     }
     //完美的行动派监听器！！！！！！！！！********************************************************************
     @Override
@@ -736,25 +742,25 @@ public class Player implements KeyListener {
                     case KeyEvent.VK_UP:
                         UpInterruptCount = 0;
                         isUpReleased = false;
-                        if (isRightReleased == false && UP == false) RightInterruptCount++;
-                        if (isLeftReleased == false && UP == false) LeftInterruptCount++;
-                        if (isDownReleased == false && UP == false) DownInterruptCount++;
+                        if (!isRightReleased && !UP) RightInterruptCount++;
+                        if (!isLeftReleased && !UP) LeftInterruptCount++;
+                        if (!isDownReleased && !UP) DownInterruptCount++;
                         UP = true;
                         break;
                     case KeyEvent.VK_DOWN:
                         DownInterruptCount = 0;
                         isDownReleased = false;
-                        if (isRightReleased == false && DOWN == false) RightInterruptCount++;
-                        if (isLeftReleased == false && DOWN == false) LeftInterruptCount++;
-                        if (isUpReleased == false && DOWN == false) UpInterruptCount++;
+                        if (!isRightReleased && !DOWN) RightInterruptCount++;
+                        if (!isLeftReleased && !DOWN) LeftInterruptCount++;
+                        if (!isUpReleased && !DOWN) UpInterruptCount++;
                         DOWN = true;
                         break;
                     case KeyEvent.VK_LEFT:
                         LeftInterruptCount = 0;
                         isLeftReleased = false;
-                        if (isRightReleased == false && LEFT == false) RightInterruptCount++;
-                        if (isUpReleased == false && LEFT == false) UpInterruptCount++;
-                        if (isDownReleased == false && LEFT == false) DownInterruptCount++;
+                        if (!isRightReleased && !LEFT) RightInterruptCount++;
+                        if (!isUpReleased && !LEFT) UpInterruptCount++;
+                        if (!isDownReleased && !LEFT) DownInterruptCount++;
                         LEFT = true;
                         break;
                     case KeyEvent.VK_RIGHT:
@@ -777,14 +783,14 @@ public class Player implements KeyListener {
                         || outlooking == OUTLOOKING_CANDY) {
                     power = npower;
                 }
-                if (canSetBall() && isUsingBallBtn == false && usedBallCount < amount
+                if (canSetBall() && !isUsingBallBtn && usedBallCount < amount
                         && !maps.isBall(getHeng(), getShu())) {
                     setBall();
                 }
                 isUsingBallBtn = true;
             }
 
-            if (e.getKeyCode() == KeyEvent.VK_M && isUsingForkBtn == false) {
+            if (e.getKeyCode() == KeyEvent.VK_M && !isUsingForkBtn) {
                 if (fork > 0 && outlooking == OUTLOOKING_STUCK) {
                     fork -= 1;
                     escape();
@@ -797,33 +803,33 @@ public class Player implements KeyListener {
                     case KeyEvent.VK_R:
                         UpInterruptCount = 0;
                         isUpReleased = false;
-                        if (isRightReleased == false && UP == false) RightInterruptCount++;
-                        if (isLeftReleased == false && UP == false) LeftInterruptCount++;
-                        if (isDownReleased == false && UP == false) DownInterruptCount++;
+                        if (!isRightReleased && !UP) RightInterruptCount++;
+                        if (!isLeftReleased && !UP) LeftInterruptCount++;
+                        if (!isDownReleased && !UP) DownInterruptCount++;
                         UP = true;
                         break;
                     case KeyEvent.VK_F:
                         DownInterruptCount = 0;
                         isDownReleased = false;
-                        if (isRightReleased == false && DOWN == false) RightInterruptCount++;
-                        if (isLeftReleased == false && DOWN == false) LeftInterruptCount++;
-                        if (isUpReleased == false && DOWN == false) UpInterruptCount++;
+                        if (!isRightReleased && !DOWN) RightInterruptCount++;
+                        if (!isLeftReleased && !DOWN) LeftInterruptCount++;
+                        if (!isUpReleased && !DOWN) UpInterruptCount++;
                         DOWN = true;
                         break;
                     case KeyEvent.VK_D:
                         LeftInterruptCount = 0;
                         isLeftReleased = false;
-                        if (isRightReleased == false && LEFT == false) RightInterruptCount++;
-                        if (isUpReleased == false && LEFT == false) UpInterruptCount++;
-                        if (isDownReleased == false && LEFT == false) DownInterruptCount++;
+                        if (!isRightReleased && !LEFT) RightInterruptCount++;
+                        if (!isUpReleased && !LEFT) UpInterruptCount++;
+                        if (!isDownReleased && !LEFT) DownInterruptCount++;
                         LEFT = true;
                         break;
                     case KeyEvent.VK_G:
                         RightInterruptCount = 0;
                         isRightReleased = false;
-                        if (isUpReleased == false && RIGHT == false) UpInterruptCount++;
-                        if (isLeftReleased == false && RIGHT == false) LeftInterruptCount++;
-                        if (isDownReleased == false && RIGHT == false) DownInterruptCount++;
+                        if (!isUpReleased && !RIGHT) UpInterruptCount++;
+                        if (!isLeftReleased && !RIGHT) LeftInterruptCount++;
+                        if (!isDownReleased && !RIGHT) DownInterruptCount++;
                         RIGHT = true;
                         break;
                 }
@@ -836,14 +842,14 @@ public class Player implements KeyListener {
                         || outlooking == OUTLOOKING_CANDY) {
                     power = npower;
                 }
-                if (canSetBall() && isUsingBallBtn == false && usedBallCount < amount
+                if (canSetBall() && !isUsingBallBtn && usedBallCount < amount
                         && !maps.isBall(getHeng(), getShu())) {
                     setBall();
                 }
                 isUsingBallBtn = true;
             }
 
-            if (e.getKeyCode() == KeyEvent.VK_W && isUsingForkBtn == false) {
+            if (e.getKeyCode() == KeyEvent.VK_W && !isUsingForkBtn) {
                 if (fork > 0 && outlooking == OUTLOOKING_STUCK) {
                     fork -= 1;
                     escape();
@@ -861,33 +867,33 @@ public class Player implements KeyListener {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
                         isUpReleased = true;
-                        if (RightInterruptCount > UpInterruptCount && UP == true) RightInterruptCount--;
-                        if (LeftInterruptCount > UpInterruptCount && UP == true) LeftInterruptCount--;
-                        if (DownInterruptCount > UpInterruptCount && UP == true) DownInterruptCount--;
+                        if (RightInterruptCount > UpInterruptCount && UP) RightInterruptCount--;
+                        if (LeftInterruptCount > UpInterruptCount && UP) LeftInterruptCount--;
+                        if (DownInterruptCount > UpInterruptCount && UP) DownInterruptCount--;
                         UpInterruptCount = 0;
                         UP = false;
                         break;
                     case KeyEvent.VK_DOWN:
                         isDownReleased = true;
-                        if (RightInterruptCount > DownInterruptCount && DOWN == true) RightInterruptCount--;
-                        if (LeftInterruptCount > DownInterruptCount && DOWN == true) LeftInterruptCount--;
-                        if (UpInterruptCount > DownInterruptCount && DOWN == true) UpInterruptCount--;
+                        if (RightInterruptCount > DownInterruptCount && DOWN) RightInterruptCount--;
+                        if (LeftInterruptCount > DownInterruptCount && DOWN) LeftInterruptCount--;
+                        if (UpInterruptCount > DownInterruptCount && DOWN) UpInterruptCount--;
                         DOWN = false;
                         DownInterruptCount = 0;
                         break;
                     case KeyEvent.VK_LEFT:
                         isLeftReleased = true;
-                        if (RightInterruptCount > LeftInterruptCount && LEFT == true) RightInterruptCount--;
-                        if (UpInterruptCount > LeftInterruptCount && LEFT == true) UpInterruptCount--;
-                        if (DownInterruptCount > LeftInterruptCount && LEFT == true) DownInterruptCount--;
+                        if (RightInterruptCount > LeftInterruptCount && LEFT) RightInterruptCount--;
+                        if (UpInterruptCount > LeftInterruptCount && LEFT) UpInterruptCount--;
+                        if (DownInterruptCount > LeftInterruptCount && LEFT) DownInterruptCount--;
                         LEFT = false;
                         LeftInterruptCount = 0;
                         break;
                     case KeyEvent.VK_RIGHT:
                         isRightReleased = true;
-                        if (UpInterruptCount > RightInterruptCount && RIGHT == true) UpInterruptCount--;
-                        if (LeftInterruptCount > RightInterruptCount && RIGHT == true) LeftInterruptCount--;
-                        if (DownInterruptCount > RightInterruptCount && RIGHT == true) DownInterruptCount--;
+                        if (UpInterruptCount > RightInterruptCount && RIGHT) UpInterruptCount--;
+                        if (LeftInterruptCount > RightInterruptCount && RIGHT) LeftInterruptCount--;
+                        if (DownInterruptCount > RightInterruptCount && RIGHT) DownInterruptCount--;
                         RIGHT = false;
                         RightInterruptCount = 0;
                         break;
@@ -900,33 +906,33 @@ public class Player implements KeyListener {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_R:
                         isUpReleased = true;
-                        if (RightInterruptCount > UpInterruptCount && UP == true) RightInterruptCount--;
-                        if (LeftInterruptCount > UpInterruptCount && UP == true) LeftInterruptCount--;
-                        if (DownInterruptCount > UpInterruptCount && UP == true) DownInterruptCount--;
+                        if (RightInterruptCount > UpInterruptCount && UP) RightInterruptCount--;
+                        if (LeftInterruptCount > UpInterruptCount && UP) LeftInterruptCount--;
+                        if (DownInterruptCount > UpInterruptCount && UP) DownInterruptCount--;
                         UpInterruptCount = 0;
                         UP = false;
                         break;
                     case KeyEvent.VK_F:
                         isDownReleased = true;
-                        if (RightInterruptCount > DownInterruptCount && DOWN == true) RightInterruptCount--;
-                        if (LeftInterruptCount > DownInterruptCount && DOWN == true) LeftInterruptCount--;
-                        if (UpInterruptCount > DownInterruptCount && DOWN == true) UpInterruptCount--;
+                        if (RightInterruptCount > DownInterruptCount && DOWN) RightInterruptCount--;
+                        if (LeftInterruptCount > DownInterruptCount && DOWN) LeftInterruptCount--;
+                        if (UpInterruptCount > DownInterruptCount && DOWN) UpInterruptCount--;
                         DOWN = false;
                         DownInterruptCount = 0;
                         break;
                     case KeyEvent.VK_D:
                         isLeftReleased = true;
-                        if (RightInterruptCount > LeftInterruptCount && LEFT == true) RightInterruptCount--;
-                        if (UpInterruptCount > LeftInterruptCount && LEFT == true) UpInterruptCount--;
-                        if (DownInterruptCount > LeftInterruptCount && LEFT == true) DownInterruptCount--;
+                        if (RightInterruptCount > LeftInterruptCount && LEFT) RightInterruptCount--;
+                        if (UpInterruptCount > LeftInterruptCount && LEFT) UpInterruptCount--;
+                        if (DownInterruptCount > LeftInterruptCount && LEFT) DownInterruptCount--;
                         LEFT = false;
                         LeftInterruptCount = 0;
                         break;
                     case KeyEvent.VK_G:
                         isRightReleased = true;
-                        if (UpInterruptCount > RightInterruptCount && RIGHT == true) UpInterruptCount--;
-                        if (LeftInterruptCount > RightInterruptCount && RIGHT == true) LeftInterruptCount--;
-                        if (DownInterruptCount > RightInterruptCount && RIGHT == true) DownInterruptCount--;
+                        if (UpInterruptCount > RightInterruptCount && RIGHT) UpInterruptCount--;
+                        if (LeftInterruptCount > RightInterruptCount && RIGHT) LeftInterruptCount--;
+                        if (DownInterruptCount > RightInterruptCount && RIGHT) DownInterruptCount--;
                         RIGHT = false;
                         RightInterruptCount = 0;
                         break;

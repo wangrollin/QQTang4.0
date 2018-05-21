@@ -4,11 +4,14 @@ import constants.GameConstants;
 import element.Maps;
 import element.MusicTool;
 import element.Wall;
+import element.WallMapTool;
 import panel.MyPanelCard;
 import player.AI;
 import player.AIModePlayer;
+import player.JingjiModePlayer;
 import player.Player;
 
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,29 +28,24 @@ public class BattleAIPanel extends JPanel {
     private MyPanelCard myPanelCard;
     private CardLayout cardLayout;
 
-
-
     private JButton gobackBtn, exitBtn;
     //时间监听毫秒
-    private final int DELAY = 15;
+    private static final int DELAY = 15;
     //时间老人
-    Timer timer;
-    //地图
-    //private element.Maps maps;
+    private Timer timer;
+
     private Maps maps = new Maps();
 
-    public void setWallMap(Wall[][] wallMap) {
-        this.maps.setWallMap(wallMap);
-    }
-    public void setGroundType(int groundType) {
-        this.maps.setGroundType(groundType);
+
+    public void setGroundIconByType(int groundType) {
+        this.maps.setGroundIconByType(groundType);
     }
     //人物登场
-    public static AIModePlayer p1;
-    public static AI p6;
-    public Player getPlayer1() {
-        return p1;
-    }
+    private AIModePlayer p1;
+    private AI p2;
+    //public Player getPlayer1() {
+    //    return p1;
+    //}
     private Random aa;
     protected int safe = -1, timecount = 0, jineng = 0, suiji, suiji2, wushi = 0, weizhi;
 
@@ -55,13 +53,13 @@ public class BattleAIPanel extends JPanel {
         p1.setJudgeXPosition(75);
         p1.setJudgeYPosition(25);
         Random random = new Random();
-        p6.setJudgeXPosition(random.nextInt(500) + 50);
-        p6.setJudgeYPosition(random.nextInt(300) + 50);
-        while (maps.isWall(p6.getHeng(), p6.getShu()) ||
-                (p6.getHeng() == p1.getHeng() &&
-                        p6.getShu() == p1.getShu())) {
-            p6.setJudgeXPosition(random.nextInt(500) + 50);
-            p6.setJudgeYPosition(random.nextInt(300) + 50);
+        p2.setJudgeXPosition(random.nextInt(500) + 50);
+        p2.setJudgeYPosition(random.nextInt(300) + 50);
+        while (maps.isWall(p2.getHeng(), p2.getShu()) ||
+                (p2.getHeng() == p1.getHeng() &&
+                        p2.getShu() == p1.getShu())) {
+            p2.setJudgeXPosition(random.nextInt(500) + 50);
+            p2.setJudgeYPosition(random.nextInt(300) + 50);
         }
     }
 
@@ -78,42 +76,82 @@ public class BattleAIPanel extends JPanel {
         exitBtn = new JButton(new ImageIcon("exit1.png"));
         exitBtn.setBounds(510, 10, 130, 50);
         add(exitBtn);
-        MusicTool.Musicload();
 
-        //maps = new element.Maps();
-        p1 = new AIModePlayer(maps);
-        p6 = new AI(maps);
+        p1 = new AIModePlayer(maps, p2);
+        p2 = new AI(maps, p1);
+
         timer = new Timer(DELAY, new Mytime());
         setLayout(null);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
         timer.start();
     }
+    public void setWallMapAndWallMapType(Wall[][] wallMap, int wallMapType) {
+        this.maps.setWallMap(wallMap, wallMapType);
+    }
+    public void closeGameAndJumpAway(String panelName, AudioClip bgmToPlay) {
+        MusicTool.stopAllMusic();
+        myPanelCard.removeKeyListener(p1);
+        p1 = null;
+        p2 = null;
+
+        cardLayout.show(myPanelCard, panelName);
+        bgmToPlay.play();
+    }
+    public void initAndShowAndStartGame() {
+        /**
+         * init maps
+         */
+        maps = new Maps();
+        setWallMapAndWallMapType(WallMapTool.copyWallMap(myPanelCard.getWallMap()), myPanelCard.getWallMapType());
+        setGroundIconByType(myPanelCard.getGroundType());
+
+        /**
+         * init players
+         */
+        p1 = new AIModePlayer(maps, p2);
+        p2 = new AI(maps, p1);
+        initPlayerPosition();
+        myPanelCard.addKeyListener(p1);
+
+
+        safe = -1;
+        timecount = 0;
+        jineng = 0;
+        wushi = 0;
+        weizhi = p2.getPlayerQuadrant();
+
+        cardLayout.show(myPanelCard, "battleAIPanel");
+
+        /**
+         * play music, loop bgm
+         */
+        MusicTool.READ_GO.play();
+        if (this.maps.getWallMapType() == GameConstants.BIWU_MAP) {
+            MusicTool.AI_MODE_BGM.loop();
+        }
+    }
 
     public void paintComponent(Graphics page) {
         super.paintComponent(page);
 
-        if (p6.beexp() == true) {
-            MusicTool.stop();
-            MusicTool.music[8].loop();
-            //panel.MyPanelCard.cardLayout.show(panel.Play.panel, "fighterWinPanel");
-            cardLayout.show(myPanelCard, "fighterWinPanel");
+        // TODO
+        if (p2.isBeBombed()) {
+            closeGameAndJumpAway("fighterWinPanel", MusicTool.WINNING_BGM);
+        } else if (p1.toDie()) {
+            closeGameAndJumpAway("fighterLosePanel", MusicTool.LOSING_BGM);
         }
-
 
         maps.getBiwumenIcon().paintIcon(this, page, 0, 0);
         maps.getGroundIcon().paintIcon(this, page, 0, 200);
         //不断刷新的
         p1.move();
-        if (p1.toDie()) {
-            //panel.MyPanelCard.cardLayout.show(panel.Play.panel, "fighterLosePanel");
-            cardLayout.show(myPanelCard, "fighterLosePanel");
-        }
+
         p1.pickupItem();
         p1.beBombed();
         p1.transformToOrigin();
 
-        p6.doing();
+        p2.doing();
 
         if (safe == 0) {
             //攻击
@@ -121,11 +159,11 @@ public class BattleAIPanel extends JPanel {
             if (wushi == 0) {
                 suiji = aa.nextInt(100);
                 suiji2 = aa.nextInt(100);
-                weizhi = p6.getPlayerQuadrant();
+                weizhi = p2.getPlayerQuadrant();
                 wushi = 1;
 
                 if (weizhi == 0) {
-                    if (p6.danhuaSafe()) jineng = 3;
+                    if (p2.danhuaSafe()) jineng = 3;
                     else if (suiji > 50) jineng = 1;
                     else jineng = 2;
                 }
@@ -151,32 +189,32 @@ public class BattleAIPanel extends JPanel {
             else {
                 if (jineng == 1) {
                     if (weizhi == 0 || weizhi == 1) {
-                        if (p6.attackUpRight(timecount) == -1) {
-                            safe = p6.safecheck();
+                        if (p2.attackUpRight(timecount) == -1) {
+                            safe = p2.safecheck();
                             timecount = 0;
                             weizhi = -1;
                             wushi = 0;
                             jineng = 0;
                         } else ++timecount;
                     } else if (weizhi == 2) {
-                        if (p6.attackUpLeft(timecount) == -1) {
-                            safe = p6.safecheck();
+                        if (p2.attackUpLeft(timecount) == -1) {
+                            safe = p2.safecheck();
                             timecount = 0;
                             weizhi = -1;
                             wushi = 0;
                             jineng = 0;
                         } else ++timecount;
                     } else if (weizhi == 3) {
-                        if (p6.attackDownLeft(timecount) == -1) {
-                            safe = p6.safecheck();
+                        if (p2.attackDownLeft(timecount) == -1) {
+                            safe = p2.safecheck();
                             timecount = 0;
                             weizhi = -1;
                             wushi = 0;
                             jineng = 0;
                         } else ++timecount;
                     } else if (weizhi == 4) {
-                        if (p6.attackDownRight(timecount) == -1) {
-                            safe = p6.safecheck();
+                        if (p2.attackDownRight(timecount) == -1) {
+                            safe = p2.safecheck();
                             timecount = 0;
                             weizhi = -1;
                             wushi = 0;
@@ -186,16 +224,16 @@ public class BattleAIPanel extends JPanel {
                 } else if (jineng == 2) {
                     if (weizhi == 0 || weizhi == 1) {
                         if (suiji2 > 50) {
-                            if (p6.attackUp(timecount) == -1) {
-                                safe = p6.safecheck();
+                            if (p2.attackUp(timecount) == -1) {
+                                safe = p2.safecheck();
                                 timecount = 0;
                                 weizhi = -1;
                                 wushi = 0;
                                 jineng = 0;
                             } else ++timecount;
                         } else {
-                            if (p6.attackRight(timecount) == -1) {
-                                safe = p6.safecheck();
+                            if (p2.attackRight(timecount) == -1) {
+                                safe = p2.safecheck();
                                 timecount = 0;
                                 weizhi = -1;
                                 wushi = 0;
@@ -204,16 +242,16 @@ public class BattleAIPanel extends JPanel {
                         }
                     } else if (weizhi == 2) {
                         if (suiji2 > 50) {
-                            if (p6.attackUp(timecount) == -1) {
-                                safe = p6.safecheck();
+                            if (p2.attackUp(timecount) == -1) {
+                                safe = p2.safecheck();
                                 timecount = 0;
                                 weizhi = -1;
                                 wushi = 0;
                                 jineng = 0;
                             } else ++timecount;
                         } else {
-                            if (p6.attackLeft(timecount) == -1) {
-                                safe = p6.safecheck();
+                            if (p2.attackLeft(timecount) == -1) {
+                                safe = p2.safecheck();
                                 timecount = 0;
                                 weizhi = -1;
                                 wushi = 0;
@@ -222,16 +260,16 @@ public class BattleAIPanel extends JPanel {
                         }
                     } else if (weizhi == 3) {
                         if (suiji2 > 50) {
-                            if (p6.attackLeft(timecount) == -1) {
-                                safe = p6.safecheck();
+                            if (p2.attackLeft(timecount) == -1) {
+                                safe = p2.safecheck();
                                 timecount = 0;
                                 weizhi = -1;
                                 wushi = 0;
                                 jineng = 0;
                             } else ++timecount;
                         } else {
-                            if (p6.attackDown(timecount) == -1) {
-                                safe = p6.safecheck();
+                            if (p2.attackDown(timecount) == -1) {
+                                safe = p2.safecheck();
                                 timecount = 0;
                                 weizhi = -1;
                                 wushi = 0;
@@ -240,16 +278,16 @@ public class BattleAIPanel extends JPanel {
                         }
                     } else if (weizhi == 4) {
                         if (suiji2 > 50) {
-                            if (p6.attackDown(timecount) == -1) {
-                                safe = p6.safecheck();
+                            if (p2.attackDown(timecount) == -1) {
+                                safe = p2.safecheck();
                                 timecount = 0;
                                 weizhi = -1;
                                 wushi = 0;
                                 jineng = 0;
                             } else ++timecount;
                         } else {
-                            if (p6.attackRight(timecount) == -1) {
-                                safe = p6.safecheck();
+                            if (p2.attackRight(timecount) == -1) {
+                                safe = p2.safecheck();
                                 timecount = 0;
                                 weizhi = -1;
                                 wushi = 0;
@@ -258,8 +296,8 @@ public class BattleAIPanel extends JPanel {
                         }
                     }
                 } else if (jineng == 3) {
-                    if (p6.danhua(timecount) == -1) {
-                        safe = p6.safecheck();
+                    if (p2.danhua(timecount) == -1) {
+                        safe = p2.safecheck();
                         timecount = 0;
                         weizhi = -1;
                         wushi = 0;
@@ -271,36 +309,36 @@ public class BattleAIPanel extends JPanel {
         } else if (safe == -1) {
             //逃跑
             suiji = aa.nextInt(1000);
-            if (suiji > 990) p6.scatterItemFox();
-            if (p6.findway() == 1) p6.goUp();
-            else if (p6.findway() == 2) p6.goLeft();
-            else if (p6.findway() == 3) p6.goDown();
-            else if (p6.findway() == 4) p6.goRight();
+            if (suiji > 990) p2.scatterItemFox();
+            if (p2.findway() == 1) p2.goUp();
+            else if (p2.findway() == 2) p2.goLeft();
+            else if (p2.findway() == 3) p2.goDown();
+            else if (p2.findway() == 4) p2.goRight();
 
-            else if (p6.findway() == 0) {
-                safe = p6.safecheck();
-            } else if (p6.findway() == -2) {
+            else if (p2.findway() == 0) {
+                safe = p2.safecheck();
+            } else if (p2.findway() == -2) {
             }
 
         } else if (safe == 1) {
             //safe==1   啥都不做
-            safe = p6.safecheck();
-            if (p6.weixian(p6.getHeng(), p6.getShu())) safe = 5;
+            safe = p2.safecheck();
+            if (p2.isNearWithHumanPlayer()) safe = 5;
         } else {
             //safe==5 躲开人喽
             suiji = aa.nextInt(10000);
-            if (suiji > 9990) p6.scatterItemFox();
-            if (p6.getaway() == 0) {
-            } else if (p6.getaway() == 1) {
-                p6.goUp();
-            } else if (p6.getaway() == 2) {
-                p6.goLeft();
-            } else if (p6.getaway() == 3) {
-                p6.goDown();
-            } else if (p6.getaway() == 4) {
-                p6.goRight();
+            if (suiji > 9990) p2.scatterItemFox();
+            if (p2.getaway() == 0) {
+            } else if (p2.getaway() == 1) {
+                p2.goUp();
+            } else if (p2.getaway() == 2) {
+                p2.goLeft();
+            } else if (p2.getaway() == 3) {
+                p2.goDown();
+            } else if (p2.getaway() == 4) {
+                p2.goRight();
             }
-            safe = p6.safecheck();
+            safe = p2.safecheck();
         }
         ////////////////////////////////////////////////////////////////
 
@@ -330,8 +368,8 @@ public class BattleAIPanel extends JPanel {
                 if (p1.getHeng() == i && p1.getShu() == j)
                     p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
 
-                if (p6.getHeng() == i && p6.getShu() == j)
-                    p6.currentPlayerIcon.paintIcon(this, page, p6.getx(), p6.gety() + 200);
+                if (p2.getHeng() == i && p2.getShu() == j)
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
             }
 
     }

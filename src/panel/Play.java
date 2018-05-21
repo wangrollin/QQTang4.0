@@ -22,7 +22,6 @@ public class Play extends JFrame {
         pack();
         setVisible(true);
 
-        MusicTool.music[9].loop();
         setResizable(false);
 
     }

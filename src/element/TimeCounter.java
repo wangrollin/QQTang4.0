@@ -2,10 +2,10 @@ package element;
 
 public class TimeCounter {
 
-    public static int minute = 3, scond = 0;
-    public static boolean over = false;
-    private static int oneSecond = 0;
-    private static final int OneSecond = 100;
+    public int minute = 3, scond = 0;
+    public boolean over = false;
+    private int oneSecond = 0;
+    private final int OneSecond = 100;
 
     public void count() {
         if (!over) {
