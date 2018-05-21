@@ -216,33 +216,37 @@ public class BattleBiwuPanel extends JPanel {
         //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具
         for (int j = 0; j < GameConstants.SHU; j++)
             for (int i = 0; i < GameConstants.HENG; i++) {
-                if (maps.getBallMap()[i][j] != null) {
-                    maps.getBallMap()[i][j].getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
-                    maps.getBallMap()[i][j].addTime();
+                if (maps.isBall(i, j)) {
+                    maps.getBall(i, j).getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
+                    maps.getBall(i, j).addTime();
                 }
-                if (maps.getWallMap()[i][j] != null && (!maps.getWallMap()[i][j].isRuined()))
-                    maps.getWallMap()[i][j].getWallIcon().paintIcon(this, page, i * 50, j * 50 - 12 + 200);
-                if (maps.getDaojuMap()[i][j] != null) {
-                    maps.getDaojuMap()[i][j].getNow().paintIcon(this, page, i * 50, j * 50 + 200);
-                    //maps.getDaojuMap()[i][j].beExo();
+
+                if (maps.isWall(i, j) && (!maps.getWall(i, j).isRuined())) {
+                    maps.getWall(i, j).getWallIcon().paintIcon(this, page, i * 50, j * 50 - 12 + 200);
                 }
-                if (maps.getExplosionMap()[i][j] != null) {
-                    maps.getExplosionMap()[i][j].getImage().paintIcon(this, page, i * 50, j * 50 + 200);
-                    maps.getExplosionMap()[i][j].addTime();
+
+                if (maps.isItem(i, j)) {
+                    maps.getItem(i, j).getItemIcon().paintIcon(this, page, i * 50, j * 50 + 200);
                 }
+
+                if (maps.isExplosion(i, j)) {
+                    maps.getExplosion(i, j).getImage().paintIcon(this, page, i * 50, j * 50 + 200);
+                    maps.getExplosion(i, j).addTime();
+                }
+
                 if (p1.getHeng() == i && p1.getShu() == j && p2.getShu() != j)
-                    p1.now.paintIcon(this, page, p1.getx(), p1.gety() + 200);
+                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
                 if (p2.getHeng() == i && p2.getShu() == j && p1.getShu() != j)
-                    p2.now.paintIcon(this, page, p2.getx(), p2.gety() + 200);
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
                 if (p2.getJudgeXPosition() == i && p2.getJudgeYPosition() == j)
-                    p2.now.paintIcon(this, page, p2.getx(), p2.gety() + 200);
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
                 if (p1.getShu() == j && p2.getShu() == j && p1.getJudgeYPosition() > p2.getJudgeYPosition()) {
-                    p2.now.paintIcon(this, page, p2.getx(), p2.gety() + 200);
-                    p1.now.paintIcon(this, page, p1.getx(), p1.gety() + 200);
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
+                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
                 }
                 if (p1.getShu() == j && p2.getShu() == j && p1.getJudgeYPosition() <= p2.getJudgeYPosition()) {
-                    p1.now.paintIcon(this, page, p1.getx(), p1.gety() + 200);
-                    p2.now.paintIcon(this, page, p2.getx(), p2.gety() + 200);
+                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
                 }
             }
 

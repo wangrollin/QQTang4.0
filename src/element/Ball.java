@@ -26,7 +26,7 @@ public class Ball {
     private Maps maps;
     public Ball(Player player, int heng, int shu, int power, ImageIcon icon, Maps maps) {
         this.player = player;
-        player.addCount();
+        player.addUsedBallCount();
 
         this.heng = heng;
         this.shu = shu;
@@ -34,8 +34,8 @@ public class Ball {
         this.ballIcon = icon;
         this.maps = maps;
 
-        maps.getBallMap()[heng][shu] = this;
-        this.just = maps.getExplosionMap()[heng][shu];
+        maps.setBall(heng, shu, this);
+        this.just = maps.getExplosion(heng, shu);
     }
 
     public int getPower() {
@@ -48,9 +48,10 @@ public class Ball {
 
     public void addTime() {
         timeCounter += 1;
-        if (timeCounter == MAX_TIME || (maps.isExp(heng, shu) && just != maps.getExplosionMap()[heng][shu])) {
+        if (timeCounter == MAX_TIME
+                || (maps.isExplosion(heng, shu) && just != maps.getExplosion(heng, shu))) {
             booit();
-            remove();
+            removeBallSelf();
         }
     }
 
@@ -62,7 +63,7 @@ public class Ball {
         //0能炸过去     1遇到了墙能炸碎     2遇到了便边界 或者炸不碎的墙
         //s
         for (int i = 1; i <= power; i++) {
-            if (cangos(i) == 0) {
+            if (canExplodeDown(i) == 0) {
                 if (i == power) {
                     //maps.getExplosionMap()[heng][shu + i] = new Explosion(heng, shu + i, "s", maps);
                     new Explosion(heng, shu + i, "s", maps);
@@ -71,15 +72,15 @@ public class Ball {
                     //maps.getExplosionMap()[heng][shu + i] = new Explosion(heng, shu + i, "zs", maps);
                     new Explosion(heng, shu + i, "zs", maps);
                 }
-                maps.getDaojuMap()[heng][shu + i] = null;
+                maps.removeItem(heng, shu + i);
             }
-            if (cangos(i) == 1) {
-                maps.getWallMap()[heng][shu + i].beRuined();
+            if (canExplodeDown(i) == 1) {
+                maps.getWall(heng, shu + i).beRuined();
                 //maps.getExplosionMap()[heng][shu + i] = new Explosion(heng, shu + i, "ss", maps);
                 new Explosion(heng, shu + i, "ss", maps);
                 break;
             }
-            if (cangos(i) == 2) {
+            if (canExplodeDown(i) == 2) {
                 if (i != 1) {
                     //maps.getExplosionMap()[heng][shu + i - 1] = new Explosion(heng, shu + i - 1, "zs", maps);
                     new Explosion(heng, shu + i - 1, "zs", maps);
@@ -89,7 +90,7 @@ public class Ball {
         }
         //w
         for (int i = 1; i <= power; i++) {
-            if (cangow(i) == 0) {
+            if (canExplodeUp(i) == 0) {
                 if (i == power) {
                     //maps.getExplosionMap()[heng][shu - i] = new Explosion(heng, shu - i, "w", maps);
                     new Explosion(heng, shu - i, "w", maps);
@@ -98,15 +99,15 @@ public class Ball {
                     //maps.getExplosionMap()[heng][shu - i] = new Explosion(heng, shu - i, "zw", maps);
                     new Explosion(heng, shu - i, "zw", maps);
                 }
-                maps.getDaojuMap()[heng][shu - i] = null;
+                maps.removeItem(heng, shu - i);
             }
-            if (cangow(i) == 1) {
-                maps.getWallMap()[heng][shu - i].beRuined();
+            if (canExplodeUp(i) == 1) {
+                maps.getWall(heng, shu - i).beRuined();
                 //maps.getExplosionMap()[heng][shu - i] = new Explosion(heng, shu - i, "sw", maps);
                 new Explosion(heng, shu - i, "sw", maps);
                 break;
             }
-            if (cangow(i) == 2) {
+            if (canExplodeUp(i) == 2) {
                 if (i != 1) {
                     //maps.getExplosionMap()[heng][shu - i + 1] = new Explosion(heng, shu - i + 1, "zw", maps);
                     new Explosion(heng, shu - i + 1, "zw", maps);
@@ -116,27 +117,24 @@ public class Ball {
         }
         //a
         for (int i = 1; i <= power; i++) {
-            if (cangoa(i) == 0) {
+            if (canExplodeLeft(i) == 0) {
                 if (i == power) {
                     //maps.getExplosionMap()[heng - i][shu] = new Explosion(heng - i, shu, "a", maps);
                     new Explosion(heng - i, shu, "a", maps);
                 }
 
                 if (i != power) {
-                    //maps.getExplosionMap()[heng - i][shu] = new Explosion(heng - i, shu, "za", maps);
                     new Explosion(heng - i, shu, "za", maps);
                 }
-                maps.getDaojuMap()[heng - i][shu] = null;
+                maps.removeItem(heng - i, shu);
             }
-            if (cangoa(i) == 1) {
-                maps.getWallMap()[heng - i][shu].beRuined();
-                //maps.getExplosionMap()[heng - i][shu] = new Explosion(heng - i, shu, "sa", maps);
+            if (canExplodeLeft(i) == 1) {
+                maps.getWall(heng - i, shu).beRuined();
                 new Explosion(heng - i, shu, "sa", maps);
                 break;
             }
-            if (cangoa(i) == 2) {
+            if (canExplodeLeft(i) == 2) {
                 if (i != 1) {
-                    //maps.getExplosionMap()[heng - i + 1][shu] = new Explosion(heng - i + 1, shu, "za", maps);
                     new Explosion(heng - i + 1, shu, "za", maps);
                 }
                 break;
@@ -144,26 +142,22 @@ public class Ball {
         }
         //d
         for (int i = 1; i <= power; i++) {
-            if (cangod(i) == 0) {
+            if (canExplodeRight(i) == 0) {
                 if (i == power) {
-                    //maps.getExplosionMap()[heng + i][shu] = new Explosion(heng + i, shu, "d", maps);
                     new Explosion(heng + i, shu, "d", maps);
                 }
                 if (i != power) {
-                    //maps.getExplosionMap()[heng + i][shu] = new Explosion(heng + i, shu, "zd", maps);
                     new Explosion(heng + i, shu, "zd", maps);
                 }
-                maps.getDaojuMap()[heng + i][shu] = null;
+                maps.removeItem(heng + i, shu);
             }
-            if (cangod(i) == 1) {
-                maps.getWallMap()[heng + i][shu].beRuined();
-                //maps.getExplosionMap()[heng + i][shu] = new Explosion(heng + i, shu, "sd", maps);
+            if (canExplodeRight(i) == 1) {
+                maps.getWall(heng + i, shu).beRuined();
                 new Explosion(heng + i, shu, "sd", maps);
                 break;
             }
-            if (cangod(i) == 2) {
+            if (canExplodeRight(i) == 2) {
                 if (i != 1) {
-                    //maps.getExplosionMap()[heng + i - 1][shu] = new Explosion(heng + i - 1, shu, "zd", maps);
                     new Explosion(heng + i - 1, shu, "zd", maps);
                 }
                 break;
@@ -171,43 +165,43 @@ public class Ball {
         }
     }
 
-    private void remove() {
-        this.maps.getBallMap()[heng][shu] = null;
-        this.player.subCount();
+    private void removeBallSelf() {
+        this.maps.removeBall(heng, shu);
+        this.player.subUsedBallCount();
     }
 
     //返回 int  0能炸过去     1遇到了墙能炸碎     2遇到了便边界 或者炸不碎的墙
-    private int cangow(int i) {
+    private int canExplodeUp(int i) {
         if (shu - i >= 0 && (!maps.isWall(heng, shu - i)))
             return 0;
-        else if (shu - i >= 0 && maps.isWall(heng, shu - i) && maps.getWallMap()[heng][shu - i].isBreakable())
+        else if (shu - i >= 0 && maps.isWall(heng, shu - i) && maps.getWall(heng, shu - i).isBreakable())
             return 1;
         else
             return 2;
     }
 
-    private int cangos(int i) {        //墙 和边界
+    private int canExplodeDown(int i) {        //墙 和边界
         if (shu + i <= 7 && (!maps.isWall(heng, shu + i)))
             return 0;
-        else if (shu + i <= 7 && maps.isWall(heng, shu + i) && maps.getWallMap()[heng][shu + i].isBreakable())
+        else if (shu + i <= 7 && maps.isWall(heng, shu + i) && maps.getWall(heng, shu + i).isBreakable())
             return 1;
         else
             return 2;
     }
 
-    private int cangoa(int i) {
+    private int canExplodeLeft(int i) {
         if (heng - i >= 0 && (!maps.isWall(heng - i, shu)))
             return 0;
-        else if (heng - i >= 0 && maps.isWall(heng - i, shu) && maps.getWallMap()[heng - i][shu].isBreakable())
+        else if (heng - i >= 0 && maps.isWall(heng - i, shu) && maps.getWall(heng - i, shu).isBreakable())
             return 1;
         else
             return 2;
     }
 
-    private int cangod(int i) {
+    private int canExplodeRight(int i) {
         if (heng + i <= 12 && (!maps.isWall(heng + i, shu)))
             return 0;
-        else if (heng + i <= 12 && maps.isWall(heng + i, shu) && maps.getWallMap()[heng + i][shu].isBreakable())
+        else if (heng + i <= 12 && maps.isWall(heng + i, shu) && maps.getWall(heng + i ,shu).isBreakable())
             return 1;
         else
             return 2;

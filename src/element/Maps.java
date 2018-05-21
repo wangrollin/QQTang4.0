@@ -36,13 +36,13 @@ public class Maps {
     private Wall[][] wallMap;
     private Explosion[][] explosionMap;
     private Ball[][] ballMap;
-    private Daoju[][] daojuMap;
+    private Item[][] itemMap;
 
     public Maps() {
         wallMap = new Wall[GameConstants.HENG][GameConstants.SHU];
         ballMap = new Ball[GameConstants.HENG][GameConstants.SHU];
         explosionMap = new Explosion[GameConstants.HENG][GameConstants.SHU];
-        daojuMap = new Daoju[GameConstants.HENG][GameConstants.SHU];
+        itemMap = new Item[GameConstants.HENG][GameConstants.SHU];
     }
 
     //背景图片
@@ -54,30 +54,47 @@ public class Maps {
         return biwumenIcon;
     }
 
-    //墙的
+    /**
+     * check
+     */
     public boolean isWall(int heng, int shu) {
-        if (wallMap[heng][shu] == null) return false;
-        else return true;
+        return !(wallMap[heng][shu] == null);
     }
 
-    //道具的
-    public boolean isDaoju(int heng, int shu) {
-        if (daojuMap[heng][shu] == null) return false;
-        else return true;
+    public boolean isItem(int heng, int shu) {
+        return !(itemMap[heng][shu] == null);
     }
 
-    //炸弹的
-    public boolean isBoom(int heng, int shu) {
-        if (ballMap[heng][shu] == null) return false;
-        else return true;
+    public boolean isBall(int heng, int shu) {
+        return !(ballMap[heng][shu] == null);
     }
 
-    ////爆炸中
-    public boolean isExp(int heng, int shu) {
-        if (explosionMap[heng][shu] == null) return false;
-        else return true;
+    public boolean isExplosion(int heng, int shu) {
+        return !(explosionMap[heng][shu] == null);
     }
 
+    /**
+     * get
+     */
+    public Ball getBall(int heng, int shu) {
+        return ballMap[heng][shu];
+    }
+
+    public Wall getWall(int heng, int shu) {
+        return wallMap[heng][shu];
+    }
+
+    public Item getItem(int heng, int shu) {
+        return itemMap[heng][shu];
+    }
+
+    public Explosion getExplosion(int heng, int shu) {
+        return explosionMap[heng][shu];
+    }
+
+    /**
+     * remove
+     */
     public void removeWall(int heng, int shu) {
         this.wallMap[heng][shu] = null;
     }
@@ -90,20 +107,42 @@ public class Maps {
         this.ballMap[heng][shu] = null;
     }
 
-    public void removeDaoju(int heng, int shu) {
-        this.daojuMap[heng][shu] = null;
+    public void removeItem(int heng, int shu) {
+        this.itemMap[heng][shu] = null;
     }
 
-    public void clearDaojuIfInExplosion(int heng, int shu) {
+    /**
+     * set
+     */
+    public void setWall(int heng, int shu, Wall wall) {
+        this.wallMap[heng][shu] = wall;
+    }
+
+    public void setExplosion(int heng, int shu, Explosion explosion) {
+        this.explosionMap[heng][shu] = explosion;
+    }
+
+    public void setBall(int heng, int shu, Ball ball) {
+        this.ballMap[heng][shu] = ball;
+    }
+
+    public void setItem(int heng, int shu, Item item) {
+        this.itemMap[heng][shu] = item;
+    }
+
+
+
+
+    public void clearItemIfInExplosion(int heng, int shu) {
         if (this.explosionMap[heng][shu] != null)
-            this.daojuMap[heng][shu] = null;
+            this.itemMap[heng][shu] = null;
     }
 
-    public Wall[][] getWallMap() {
+    /*public Wall[][] getWallMap() {
         return wallMap;
-    }
+    }*/
 
-    public Explosion[][] getExplosionMap() {
+    /*public Explosion[][] getExplosionMap() {
         return explosionMap;
     }
 
@@ -111,9 +150,9 @@ public class Maps {
         return ballMap;
     }
 
-    public Daoju[][] getDaojuMap() {
-        return daojuMap;
-    }
+    public Item[][] getItemMap() {
+        return itemMap;
+    }*/
 
     public void setWallMap(Wall[][] wallMap) {
         this.wallMap = wallMap;

@@ -34,7 +34,7 @@ public class Explosion {
         this.maps = maps;
 
         setExplosionIcon();
-        maps.getExplosionMap()[heng][shu] = this;
+        maps.setExplosion(heng, shu, this);
     }
 
     private void setExplosionIcon() {
@@ -100,7 +100,7 @@ public class Explosion {
             if (position.equals("sw") || position.equals("sd") || position.equals("ss")
                     || position.equals("sa")) {
                 creatDaoju();
-                maps.getWallMap()[heng][shu] = null;
+                maps.removeWall(heng, shu);
             }
             remove();
         }
@@ -110,7 +110,7 @@ public class Explosion {
         Random random = new Random();
         int has = random.nextInt(3);
         if (has == 0 || has == 1) {
-            maps.getDaojuMap()[heng][shu] = new Daoju();
+            maps.setItem(heng, shu, new Item());
         }
     }
 
@@ -119,6 +119,6 @@ public class Explosion {
     }
 
     public void remove() {
-        maps.getExplosionMap()[heng][shu] = null;
+        maps.removeExplosion(heng, shu);
     }
 }

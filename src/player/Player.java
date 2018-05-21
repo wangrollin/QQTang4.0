@@ -1,6 +1,7 @@
 package player;
 
 import constants.GameConstants;
+import element.Item;
 import element.Maps;
 import element.Ball;
 import element.MusicTool;
@@ -19,30 +20,35 @@ public class Player implements KeyListener {
     }
 
     //现在放下去的糖泡的数量
-    private int count = 0;
+    private int usedBallCount = 0;
 
     //各种道具的最大量
-    protected static final int MAXamount = 10, MAXpower = 8, MAXspeed = 3, MAXfork = 3;
-
+    public static final int MAX_BALL_CAPACITY = 10, MAX_BALL_POWER = 8, MAX_SPEED = 3, MAX_FORK_NUMBER = 3;
 
     //各种道具的持有量  收集用这个
     int namount = 2, npower = 1, nspeed = 1;
-    //protected int namount=10,npower=5,nspeed=4;
     //各种道具的持有量 最终显示效果用这个改变这个
     int amount = 2, power = 1, speed = 1, fork = 0;
+
     //各个时期的玩家图片
-    public ImageIcon now, pa, ps, pd, pw, pkunzhu, pdie, pwin, w, a, s, d;
+    public ImageIcon currentPlayerIcon;
+    public ImageIcon currentGoUpIcon, currentGoLeftIcon, currentGoDownIcon, currentGoRightIcon;
+    public ImageIcon originGoLeftIcon, originGoDownIcon, orginGoRightIcon, originGoUpIcon;
+    public ImageIcon originGoLeftFlashIcon, originGoDownFlashIcon, orginGoRightFlashIcon, originGoUpFlashIcon;
+    public ImageIcon stuckIcon, deadIcon, winningIcon;
+
     //特效之后的样子
-    private ImageIcon fengw, fenga, fengs, fengd;
-    private ImageIcon paow, paoa, paos, paod;
-    private ImageIcon guiw, guia, guis, guid;
-    private ImageIcon zhuw, zhua, zhus, zhud;
+    private ImageIcon windGoUpIcon, windGoLeftIcon, windGoDownIcon, windGoRightIcon;
+    private ImageIcon candyGoUpIcon, candyGoLeftIcon, candyGoDownIcon, candyGoRightIcon;
+    private ImageIcon ghostGoUpIcon, ghostGoLeftIcon, ghostGoDownIcon, ghostGoRightIcon;
+    private ImageIcon foxGoUpIcon, foxGoLeftIcon, foxGoDownIcon, foxGoRightIcon;
     //闪图
-    private ImageIcon sfengw, sfenga, sfengs, sfengd;
-    private ImageIcon spaow, spaoa, spaos, spaod;
-    private ImageIcon sguiw, sguia, sguis, sguid;
-    private ImageIcon szhuw, szhua, szhus, szhud;
-    ImageIcon spa, sps, spd, spw;
+    private ImageIcon windGoUpFlashIcon, windGoLeftFlashIcon, windGoDownFlashIcon, windGoRightFlashIcon;
+    private ImageIcon candyGoUpFlashIcon, candyGoLeftFlashIcon, candyGoDownFlashIcon, candyGoRightFlashIcon;
+    private ImageIcon ghostGoUpFlashIcon, ghostGoLeftFlashIcon, ghostGoDownFlashIcon, ghostGoRightFlashIcon;
+    private ImageIcon foxGoUpFlashIcon, foxGoLeftFlashIcon, foxGoDownFlashIcon, foxGoRightFlashIcon;
+
+
     //玩家专属糖泡
     ImageIcon ballIcon;
     //xy表示贴图坐标  XY表示判定位置
@@ -62,7 +68,7 @@ public class Player implements KeyListener {
     //变身总时间
     private static final int TRANSFORM_MAX_TIME = 1000;
     //计算变身时间
-    int bianshentime = 0;
+    int transformTime = 0;
     //变成什么啦？     0原来的样子 1风 2泡 3鬼 4猪   5困住了  6死掉啦  7胜利啦
     public int outlooking = 0;
     public static final int OUTLOOKING_ORIGIN = 0;
@@ -88,7 +94,7 @@ public class Player implements KeyListener {
     public static final int BEFORE_DIE_TIME = 600;
     //无敌时间
     int flashTime = 0;
-    public static final int FLASH_TIME = 300;
+    public static final int FLASH_MAX_TIME = 300;
 
     private int playerNumber;
 
@@ -99,184 +105,180 @@ public class Player implements KeyListener {
     public Player(int playNumber, Maps maps) {
         this.playerNumber = playNumber;
         this.maps = maps;
-        //三个特效人物
-        fengw = new ImageIcon("fengw.gif");
-        fengs = new ImageIcon("fengs.gif");
-        fenga = new ImageIcon("fenga.gif");
-        fengd = new ImageIcon("fengd.gif");
 
-        paow = new ImageIcon("paow.gif");
-        paoa = new ImageIcon("paoa.gif");
-        paos = new ImageIcon("paos.gif");
-        paod = new ImageIcon("paod.gif");
+        windGoUpIcon = new ImageIcon("fengw.gif");
+        windGoDownIcon = new ImageIcon("fengs.gif");
+        windGoLeftIcon = new ImageIcon("fenga.gif");
+        windGoRightIcon = new ImageIcon("fengd.gif");
+        windGoUpFlashIcon = new ImageIcon("sfengw.gif");
+        windGoDownFlashIcon = new ImageIcon("sfengs.gif");
+        windGoLeftFlashIcon = new ImageIcon("sfenga.gif");
+        windGoRightFlashIcon = new ImageIcon("sfengd.gif");
 
-        zhuw = new ImageIcon("zhuw.gif");
-        zhua = new ImageIcon("zhua.gif");
-        zhus = new ImageIcon("zhus.gif");
-        zhud = new ImageIcon("zhud.gif");
+        candyGoUpIcon = new ImageIcon("paow.gif");
+        candyGoLeftIcon = new ImageIcon("paoa.gif");
+        candyGoDownIcon = new ImageIcon("paos.gif");
+        candyGoRightIcon = new ImageIcon("paod.gif");
+        candyGoUpFlashIcon = new ImageIcon("spaow.gif");
+        candyGoLeftFlashIcon = new ImageIcon("spaoa.gif");
+        candyGoDownFlashIcon = new ImageIcon("spaos.gif");
+        candyGoRightFlashIcon = new ImageIcon("spaod.gif");
 
-        guiw = new ImageIcon("guiw.gif");
-        guia = new ImageIcon("guia.gif");
-        guis = new ImageIcon("guis.gif");
-        guid = new ImageIcon("guid.gif");
-        ////////////
-        sfengw = new ImageIcon("sfengw.gif");
-        sfengs = new ImageIcon("sfengs.gif");
-        sfenga = new ImageIcon("sfenga.gif");
-        sfengd = new ImageIcon("sfengd.gif");
+        ghostGoUpIcon = new ImageIcon("guiw.gif");
+        ghostGoLeftIcon = new ImageIcon("guia.gif");
+        ghostGoDownIcon = new ImageIcon("guis.gif");
+        ghostGoRightIcon = new ImageIcon("guid.gif");
+        ghostGoUpFlashIcon = new ImageIcon("sguiw.gif");
+        ghostGoLeftFlashIcon = new ImageIcon("sguia.gif");
+        ghostGoDownFlashIcon = new ImageIcon("sguis.gif");
+        ghostGoRightFlashIcon = new ImageIcon("sguid.gif");
 
-        spaow = new ImageIcon("spaow.gif");
-        spaoa = new ImageIcon("spaoa.gif");
-        spaos = new ImageIcon("spaos.gif");
-        spaod = new ImageIcon("spaod.gif");
-
-        szhuw = new ImageIcon("szhuw.gif");
-        szhua = new ImageIcon("szhua.gif");
-        szhus = new ImageIcon("szhus.gif");
-        szhud = new ImageIcon("szhud.gif");
-
-        sguiw = new ImageIcon("sguiw.gif");
-        sguia = new ImageIcon("sguia.gif");
-        sguis = new ImageIcon("sguis.gif");
-        sguid = new ImageIcon("sguid.gif");
+        foxGoUpIcon = new ImageIcon("zhuw.gif");
+        foxGoLeftIcon = new ImageIcon("zhua.gif");
+        foxGoDownIcon = new ImageIcon("zhus.gif");
+        foxGoRightIcon = new ImageIcon("zhud.gif");
+        foxGoUpFlashIcon = new ImageIcon("szhuw.gif");
+        foxGoLeftFlashIcon = new ImageIcon("szhua.gif");
+        foxGoDownFlashIcon = new ImageIcon("szhus.gif");
+        foxGoRightFlashIcon = new ImageIcon("szhud.gif");
     }
 
     //决定现在的一套wasd
-    public void setNow() {
+    public void setIconsByOutlooking() {
         switch (outlooking) {
             case OUTLOOKING_ORIGIN:
                 if (flashTime == 0) {
-                    s = ps;
-                    w = pw;
-                    a = pa;
-                    d = pd;
+                    currentGoDownIcon = originGoDownIcon;
+                    currentGoUpIcon = originGoUpIcon;
+                    currentGoLeftIcon = originGoLeftIcon;
+                    currentGoRightIcon = orginGoRightIcon;
                     break;
                 } else {
-                    s = sps;
-                    w = spw;
-                    a = spa;
-                    d = spd;
+                    currentGoDownIcon = originGoDownFlashIcon;
+                    currentGoUpIcon = originGoUpFlashIcon;
+                    currentGoLeftIcon = originGoLeftFlashIcon;
+                    currentGoRightIcon = orginGoRightFlashIcon;
                     break;
                 }
             case OUTLOOKING_WIND:
                 if (flashTime == 0) {
-                    s = fengs;
-                    w = fengw;
-                    a = fenga;
-                    d = fengd;
+                    currentGoDownIcon = windGoDownIcon;
+                    currentGoUpIcon = windGoUpIcon;
+                    currentGoLeftIcon = windGoLeftIcon;
+                    currentGoRightIcon = windGoRightIcon;
                     break;
                 } else {
-                    s = sfengs;
-                    w = sfengw;
-                    a = sfenga;
-                    d = sfengd;
+                    currentGoDownIcon = windGoDownFlashIcon;
+                    currentGoUpIcon = windGoUpFlashIcon;
+                    currentGoLeftIcon = windGoLeftFlashIcon;
+                    currentGoRightIcon = windGoRightFlashIcon;
                     break;
                 }
             case OUTLOOKING_CANDY:
                 if (flashTime == 0) {
-                    s = paos;
-                    w = paow;
-                    a = paoa;
-                    d = paod;
+                    currentGoDownIcon = candyGoDownIcon;
+                    currentGoUpIcon = candyGoUpIcon;
+                    currentGoLeftIcon = candyGoLeftIcon;
+                    currentGoRightIcon = candyGoRightIcon;
                     break;
                 } else {
-                    s = spaos;
-                    w = spaow;
-                    a = spaoa;
-                    d = spaod;
+                    currentGoDownIcon = candyGoDownFlashIcon;
+                    currentGoUpIcon = candyGoUpFlashIcon;
+                    currentGoLeftIcon = candyGoLeftFlashIcon;
+                    currentGoRightIcon = candyGoRightFlashIcon;
                     break;
                 }
             case OUTLOOKING_GHOST:
                 if (flashTime == 0) {
-                    s = guis;
-                    w = guiw;
-                    a = guia;
-                    d = guid;
+                    currentGoDownIcon = ghostGoDownIcon;
+                    currentGoUpIcon = ghostGoUpIcon;
+                    currentGoLeftIcon = ghostGoLeftIcon;
+                    currentGoRightIcon = ghostGoRightIcon;
                     break;
                 } else {
-                    s = sguis;
-                    w = sguiw;
-                    a = sguia;
-                    d = sguid;
+                    currentGoDownIcon = ghostGoDownFlashIcon;
+                    currentGoUpIcon = ghostGoUpFlashIcon;
+                    currentGoLeftIcon = ghostGoLeftFlashIcon;
+                    currentGoRightIcon = ghostGoRightFlashIcon;
                     break;
                 }
             case OUTLOOKING_FOX:
                 if (flashTime == 0) {
-                    s = zhus;
-                    w = zhuw;
-                    a = zhua;
-                    d = zhud;
+                    currentGoDownIcon = foxGoDownIcon;
+                    currentGoUpIcon = foxGoUpIcon;
+                    currentGoLeftIcon = foxGoLeftIcon;
+                    currentGoRightIcon = foxGoRightIcon;
                     break;
                 } else {
-                    s = szhus;
-                    w = szhuw;
-                    a = szhua;
-                    d = szhud;
+                    currentGoDownIcon = foxGoDownFlashIcon;
+                    currentGoUpIcon = foxGoUpFlashIcon;
+                    currentGoLeftIcon = foxGoLeftFlashIcon;
+                    currentGoRightIcon = foxGoRightFlashIcon;
                     break;
                 }
             case OUTLOOKING_STUCK:
-                s = pkunzhu;
-                w = pkunzhu;
-                a = pkunzhu;
-                d = pkunzhu;
+                currentGoDownIcon = stuckIcon;
+                currentGoUpIcon = stuckIcon;
+                currentGoLeftIcon = stuckIcon;
+                currentGoRightIcon = stuckIcon;
                 break;
             case OUTLOOKING_LOSER:
-                s = pdie;
-                w = pdie;
-                a = pdie;
-                d = pdie;
+                currentGoDownIcon = deadIcon;
+                currentGoUpIcon = deadIcon;
+                currentGoLeftIcon = deadIcon;
+                currentGoRightIcon = deadIcon;
                 break;
 
             case OUTLOOKING_WINNER:
-                s = pwin;
-                w = pwin;
-                a = pwin;
-                d = pwin;
+                currentGoDownIcon = winningIcon;
+                currentGoUpIcon = winningIcon;
+                currentGoLeftIcon = winningIcon;
+                currentGoRightIcon = winningIcon;
                 break;
         }
     }
 
     public void move() {
         if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT && !RIGHT && !LEFT && !DOWN && !UP) {
-            if (now == s) {
-                setNow();
-                now = s;
+            if (currentPlayerIcon == currentGoDownIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoDownIcon;
             }
-            if (now == w) {
-                setNow();
-                now = w;
+            if (currentPlayerIcon == currentGoUpIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoUpIcon;
             }
-            if (now == a) {
-                setNow();
-                now = a;
+            if (currentPlayerIcon == currentGoLeftIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoLeftIcon;
             }
-            if (now == d) {
-                setNow();
-                now = d;
+            if (currentPlayerIcon == currentGoRightIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoRightIcon;
             }
         }
-        setNow();
+        setIconsByOutlooking();
         if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT && outlooking != OUTLOOKING_GHOST) {
             if (outlooking != OUTLOOKING_WIND) {
                 speed = nspeed;
             }
             if (RIGHT && RightInterruptCount == 0) {
-                now = d;
+                currentPlayerIcon = currentGoRightIcon;
                 if (canGoRight()) judgeXPosition += speed;
                 return;
             }
             if (LEFT && LeftInterruptCount == 0) {
-                now = a;
-                if (cangGoLeft()) judgeXPosition -= speed;
+                currentPlayerIcon = currentGoLeftIcon;
+                if (canGoLeft()) judgeXPosition -= speed;
                 return;
             }
             if (DOWN && DownInterruptCount == 0) {
-                now = s;
+                currentPlayerIcon = currentGoDownIcon;
                 if (canGoDown()) judgeYPosition += speed;
                 return;
             }
             if (UP && UpInterruptCount == 0) {
-                now = w;
+                currentPlayerIcon = currentGoUpIcon;
                 if (canGoUp()) judgeYPosition -= speed;
                 return;
             }
@@ -284,42 +286,41 @@ public class Player implements KeyListener {
         if (outlooking == OUTLOOKING_GHOST) {
             if (LEFT && RightInterruptCount == 0) {
                 if (canGoRight()) judgeXPosition += speed;
-                now = d;
+                currentPlayerIcon = currentGoRightIcon;
                 return;
             }
             if (RIGHT && LeftInterruptCount == 0) {
-                if (cangGoLeft()) judgeXPosition -= speed;
-                now = a;
+                if (canGoLeft()) judgeXPosition -= speed;
+                currentPlayerIcon = currentGoLeftIcon;
                 return;
             }
             if (UP && DownInterruptCount == 0) {
                 if (canGoDown()) judgeYPosition += speed;
-                now = s;
+                currentPlayerIcon = currentGoDownIcon;
                 return;
             }
             if (DOWN && UpInterruptCount == 0) {
                 if (canGoUp()) judgeYPosition -= speed;
-                now = w;
+                currentPlayerIcon = currentGoUpIcon;
             }
         }
     }
 
-    public boolean canspace() {
+    public boolean canSetBall() {
         return (outlooking <= OUTLOOKING_CAN_SETBALL_UPPER_LIMIT);
     }
 
     public void beStuck() {
         outlooking = OUTLOOKING_STUCK;
-        setNow();
-        now = pkunzhu;
+        setIconsByOutlooking();
+        currentPlayerIcon = stuckIcon;
     }
 
-    void fuhuo() {
-
+    void escape() {
         stuckTime = 0;
         outlooking = OUTLOOKING_ORIGIN;
-        setNow();
-        now = s;
+        setIconsByOutlooking();
+        currentPlayerIcon = currentGoDownIcon;
         MusicTool.music[1].play();
     }
 
@@ -327,14 +328,14 @@ public class Player implements KeyListener {
     public void keepDoing(Player anotherPlayer) {
         move();
         dieIfPossible(anotherPlayer);
-        eatDaoju();
+        pickupItem();
         beBombed();
-        beBack();
+        transformToOrigin();
     }
 
     public void dieIfPossible(Player anotherPlayer) {
         if (flashTime > 0) flashTime += 1;
-        if (flashTime == FLASH_TIME) flashTime = 0;
+        if (flashTime == FLASH_MAX_TIME) flashTime = 0;
         if (outlooking == OUTLOOKING_STUCK) {
             stuckTime += 1;
             if (stuckTime == BEFORE_DIE_TIME) {
@@ -349,64 +350,64 @@ public class Player implements KeyListener {
         }
     }
 
-    public void die() {
+    private void die() {
         outlooking = OUTLOOKING_LOSER;
-        setNow();
-        now = pdie;
+        setIconsByOutlooking();
+        currentPlayerIcon = deadIcon;
         MusicTool.music[7].play();
         MusicTool.music[8].play();
     }
 
-    public void win() {
+    private void win() {
         outlooking = OUTLOOKING_WINNER;
-        setNow();
-        now = pwin;
+        setIconsByOutlooking();
+        currentPlayerIcon = winningIcon;
         MusicTool.music[3].stop();
     }
 
-    public void beBack() {
-        if (bianshentime == TRANSFORM_MAX_TIME) {
-            bianshentime = 0;
+    public void transformToOrigin() {
+        if (transformTime == TRANSFORM_MAX_TIME) {
+            transformTime = 0;
             outlooking = OUTLOOKING_ORIGIN;
-            if (now == s) {
-                setNow();
-                now = s;
+            if (currentPlayerIcon == currentGoDownIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoDownIcon;
             }
-            if (now == w) {
-                setNow();
-                now = w;
+            if (currentPlayerIcon == currentGoUpIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoUpIcon;
             }
-            if (now == a) {
-                setNow();
-                now = a;
+            if (currentPlayerIcon == currentGoLeftIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoLeftIcon;
             }
-            if (now == d) {
-                setNow();
-                now = d;
+            if (currentPlayerIcon == currentGoRightIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoRightIcon;
             }
             amount = namount;
             power = npower;
             speed = nspeed;
         }
-        if (bianshentime == TRANSFORM_MAX_TIME + 1) {
+        if (transformTime == TRANSFORM_MAX_TIME + 1) {
             flashTime += 1;
-            bianshentime = 0;
+            transformTime = 0;
             outlooking = OUTLOOKING_ORIGIN;
-            if (now == s) {
-                setNow();
-                now = s;
+            if (currentPlayerIcon == currentGoDownIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoDownIcon;
             }
-            if (now == w) {
-                setNow();
-                now = w;
+            if (currentPlayerIcon == currentGoUpIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoUpIcon;
             }
-            if (now == a) {
-                setNow();
-                now = a;
+            if (currentPlayerIcon == currentGoLeftIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoLeftIcon;
             }
-            if (now == d) {
-                setNow();
-                now = d;
+            if (currentPlayerIcon == currentGoRightIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoRightIcon;
             }
             amount = namount;
             power = npower;
@@ -414,185 +415,173 @@ public class Player implements KeyListener {
         }
         if (outlooking >= OUTLOOKING_FIRST_TRANSFORM
                 && outlooking <= OUTLOOKING_LAST_TRANSFORM) {
-            bianshentime += 1;
+            transformTime += 1;
         }
     }
 
     private void transformToWind() {
         flashTime = 1;
-        bianshentime = 0;
+        transformTime = 0;
         outlooking = OUTLOOKING_WIND;
-        if (now == s) {
-            setNow();
-            now = s;
+        if (currentPlayerIcon == currentGoDownIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoDownIcon;
         }
-        if (now == w) {
-            setNow();
-            now = w;
+        if (currentPlayerIcon == currentGoUpIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoUpIcon;
         }
-        if (now == a) {
-            setNow();
-            now = a;
+        if (currentPlayerIcon == currentGoLeftIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoLeftIcon;
         }
-        if (now == d) {
-            setNow();
-            now = d;
+        if (currentPlayerIcon == currentGoRightIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoRightIcon;
         }
-        speed = MAXspeed;
+        speed = MAX_SPEED;
     }
 
     private void transformToCandy() {
-        bianshentime = 0;
+        transformTime = 0;
         flashTime = 1;
         outlooking = 2;
-        if (now == s) {
-            setNow();
-            now = s;
+        if (currentPlayerIcon == currentGoDownIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoDownIcon;
         }
-        if (now == w) {
-            setNow();
-            now = w;
+        if (currentPlayerIcon == currentGoUpIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoUpIcon;
         }
-        if (now == a) {
-            setNow();
-            now = a;
+        if (currentPlayerIcon == currentGoLeftIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoLeftIcon;
         }
-        if (now == d) {
-            setNow();
-            now = d;
+        if (currentPlayerIcon == currentGoRightIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoRightIcon;
         }
-        amount = MAXamount;
+        amount = MAX_BALL_CAPACITY;
     }
 
     private void transformToGhost() {
-        bianshentime = 0;
+        transformTime = 0;
         flashTime = 1;
         outlooking = 3;
-        if (now == s) {
-            setNow();
-            now = s;
+        if (currentPlayerIcon == currentGoDownIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoDownIcon;
         }
-        if (now == w) {
-            setNow();
-            now = w;
+        if (currentPlayerIcon == currentGoUpIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoUpIcon;
         }
-        if (now == a) {
-            setNow();
-            now = a;
+        if (currentPlayerIcon == currentGoLeftIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoLeftIcon;
         }
-        if (now == d) {
-            setNow();
-            now = d;
+        if (currentPlayerIcon == currentGoRightIcon) {
+            setIconsByOutlooking();
+            currentPlayerIcon = currentGoRightIcon;
         }
-        amount = MAXamount;
-        power = MAXpower;
-        speed = MAXspeed;
+        amount = MAX_BALL_CAPACITY;
+        power = MAX_BALL_POWER;
+        speed = MAX_SPEED;
     }
 
     public void transformToFox() {
         if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT) {
             outlooking = OUTLOOKING_FOX;
-            if (now == s) {
-                setNow();
-                now = s;
-            } else if (now == w) {
-                setNow();
-                now = w;
-            } else if (now == a) {
-                setNow();
-                now = a;
-            } else if (now == d) {
-                setNow();
-                now = d;
+            if (currentPlayerIcon == currentGoDownIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoDownIcon;
+            } else if (currentPlayerIcon == currentGoUpIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoUpIcon;
+            } else if (currentPlayerIcon == currentGoLeftIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoLeftIcon;
+            } else if (currentPlayerIcon == currentGoRightIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoRightIcon;
             }
-            bianshentime = 0;
+            transformTime = 0;
         }
     }
 
-    public void eatDaoju() {
-        if (maps.isDaoju(getHeng(), getShu())) {
-            switch (maps.getDaojuMap()[getHeng()][getShu()].getType()) {
-                case 1: {
-                    addAmount();
+    public void pickupItem() {
+        if (maps.isItem(getHeng(), getShu())) {
+            switch (maps.getItem(getHeng(), getShu()).getItemType()) {
+                case Item.ITEM_BALL: {
+                    addBallCapacity();
                     break;
                 }
-                case 2: {
-                    addAmount();
+                case Item.ITEM_POWER: {
+                    addBallPower();
                     break;
                 }
-                case 3: {
-                    addPower();
-                    break;
-                }
-                case 4: {
-                    addPower();
-                    break;
-                }
-                case 5: {
+                case Item.ITEM_SHOES: {
                     addSpeed();
                     break;
                 }
-                case 6: {
-                    addSpeed();
-                    break;
-                }
-                case 7: {
+                case Item.ITEM_FORK: {
                     addFork();
                     break;
                 }
-                case 8: {
+                case Item.ITEM_WIND: {
                     transformToWind();
                     break;
                 }
-                case 9: {
+                case Item.ITEM_CANDY: {
                     transformToCandy();
                     break;
                 }
-                case 10: {
+                case Item.ITEM_GHOST: {
                     transformToGhost();
                     break;
                 }
-                case 11: {
+                case Item.ITEM_FOX: {
                     transformToFox();
                     break;
                 }
             }
-            maps.getDaojuMap()[getHeng()][getShu()] = null;
+            maps.removeItem(getHeng(),getShu());
             MusicTool.music[4].stop();
             MusicTool.music[4].play();
         }
     }
 
     public void beBombed() {
-        if (maps.isExp(getHeng(), getShu()) && outlooking == OUTLOOKING_ORIGIN && flashTime == 0) {
+        if (maps.isExplosion(getHeng(), getShu()) && outlooking == OUTLOOKING_ORIGIN && flashTime == 0) {
             beStuck();
         }
-        if (maps.isExp(getHeng(), getShu())
+        if (maps.isExplosion(getHeng(), getShu())
                 && (outlooking >= OUTLOOKING_FIRST_TRANSFORM
                     && outlooking <= OUTLOOKING_LAST_TRANSFORM)
                 && flashTime == 0) {
-            bianshentime = TRANSFORM_MAX_TIME + 1;
-            beBack();
+            transformTime = TRANSFORM_MAX_TIME + 1;
+            transformToOrigin();
         }
     }
 
-    private void addAmount() {
-        if (namount < MAXamount)
+    private void addBallCapacity() {
+        if (namount < MAX_BALL_CAPACITY)
             namount += 1;
     }
 
-    private void addPower() {
-        if (npower < MAXpower)
+    private void addBallPower() {
+        if (npower < MAX_BALL_POWER)
             npower += 1;
     }
 
     private void addSpeed() {
-        if (nspeed < MAXspeed)
+        if (nspeed < MAX_SPEED)
             nspeed += 1;
     }
 
     private void addFork() {
-        if (fork < MAXfork)
+        if (fork < MAX_FORK_NUMBER)
             fork += 1;
     }
 
@@ -652,9 +641,9 @@ public class Player implements KeyListener {
                         && judgeYPosition > ((getShu() - 1) * 50 + 65))
                     || (getShu() - 1 < 0 && !maps.isWall(getHeng(), getShu())))
                 wall = true;
-            if ((getShu() - 1 >= 0 && !maps.isBoom(getHeng(), getShu() - 1))
-                    || (getShu() - 1 >= 0 && maps.isBoom(getHeng(), getShu() - 1) && judgeYPosition > ((getShu() - 1) * 50 + 65))
-                    || (getShu() - 1 < 0 && !maps.isBoom(getHeng(), getShu())))
+            if ((getShu() - 1 >= 0 && !maps.isBall(getHeng(), getShu() - 1))
+                    || (getShu() - 1 >= 0 && maps.isBall(getHeng(), getShu() - 1) && judgeYPosition > ((getShu() - 1) * 50 + 65))
+                    || (getShu() - 1 < 0 && !maps.isBall(getHeng(), getShu())))
                 ball = true;
 
             return (wall && ball && isBorder);
@@ -662,17 +651,17 @@ public class Player implements KeyListener {
         } else return false;
     }
 
-    public boolean cangGoLeft() {
+    public boolean canGoLeft() {
         if (outlooking <= 4) {
             boolean wall = false;
             boolean ball = false;
             boolean isBorder = false;
             if (judgeXPosition >= 6)
                 isBorder = true;
-            if ((getHeng() - 1 >= 0 && !maps.isBoom(getHeng() - 1, getShu()))
-                    || (getHeng() - 1 >= 0 && maps.isBoom(getHeng() - 1, getShu())
+            if ((getHeng() - 1 >= 0 && !maps.isBall(getHeng() - 1, getShu()))
+                    || (getHeng() - 1 >= 0 && maps.isBall(getHeng() - 1, getShu())
                         && judgeXPosition > (getHeng() - 1) * 50 + 65)
-                    || (getHeng() - 1 < 0 && !maps.isBoom(getHeng(), getShu())))
+                    || (getHeng() - 1 < 0 && !maps.isBall(getHeng(), getShu())))
                 ball = true;
             if ((getHeng() - 1 >= 0 && !maps.isWall(getHeng() - 1, getShu()))
                     || (getHeng() - 1 >= 0 && maps.isWall(getHeng() - 1, getShu())
@@ -690,9 +679,9 @@ public class Player implements KeyListener {
             boolean isBorder = false;
             if (judgeYPosition <= 394)
                 isBorder = true;
-            if ((getShu() + 1 <= 7 && !maps.isBoom(getHeng(), getShu() + 1))
-                    || (getShu() + 1 <= 7 && maps.isBoom(getHeng(), getShu() + 1) && judgeYPosition < ((getShu() + 1) * 50 - 15))
-                    || (getShu() + 1 > 7 && !maps.isBoom(getHeng(), getShu())))
+            if ((getShu() + 1 <= 7 && !maps.isBall(getHeng(), getShu() + 1))
+                    || (getShu() + 1 <= 7 && maps.isBall(getHeng(), getShu() + 1) && judgeYPosition < ((getShu() + 1) * 50 - 15))
+                    || (getShu() + 1 > 7 && !maps.isBall(getHeng(), getShu())))
                 ball = true;
             if ((getShu() + 1 <= 7 && !maps.isWall(getHeng(), getShu() + 1))
                     || (getShu() + 1 <= 7 && maps.isWall(getHeng(), getShu() + 1) && judgeYPosition < ((getShu() + 1) * 50 - 15))
@@ -709,9 +698,9 @@ public class Player implements KeyListener {
             boolean isBorder = false;
             if (judgeXPosition <= 644)
                 isBorder = true;
-            if ((getHeng() + 1 <= 12 && !maps.isBoom(getHeng() + 1, getShu()))
-                    || (getHeng() + 1 <= 12 && maps.isBoom(getHeng() + 1, getShu()) && judgeXPosition < (getHeng() + 1) * 50 - 15)
-                    || (getHeng() + 1 > 12 && !maps.isBoom(getHeng(), getShu())))
+            if ((getHeng() + 1 <= 12 && !maps.isBall(getHeng() + 1, getShu()))
+                    || (getHeng() + 1 <= 12 && maps.isBall(getHeng() + 1, getShu()) && judgeXPosition < (getHeng() + 1) * 50 - 15)
+                    || (getHeng() + 1 > 12 && !maps.isBall(getHeng(), getShu())))
                 ball = true;
             if ((getHeng() + 1 <= 12 && !maps.isWall(getHeng() + 1, getShu()))
                     || (getHeng() + 1 <= 12 && maps.isWall(getHeng() + 1, getShu()) && judgeXPosition < (getHeng() + 1) * 50 - 15)
@@ -721,12 +710,12 @@ public class Player implements KeyListener {
         } else return false;
     }
 
-    public void subCount() {
-        count--;
+    public void subUsedBallCount() {
+        --usedBallCount;
     }
 
-    public void addCount() {
-        count++;
+    public void addUsedBallCount() {
+        ++usedBallCount;
     }
 
     public void setBall() {
@@ -788,16 +777,17 @@ public class Player implements KeyListener {
                         || outlooking == OUTLOOKING_CANDY) {
                     power = npower;
                 }
-                if (canspace() && isUsingBallBtn == false && count < amount
-                        && maps.getBallMap()[getHeng()][getShu()] == null)
+                if (canSetBall() && isUsingBallBtn == false && usedBallCount < amount
+                        && !maps.isBall(getHeng(), getShu())) {
                     setBall();
+                }
                 isUsingBallBtn = true;
             }
 
             if (e.getKeyCode() == KeyEvent.VK_M && isUsingForkBtn == false) {
                 if (fork > 0 && outlooking == OUTLOOKING_STUCK) {
                     fork -= 1;
-                    fuhuo();
+                    escape();
                 }
                 isUsingForkBtn = true;
             }
@@ -846,8 +836,8 @@ public class Player implements KeyListener {
                         || outlooking == OUTLOOKING_CANDY) {
                     power = npower;
                 }
-                if (canspace() && isUsingBallBtn == false && count < amount
-                        && maps.getBallMap()[getHeng()][getShu()] == null) {
+                if (canSetBall() && isUsingBallBtn == false && usedBallCount < amount
+                        && !maps.isBall(getHeng(), getShu())) {
                     setBall();
                 }
                 isUsingBallBtn = true;
@@ -856,7 +846,7 @@ public class Player implements KeyListener {
             if (e.getKeyCode() == KeyEvent.VK_W && isUsingForkBtn == false) {
                 if (fork > 0 && outlooking == OUTLOOKING_STUCK) {
                     fork -= 1;
-                    fuhuo();
+                    escape();
                 }
                 isUsingForkBtn = true;
             }

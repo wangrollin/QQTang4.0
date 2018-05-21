@@ -17,63 +17,63 @@ public class AIModePlayer extends Player {
         judgeXPosition = 125;
         judgeYPosition = 75;
 
-        ps = new ImageIcon("战士下.gif");
-        pw = new ImageIcon("战士上.gif");
-        pa = new ImageIcon("战士左.gif");
-        pd = new ImageIcon("战士右.gif");
+        originGoDownIcon = new ImageIcon("战士下.gif");
+        originGoUpIcon = new ImageIcon("战士上.gif");
+        originGoLeftIcon = new ImageIcon("战士左.gif");
+        orginGoRightIcon = new ImageIcon("战士右.gif");
 
-        sps = new ImageIcon("s战士下.gif");
-        spw = new ImageIcon("s战士上.gif");
-        spa = new ImageIcon("s战士左.gif");
-        spd = new ImageIcon("s战士右.gif");
+        originGoDownFlashIcon = new ImageIcon("s战士下.gif");
+        originGoUpFlashIcon = new ImageIcon("s战士上.gif");
+        originGoLeftFlashIcon = new ImageIcon("s战士左.gif");
+        orginGoRightFlashIcon = new ImageIcon("s战士右.gif");
 
-        pkunzhu = new ImageIcon("炸弹火.gif");
-        pdie = new ImageIcon("P1die.gif");
-        pwin = new ImageIcon("P1win.gif");
+        stuckIcon = new ImageIcon("炸弹火.gif");
+        deadIcon = new ImageIcon("P1die.gif");
+        winningIcon = new ImageIcon("P1win.gif");
         ballIcon = new ImageIcon("糖泡红.gif");
-        now = ps;
+        currentPlayerIcon = originGoDownIcon;
     }
 
     public void move() {
         if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT
                 && RIGHT != true && LEFT != true && DOWN != true && UP != true) {
-            if (now == s) {
-                setNow();
-                now = s;
+            if (currentPlayerIcon == currentGoDownIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoDownIcon;
             }
-            if (now == w) {
-                setNow();
-                now = w;
+            if (currentPlayerIcon == currentGoUpIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoUpIcon;
             }
-            if (now == a) {
-                setNow();
-                now = a;
+            if (currentPlayerIcon == currentGoLeftIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoLeftIcon;
             }
-            if (now == d) {
-                setNow();
-                now = d;
+            if (currentPlayerIcon == currentGoRightIcon) {
+                setIconsByOutlooking();
+                currentPlayerIcon = currentGoRightIcon;
             }
         }
-        setNow();
+        setIconsByOutlooking();
         if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT) {
             if (outlooking != OUTLOOKING_GHOST) speed = nspeed;
             if (RIGHT == true && RightInterruptCount == 0) {
-                now = d;
+                currentPlayerIcon = currentGoRightIcon;
                 if (canGoRight()) judgeXPosition += speed;
                 return;
             }
             if (LEFT == true && LeftInterruptCount == 0) {
-                now = a;
-                if (cangGoLeft()) judgeXPosition -= speed;
+                currentPlayerIcon = currentGoLeftIcon;
+                if (canGoLeft()) judgeXPosition -= speed;
                 return;
             }
             if (DOWN == true && DownInterruptCount == 0) {
-                now = s;
+                currentPlayerIcon = currentGoDownIcon;
                 if (canGoDown()) judgeYPosition += speed;
                 return;
             }
             if (UP == true && UpInterruptCount == 0) {
-                now = w;
+                currentPlayerIcon = currentGoUpIcon;
                 if (canGoUp()) judgeYPosition -= speed;
                 return;
             }
@@ -81,22 +81,22 @@ public class AIModePlayer extends Player {
         if (outlooking == OUTLOOKING_GHOST) {
             if (LEFT == true && RightInterruptCount == 0) {
                 if (canGoRight()) judgeXPosition += speed;
-                now = d;
+                currentPlayerIcon = currentGoRightIcon;
                 return;
             }
             if (RIGHT == true && LeftInterruptCount == 0) {
-                if (cangGoLeft()) judgeXPosition -= speed;
-                now = a;
+                if (canGoLeft()) judgeXPosition -= speed;
+                currentPlayerIcon = currentGoLeftIcon;
                 return;
             }
             if (UP == true && DownInterruptCount == 0) {
                 if (canGoDown()) judgeYPosition += speed;
-                now = s;
+                currentPlayerIcon = currentGoDownIcon;
                 return;
             }
             if (DOWN == true && UpInterruptCount == 0) {
                 if (canGoUp()) judgeYPosition -= speed;
-                now = w;
+                currentPlayerIcon = currentGoUpIcon;
                 return;
             }
         }
@@ -104,8 +104,8 @@ public class AIModePlayer extends Player {
 
     public void die() {
         outlooking = OUTLOOKING_LOSER;
-        setNow();
-        now = pdie;
+        setIconsByOutlooking();
+        currentPlayerIcon = deadIcon;
         MusicTool.stop();
         MusicTool.music[7].play();
         MusicTool.music[13].loop();
@@ -113,7 +113,7 @@ public class AIModePlayer extends Player {
 
     public boolean toDie() {
         if (flashTime > 0) flashTime += 1;
-        if (flashTime == Player.FLASH_TIME) flashTime = 0;
+        if (flashTime == Player.FLASH_MAX_TIME) flashTime = 0;
         if (outlooking == OUTLOOKING_STUCK) {
             stuckTime += 1;
             if (stuckTime == Player.BEFORE_DIE_TIME) {
