@@ -78,9 +78,26 @@ public class Maps {
         else return true;
     }
 
-    /*public void removeWall(int heng, int shu) {
-        wallMap[heng][shu] = null;
-    }*/
+    public void removeWall(int heng, int shu) {
+        this.wallMap[heng][shu] = null;
+    }
+
+    public void removeExplosion(int heng, int shu) {
+        this.explosionMap[heng][shu] = null;
+    }
+
+    public void removeBall(int heng, int shu) {
+        this.ballMap[heng][shu] = null;
+    }
+
+    public void removeDaoju(int heng, int shu) {
+        this.daojuMap[heng][shu] = null;
+    }
+
+    public void clearDaojuIfInExplosion(int heng, int shu) {
+        if (this.explosionMap[heng][shu] != null)
+            this.daojuMap[heng][shu] = null;
+    }
 
     public Wall[][] getWallMap() {
         return wallMap;

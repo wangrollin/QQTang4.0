@@ -55,20 +55,20 @@ public class BattleBiwuPanel extends JPanel {
 
     public void initPlayerPosition() {
         Random random = new Random();
-        p1.setX(random.nextInt(500) + 50);
-        p1.setY(random.nextInt(300) + 50);
+        p1.setJudgeXPosition(random.nextInt(500) + 50);
+        p1.setJudgeYPosition(random.nextInt(300) + 50);
 
         while (maps.isWall(p1.getHeng(), p1.getShu())) {
-            p1.setX(random.nextInt(500) + 50);
-            p1.setY(random.nextInt(300) + 50);
+            p1.setJudgeXPosition(random.nextInt(500) + 50);
+            p1.setJudgeYPosition(random.nextInt(300) + 50);
         }
 
-        p2.setX(random.nextInt(500) + 50);
-        p2.setY(random.nextInt(300) + 50);
+        p2.setJudgeXPosition(random.nextInt(500) + 50);
+        p2.setJudgeYPosition(random.nextInt(300) + 50);
 
         while (maps.isWall(p2.getHeng(), p2.getShu())) {
-            p2.setX(random.nextInt(500) + 50);
-            p2.setY(random.nextInt(300) + 50);
+            p2.setJudgeXPosition(random.nextInt(500) + 50);
+            p2.setJudgeYPosition(random.nextInt(300) + 50);
         }
     }
 
@@ -118,12 +118,12 @@ public class BattleBiwuPanel extends JPanel {
         p2.keepDoing(p1);
         /*p1.move();
         p2.move();
-        p1.toDie(p1);
-        p2.toDie(p2);
-        p1.eatdaoju();
-        p2.eatdaoju();
-        p1.beExp();
-        p2.beExp();
+        p1.dieIfPossible(p1);
+        p2.dieIfPossible(p2);
+        p1.eatDaoju();
+        p2.eatDaoju();
+        p1.beBombed();
+        p2.beBombed();
         p1.beBack();
         p2.beBack();
         p1.chusheng();
@@ -158,49 +158,49 @@ public class BattleBiwuPanel extends JPanel {
         if (TimeCounter.scond % 10 == 8) num8.paintIcon(this, page, 410, 5);
         if (TimeCounter.scond % 10 == 9) num9.paintIcon(this, page, 410, 5);
 
-        if (p1.siwangcishu / 10 == 0) num0.paintIcon(this, page, 505, 100);
-        if (p1.siwangcishu / 10 == 1) num1.paintIcon(this, page, 505, 100);
-        if (p1.siwangcishu / 10 == 2) num2.paintIcon(this, page, 505, 100);
-        if (p1.siwangcishu / 10 == 3) num3.paintIcon(this, page, 505, 100);
-        if (p1.siwangcishu / 10 == 4) num4.paintIcon(this, page, 505, 100);
-        if (p1.siwangcishu / 10 == 5) num5.paintIcon(this, page, 505, 100);
-        if (p1.siwangcishu / 10 == 6) num6.paintIcon(this, page, 505, 100);
-        if (p1.siwangcishu / 10 == 7) num7.paintIcon(this, page, 505, 100);
-        if (p1.siwangcishu / 10 == 8) num8.paintIcon(this, page, 505, 100);
-        if (p1.siwangcishu / 10 == 9) num9.paintIcon(this, page, 505, 100);
+        if (p1.deathFrequency / 10 == 0) num0.paintIcon(this, page, 505, 100);
+        if (p1.deathFrequency / 10 == 1) num1.paintIcon(this, page, 505, 100);
+        if (p1.deathFrequency / 10 == 2) num2.paintIcon(this, page, 505, 100);
+        if (p1.deathFrequency / 10 == 3) num3.paintIcon(this, page, 505, 100);
+        if (p1.deathFrequency / 10 == 4) num4.paintIcon(this, page, 505, 100);
+        if (p1.deathFrequency / 10 == 5) num5.paintIcon(this, page, 505, 100);
+        if (p1.deathFrequency / 10 == 6) num6.paintIcon(this, page, 505, 100);
+        if (p1.deathFrequency / 10 == 7) num7.paintIcon(this, page, 505, 100);
+        if (p1.deathFrequency / 10 == 8) num8.paintIcon(this, page, 505, 100);
+        if (p1.deathFrequency / 10 == 9) num9.paintIcon(this, page, 505, 100);
 
-        if (p1.siwangcishu % 10 == 0) num0.paintIcon(this, page, 580, 100);
-        if (p1.siwangcishu % 10 == 1) num1.paintIcon(this, page, 580, 100);
-        if (p1.siwangcishu % 10 == 2) num2.paintIcon(this, page, 580, 100);
-        if (p1.siwangcishu % 10 == 3) num3.paintIcon(this, page, 580, 100);
-        if (p1.siwangcishu % 10 == 4) num4.paintIcon(this, page, 580, 100);
-        if (p1.siwangcishu % 10 == 5) num5.paintIcon(this, page, 580, 100);
-        if (p1.siwangcishu % 10 == 6) num6.paintIcon(this, page, 580, 100);
-        if (p1.siwangcishu % 10 == 7) num7.paintIcon(this, page, 580, 100);
-        if (p1.siwangcishu % 10 == 8) num8.paintIcon(this, page, 580, 100);
-        if (p1.siwangcishu % 10 == 9) num9.paintIcon(this, page, 580, 100);
+        if (p1.deathFrequency % 10 == 0) num0.paintIcon(this, page, 580, 100);
+        if (p1.deathFrequency % 10 == 1) num1.paintIcon(this, page, 580, 100);
+        if (p1.deathFrequency % 10 == 2) num2.paintIcon(this, page, 580, 100);
+        if (p1.deathFrequency % 10 == 3) num3.paintIcon(this, page, 580, 100);
+        if (p1.deathFrequency % 10 == 4) num4.paintIcon(this, page, 580, 100);
+        if (p1.deathFrequency % 10 == 5) num5.paintIcon(this, page, 580, 100);
+        if (p1.deathFrequency % 10 == 6) num6.paintIcon(this, page, 580, 100);
+        if (p1.deathFrequency % 10 == 7) num7.paintIcon(this, page, 580, 100);
+        if (p1.deathFrequency % 10 == 8) num8.paintIcon(this, page, 580, 100);
+        if (p1.deathFrequency % 10 == 9) num9.paintIcon(this, page, 580, 100);
 
-        if (p2.siwangcishu / 10 == 0) num0.paintIcon(this, page, 0, 100);
-        if (p2.siwangcishu / 10 == 1) num1.paintIcon(this, page, 0, 100);
-        if (p2.siwangcishu / 10 == 2) num2.paintIcon(this, page, 0, 100);
-        if (p2.siwangcishu / 10 == 3) num3.paintIcon(this, page, 0, 100);
-        if (p2.siwangcishu / 10 == 4) num4.paintIcon(this, page, 0, 100);
-        if (p2.siwangcishu / 10 == 5) num5.paintIcon(this, page, 0, 100);
-        if (p2.siwangcishu / 10 == 6) num6.paintIcon(this, page, 0, 100);
-        if (p2.siwangcishu / 10 == 7) num7.paintIcon(this, page, 0, 100);
-        if (p2.siwangcishu / 10 == 8) num8.paintIcon(this, page, 0, 100);
-        if (p2.siwangcishu / 10 == 9) num9.paintIcon(this, page, 0, 100);
+        if (p2.deathFrequency / 10 == 0) num0.paintIcon(this, page, 0, 100);
+        if (p2.deathFrequency / 10 == 1) num1.paintIcon(this, page, 0, 100);
+        if (p2.deathFrequency / 10 == 2) num2.paintIcon(this, page, 0, 100);
+        if (p2.deathFrequency / 10 == 3) num3.paintIcon(this, page, 0, 100);
+        if (p2.deathFrequency / 10 == 4) num4.paintIcon(this, page, 0, 100);
+        if (p2.deathFrequency / 10 == 5) num5.paintIcon(this, page, 0, 100);
+        if (p2.deathFrequency / 10 == 6) num6.paintIcon(this, page, 0, 100);
+        if (p2.deathFrequency / 10 == 7) num7.paintIcon(this, page, 0, 100);
+        if (p2.deathFrequency / 10 == 8) num8.paintIcon(this, page, 0, 100);
+        if (p2.deathFrequency / 10 == 9) num9.paintIcon(this, page, 0, 100);
 
-        if (p2.siwangcishu % 10 == 0) num0.paintIcon(this, page, 75, 100);
-        if (p2.siwangcishu % 10 == 1) num1.paintIcon(this, page, 75, 100);
-        if (p2.siwangcishu % 10 == 2) num2.paintIcon(this, page, 75, 100);
-        if (p2.siwangcishu % 10 == 3) num3.paintIcon(this, page, 75, 100);
-        if (p2.siwangcishu % 10 == 4) num4.paintIcon(this, page, 75, 100);
-        if (p2.siwangcishu % 10 == 5) num5.paintIcon(this, page, 75, 100);
-        if (p2.siwangcishu % 10 == 6) num6.paintIcon(this, page, 75, 100);
-        if (p2.siwangcishu % 10 == 7) num7.paintIcon(this, page, 75, 100);
-        if (p2.siwangcishu % 10 == 8) num8.paintIcon(this, page, 75, 100);
-        if (p2.siwangcishu % 10 == 9) num9.paintIcon(this, page, 75, 100);
+        if (p2.deathFrequency % 10 == 0) num0.paintIcon(this, page, 75, 100);
+        if (p2.deathFrequency % 10 == 1) num1.paintIcon(this, page, 75, 100);
+        if (p2.deathFrequency % 10 == 2) num2.paintIcon(this, page, 75, 100);
+        if (p2.deathFrequency % 10 == 3) num3.paintIcon(this, page, 75, 100);
+        if (p2.deathFrequency % 10 == 4) num4.paintIcon(this, page, 75, 100);
+        if (p2.deathFrequency % 10 == 5) num5.paintIcon(this, page, 75, 100);
+        if (p2.deathFrequency % 10 == 6) num6.paintIcon(this, page, 75, 100);
+        if (p2.deathFrequency % 10 == 7) num7.paintIcon(this, page, 75, 100);
+        if (p2.deathFrequency % 10 == 8) num8.paintIcon(this, page, 75, 100);
+        if (p2.deathFrequency % 10 == 9) num9.paintIcon(this, page, 75, 100);
 
         timeCounter.count();
 
@@ -208,9 +208,9 @@ public class BattleBiwuPanel extends JPanel {
 
             MusicTool.stop();
             MusicTool.music[8].loop();
-            if (p1.siwangcishu < p2.siwangcishu) cardLayout.show(myPanelCard, "fighterWinPanel");
-            if (p1.siwangcishu > p2.siwangcishu) cardLayout.show(myPanelCard, "baoziWinPanel");
-            if (p1.siwangcishu == p2.siwangcishu) cardLayout.show(myPanelCard, "dagfallPanel");
+            if (p1.deathFrequency < p2.deathFrequency) cardLayout.show(myPanelCard, "fighterWinPanel");
+            if (p1.deathFrequency > p2.deathFrequency) cardLayout.show(myPanelCard, "baoziWinPanel");
+            if (p1.deathFrequency == p2.deathFrequency) cardLayout.show(myPanelCard, "dagfallPanel");
         }
 
         //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具
@@ -220,11 +220,11 @@ public class BattleBiwuPanel extends JPanel {
                     maps.getBallMap()[i][j].getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
                     maps.getBallMap()[i][j].addTime();
                 }
-                if (maps.getWallMap()[i][j] != null && (!maps.getWallMap()[i][j].isRuin()))
+                if (maps.getWallMap()[i][j] != null && (!maps.getWallMap()[i][j].isRuined()))
                     maps.getWallMap()[i][j].getWallIcon().paintIcon(this, page, i * 50, j * 50 - 12 + 200);
                 if (maps.getDaojuMap()[i][j] != null) {
                     maps.getDaojuMap()[i][j].getNow().paintIcon(this, page, i * 50, j * 50 + 200);
-                    maps.getDaojuMap()[i][j].beExo();
+                    //maps.getDaojuMap()[i][j].beExo();
                 }
                 if (maps.getExplosionMap()[i][j] != null) {
                     maps.getExplosionMap()[i][j].getImage().paintIcon(this, page, i * 50, j * 50 + 200);
@@ -234,13 +234,13 @@ public class BattleBiwuPanel extends JPanel {
                     p1.now.paintIcon(this, page, p1.getx(), p1.gety() + 200);
                 if (p2.getHeng() == i && p2.getShu() == j && p1.getShu() != j)
                     p2.now.paintIcon(this, page, p2.getx(), p2.gety() + 200);
-                if (p2.getX() == i && p2.getY() == j)
+                if (p2.getJudgeXPosition() == i && p2.getJudgeYPosition() == j)
                     p2.now.paintIcon(this, page, p2.getx(), p2.gety() + 200);
-                if (p1.getShu() == j && p2.getShu() == j && p1.getY() > p2.getY()) {
+                if (p1.getShu() == j && p2.getShu() == j && p1.getJudgeYPosition() > p2.getJudgeYPosition()) {
                     p2.now.paintIcon(this, page, p2.getx(), p2.gety() + 200);
                     p1.now.paintIcon(this, page, p1.getx(), p1.gety() + 200);
                 }
-                if (p1.getShu() == j && p2.getShu() == j && p1.getY() <= p2.getY()) {
+                if (p1.getShu() == j && p2.getShu() == j && p1.getJudgeYPosition() <= p2.getJudgeYPosition()) {
                     p1.now.paintIcon(this, page, p1.getx(), p1.gety() + 200);
                     p2.now.paintIcon(this, page, p2.getx(), p2.gety() + 200);
                 }

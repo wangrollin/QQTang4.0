@@ -52,16 +52,16 @@ public class BattleAIPanel extends JPanel {
     protected int safe = -1, timecount = 0, jineng = 0, suiji, suiji2, wushi = 0, weizhi;
 
     public void initPlayerPosition() {
-        p1.setX(75);
-        p1.setY(25);
+        p1.setJudgeXPosition(75);
+        p1.setJudgeYPosition(25);
         Random random = new Random();
-        p6.setX(random.nextInt(500) + 50);
-        p6.setY(random.nextInt(300) + 50);
+        p6.setJudgeXPosition(random.nextInt(500) + 50);
+        p6.setJudgeYPosition(random.nextInt(300) + 50);
         while (maps.isWall(p6.getHeng(), p6.getShu()) ||
                 (p6.getHeng() == p1.getHeng() &&
                         p6.getShu() == p1.getShu())) {
-            p6.setX(random.nextInt(500) + 50);
-            p6.setY(random.nextInt(300) + 50);
+            p6.setJudgeXPosition(random.nextInt(500) + 50);
+            p6.setJudgeYPosition(random.nextInt(300) + 50);
         }
     }
 
@@ -109,8 +109,8 @@ public class BattleAIPanel extends JPanel {
             //panel.MyPanelCard.cardLayout.show(panel.Play.panel, "fighterLosePanel");
             cardLayout.show(myPanelCard, "fighterLosePanel");
         }
-        p1.eatdaoju();
-        p1.beExp();
+        p1.eatDaoju();
+        p1.beBombed();
         p1.beBack();
 
         p6.doing();
@@ -310,16 +310,19 @@ public class BattleAIPanel extends JPanel {
         for (int j = 0; j < GameConstants.SHU; j++)
             for (int i = 0; i < GameConstants.HENG; i++) {
 
-                if (maps.getWallMap()[i][j] != null && (!maps.getWallMap()[i][j].isRuin()))
+                if (maps.getWallMap()[i][j] != null && (!maps.getWallMap()[i][j].isRuined()))
                     maps.getWallMap()[i][j].getWallIcon().paintIcon(this, page, i * 50, j * 50 - 12 + 200);
+
                 if (maps.getDaojuMap()[i][j] != null) {
                     maps.getDaojuMap()[i][j].getNow().paintIcon(this, page, i * 50, j * 50 + 200);
-                    maps.getDaojuMap()[i][j].beExo();
+                    //maps.getDaojuMap()[i][j].beExo();
                 }
+
                 if (maps.getBallMap()[i][j] != null) {
                     maps.getBallMap()[i][j].getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
                     maps.getBallMap()[i][j].addTime();
                 }
+
                 if (maps.getExplosionMap()[i][j] != null) {
                     maps.getExplosionMap()[i][j].getImage().paintIcon(this, page, i * 50, j * 50 + 200);
                     maps.getExplosionMap()[i][j].addTime();

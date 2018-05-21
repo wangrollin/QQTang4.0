@@ -10,22 +10,24 @@ public class Daoju {
     // (概率)0表示无 12表示数量 34表示威力56表示飞鞋，7表示叉子,8表示 风 9表示泡 10表示鬼 11表示猪
     //(类型)0无  1数量 2威力 3鞋子 4叉子 5风 6泡 7鬼 8猪
     private int type;
-    private int heng, shu;
-    private Maps maps;
-    public Daoju(int h, int s, int te, Maps maps) {
-        heng = h;
-        shu = s;
+    //private int heng, shu;
+    //private Maps maps;
+    public Daoju(int te) {
+        //heng = h;
+        //shu = s;
         type = te;
         now = new ImageIcon("zhutu.jpg");
-        this.maps = maps;
-        this.maps.getDaojuMap()[heng][shu] = this;
+        //this.maps = maps;
+        //this.maps.getDaojuMap()[heng][shu] = this;
     }
 
-    public Daoju(int h, int s, Maps maps) {
+    public Daoju() {
+        //this.heng = heng;
+        //this.shu = shu;
+
         Random a = new Random();
         type = a.nextInt(11) + 1;
-        heng = h;
-        shu = s;
+
         switch (type) {
             case 1:
                 now = new ImageIcon("糖包.gif");
@@ -61,12 +63,9 @@ public class Daoju {
                 now = new ImageIcon("zhutu.jpg");
                 break;
         }
-        this.maps = maps;
-        this.maps.getDaojuMap()[heng][shu] = this;
-    }
 
-    public void beExo() {
-        if (maps.getExplosionMap()[heng][shu] != null) remove();
+        //this.maps = maps;
+        //this.maps.getDaojuMap()[this.heng][this.shu] = this;
     }
 
     public int getType() {
@@ -77,7 +76,4 @@ public class Daoju {
         return now;
     }
 
-    public void remove() {
-        maps.getDaojuMap()[heng][shu] = null;
-    }
 }

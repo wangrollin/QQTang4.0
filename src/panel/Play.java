@@ -13,9 +13,8 @@ public class Play extends JFrame {
     //static panel.Play play;
 
     public Play() {
-        panel = new MyPanelCard(this);
-        //new JFrame("666堂");
-        //setName();
+        this.panel = new MyPanelCard(this);
+
         setTitle("666堂");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().add(panel);

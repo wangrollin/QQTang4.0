@@ -1,7 +1,6 @@
 package player;
 
 import constants.GameConstants;
-import element.Ball;
 import element.Maps;
 import element.MusicTool;
 
@@ -10,17 +9,13 @@ import javax.swing.ImageIcon;
 
 public class AIModePlayer extends Player {
 
-/*    //现在放下去的糖泡的数量
-    protected static int count = 0;*/
-    //protected int namount=10,npower=6,nspeed=4;
-    //protected int amount=10,power=6,speed=4;
-    protected int namount = 10, npower = 5, nspeed = 4;
-    protected int amount = 10, power = 5, speed = 4;
+    protected int nspeed = 4;
+    protected int speed = 4;
 
     public AIModePlayer(Maps maps) {
         super(GameConstants.PLAYER1, maps);
-        X = 125;
-        Y = 75;
+        judgeXPosition = 125;
+        judgeYPosition = 75;
 
         ps = new ImageIcon("战士下.gif");
         pw = new ImageIcon("战士上.gif");
@@ -40,7 +35,8 @@ public class AIModePlayer extends Player {
     }
 
     public void move() {
-        if ((outlooking == 0 || outlooking == 1 || outlooking == 2 || outlooking == 3 || outlooking == 4) && RIGHT != true && LEFT != true && DOWN != true && UP != true) {
+        if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT
+                && RIGHT != true && LEFT != true && DOWN != true && UP != true) {
             if (now == s) {
                 setNow();
                 now = s;
@@ -59,55 +55,55 @@ public class AIModePlayer extends Player {
             }
         }
         setNow();
-        if (outlooking == 0 || outlooking == 1 || outlooking == 2 || outlooking == 4) {
-            if (outlooking == 0 || outlooking == 2 || outlooking == 4) speed = nspeed;
-            if (RIGHT == true && dRIGHT == 0) {
+        if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT) {
+            if (outlooking != OUTLOOKING_GHOST) speed = nspeed;
+            if (RIGHT == true && RightInterruptCount == 0) {
                 now = d;
-                if (cangod()) X += speed;
+                if (canGoRight()) judgeXPosition += speed;
                 return;
             }
-            if (LEFT == true && dLEFT == 0) {
+            if (LEFT == true && LeftInterruptCount == 0) {
                 now = a;
-                if (cangoa()) X -= speed;
+                if (cangGoLeft()) judgeXPosition -= speed;
                 return;
             }
-            if (DOWN == true && dDOWN == 0) {
+            if (DOWN == true && DownInterruptCount == 0) {
                 now = s;
-                if (cangos()) Y += speed;
+                if (canGoDown()) judgeYPosition += speed;
                 return;
             }
-            if (UP == true && dUP == 0) {
+            if (UP == true && UpInterruptCount == 0) {
                 now = w;
-                if (cangow()) Y -= speed;
+                if (canGoUp()) judgeYPosition -= speed;
                 return;
             }
         }
-        if (outlooking == 3) {
-            if (LEFT == true && dRIGHT == 0) {
-                if (cangod()) X += speed;
+        if (outlooking == OUTLOOKING_GHOST) {
+            if (LEFT == true && RightInterruptCount == 0) {
+                if (canGoRight()) judgeXPosition += speed;
                 now = d;
                 return;
             }
-            if (RIGHT == true && dLEFT == 0) {
-                if (cangoa()) X -= speed;
+            if (RIGHT == true && LeftInterruptCount == 0) {
+                if (cangGoLeft()) judgeXPosition -= speed;
                 now = a;
                 return;
             }
-            if (UP == true && dDOWN == 0) {
-                if (cangos()) Y += speed;
+            if (UP == true && DownInterruptCount == 0) {
+                if (canGoDown()) judgeYPosition += speed;
                 now = s;
                 return;
             }
-            if (DOWN == true && dUP == 0) {
-                if (cangow()) Y -= speed;
+            if (DOWN == true && UpInterruptCount == 0) {
+                if (canGoUp()) judgeYPosition -= speed;
                 now = w;
                 return;
             }
         }
     }
 
-    public void Die() {
-        outlooking = 6;
+    public void die() {
+        outlooking = OUTLOOKING_LOSER;
         setNow();
         now = pdie;
         MusicTool.stop();
@@ -116,12 +112,12 @@ public class AIModePlayer extends Player {
     }
 
     public boolean toDie() {
-        if (wuditime > 0) wuditime += 1;
-        if (wuditime == Player.FLASH_TIME) wuditime = 0;
-        if (outlooking == 5) {
-            dietime += 1;
-            if (dietime == Player.BEFORE_DIE_TIME) {
-                Die();
+        if (flashTime > 0) flashTime += 1;
+        if (flashTime == Player.FLASH_TIME) flashTime = 0;
+        if (outlooking == OUTLOOKING_STUCK) {
+            stuckTime += 1;
+            if (stuckTime == Player.BEFORE_DIE_TIME) {
+                die();
                 return true;
             }
         }

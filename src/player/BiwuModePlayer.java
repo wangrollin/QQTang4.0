@@ -1,7 +1,6 @@
 package player;
 
 import constants.GameConstants;
-import element.Ball;
 import element.Maps;
 import element.MusicTool;
 
@@ -14,17 +13,16 @@ public class BiwuModePlayer extends Player {
     //private int playerNumber;
 /*    //现在放下去的糖泡的数量
     protected static int count = 0;*/
-    Random aa;
-    public int siwangcishu = 0, fuhuoshijian = 0, MAX = 500;
+    private Random random;
+    public int deathFrequency = 0, rebornTime = 0, rebornMaxTime = 500;
 
     public BiwuModePlayer(int playerNumber, Maps maps) {
         super(playerNumber, maps);
-        //this.playerNumber = playerNumber;
-        aa = new Random();
+        random = new Random();
 
         if (getPlayerNumber() == GameConstants.PLAYER1) {
-            setX(125);
-            setY(325);
+            setJudgeXPosition(125);
+            setJudgeYPosition(325);
             ps = new ImageIcon("战士下.gif");
             pw = new ImageIcon("战士上.gif");
             pa = new ImageIcon("战士左.gif");
@@ -40,8 +38,8 @@ public class BiwuModePlayer extends Player {
             pwin = new ImageIcon("P1win.gif");
             ballIcon = new ImageIcon("糖泡红.gif");
         } else {
-            setX(125);
-            setY(75);
+            setJudgeXPosition(125);
+            setJudgeYPosition(75);
             ps = new ImageIcon("包子下.gif");
             pw = new ImageIcon("包子上.gif");
             pa = new ImageIcon("包子左.gif");
@@ -60,66 +58,52 @@ public class BiwuModePlayer extends Player {
 
         now = ps;
     }
-    public void Die() {
-        siwangcishu += 1;
-        outlooking = 6;
+    public void die() {
+        deathFrequency += 1;
+        outlooking = OUTLOOKING_LOSER;
         setNow();
         now = pdie;
         MusicTool.music[7].play();
     }
 
-   /*
-    public void setBall() {
-            Ball ball = new Ball(this, getHeng(), getShu(), power, getBallIcon());
-            element.MusicTool.music[5].play();
-    }*/
-
     public void keepDoing(Player anotherPlayer) {
         move();
-        toDie(anotherPlayer);
-        eatdaoju();
-        beExp();
+        dieIfPossible(anotherPlayer);
+        eatDaoju();
+        beBombed();
         beBack();
-        chusheng();
+        reborn();
     }
 
-    ///////////改变的地方
-    //死后复活
-    public void chusheng() {
-        if (outlooking == 6) {
-            fuhuoshijian += 1;
-            //System.out.println(fuhuoshijian);
-            if (fuhuoshijian == MAX) {
-                outlooking = 0;
-                setX(aa.nextInt(500) + 50);
-                setY(aa.nextInt(300) + 50);
+    private void reborn() {
+        if (outlooking == OUTLOOKING_LOSER) {
+            rebornTime += 1;
+            //System.out.println(rebornTime);
+            if (rebornTime == rebornMaxTime) {
+                outlooking = OUTLOOKING_ORIGIN;
+                setJudgeXPosition(random.nextInt(500) + 50);
+                setJudgeYPosition(random.nextInt(300) + 50);
                 while (getMaps().isWall(getHeng(), getShu())) {
-                    setX(aa.nextInt(500) + 50);
-                    setY(aa.nextInt(300) + 50);
+                    setJudgeXPosition(random.nextInt(500) + 50);
+                    setJudgeYPosition(random.nextInt(300) + 50);
                 }
-                fuhuoshijian = 0;
-                wuditime = 1;
+                rebornTime = 0;
+                flashTime = 1;
             }
         }
     }
 
-    public void toDie(Player anotherPlayer) {
-        if (wuditime > 0) wuditime += 1;
-        if (wuditime == Player.FLASH_TIME) wuditime = 0;
-        if (outlooking == 5) {
-            dietime += 1;
-            /*if (dietime == BEFORE_DIE_TIME && p == panel.battle.BattleBiwuPanel.p1) {
-                Die();
-            }
-            if (dietime == BEFORE_DIE_TIME && p == panel.battle.BattleBiwuPanel.p2) {
-                Die();
-            }*/
-            if (dietime == Player.BEFORE_DIE_TIME) {
-                Die();
-            } else if (anotherPlayer.outlooking != 5
+    public void dieIfPossible(Player anotherPlayer) {
+        if (flashTime > 0) flashTime += 1;
+        if (flashTime == Player.FLASH_TIME) flashTime = 0;
+        if (outlooking == OUTLOOKING_STUCK) {
+            stuckTime += 1;
+            if (stuckTime == Player.BEFORE_DIE_TIME) {
+                die();
+            } else if (anotherPlayer.outlooking != OUTLOOKING_STUCK
                     && getHeng() == anotherPlayer.getHeng()
                     && getShu() == anotherPlayer.getShu()) {
-                Die();
+                die();
                 RIGHT = false;
                 LEFT = false;
                 UP = false;
@@ -130,53 +114,3 @@ public class BiwuModePlayer extends Player {
 
 
 }
-
-
-    /*public void beZhu(player.Player p) {
-
-        if (p == panel.battle.BattleBiwuPanel.p1 && (panel.battle.BattleBiwuPanel.p2.outlooking == 0 || panel.battle.BattleBiwuPanel.p2.outlooking == 1 ||
-                panel.battle.BattleBiwuPanel.p2.outlooking == 2 || panel.battle.BattleBiwuPanel.p2.outlooking == 3 || panel.battle.BattleBiwuPanel.p2.outlooking == 4)) {
-            panel.battle.BattleBiwuPanel.p2.outlooking = 4;
-            if (panel.battle.BattleBiwuPanel.p2.now == panel.battle.BattleBiwuPanel.p2.s) {
-                panel.battle.BattleBiwuPanel.p2.setNow();
-                panel.battle.BattleBiwuPanel.p2.now = panel.battle.BattleBiwuPanel.p2.s;
-            }
-            if (panel.battle.BattleBiwuPanel.p2.now == panel.battle.BattleBiwuPanel.p2.w) {
-                panel.battle.BattleBiwuPanel.p2.setNow();
-                panel.battle.BattleBiwuPanel.p2.now = panel.battle.BattleBiwuPanel.p2.w;
-            }
-            if (panel.battle.BattleBiwuPanel.p2.now == panel.battle.BattleBiwuPanel.p2.a) {
-                panel.battle.BattleBiwuPanel.p2.setNow();
-                panel.battle.BattleBiwuPanel.p2.now = panel.battle.BattleBiwuPanel.p2.a;
-            }
-            if (panel.battle.BattleBiwuPanel.p2.now == panel.battle.BattleBiwuPanel.p2.d) {
-                panel.battle.BattleBiwuPanel.p2.setNow();
-                panel.battle.BattleBiwuPanel.p2.now = panel.battle.BattleBiwuPanel.p2.d;
-            }
-            panel.battle.BattleBiwuPanel.p2.wuditime = 1;
-            panel.battle.BattleBiwuPanel.p2.bianshentime = 0;
-        }
-
-        if (p == panel.battle.BattleBiwuPanel.p2 && (panel.battle.BattleBiwuPanel.p1.outlooking == 0 || panel.battle.BattleBiwuPanel.p1.outlooking == 1 ||
-                panel.battle.BattleBiwuPanel.p1.outlooking == 2 || panel.battle.BattleBiwuPanel.p1.outlooking == 3 || panel.battle.BattleBiwuPanel.p1.outlooking == 4)) {
-            panel.battle.BattleBiwuPanel.p1.outlooking = 4;
-            if (panel.battle.BattleBiwuPanel.p1.now == panel.battle.BattleBiwuPanel.p1.s) {
-                panel.battle.BattleBiwuPanel.p1.setNow();
-                panel.battle.BattleBiwuPanel.p1.now = panel.battle.BattleBiwuPanel.p1.s;
-            }
-            if (panel.battle.BattleBiwuPanel.p1.now == panel.battle.BattleBiwuPanel.p1.w) {
-                panel.battle.BattleBiwuPanel.p1.setNow();
-                panel.battle.BattleBiwuPanel.p1.now = panel.battle.BattleBiwuPanel.p1.w;
-            }
-            if (panel.battle.BattleBiwuPanel.p1.now == panel.battle.BattleBiwuPanel.p1.a) {
-                panel.battle.BattleBiwuPanel.p1.setNow();
-                panel.battle.BattleBiwuPanel.p1.now = panel.battle.BattleBiwuPanel.p1.a;
-            }
-            if (panel.battle.BattleBiwuPanel.p1.now == panel.battle.BattleBiwuPanel.p1.d) {
-                panel.battle.BattleBiwuPanel.p1.setNow();
-                panel.battle.BattleBiwuPanel.p1.now = panel.battle.BattleBiwuPanel.p1.d;
-            }
-            panel.battle.BattleBiwuPanel.p1.wuditime = 1;
-            panel.battle.BattleBiwuPanel.p1.bianshentime = 0;
-        }
-    }*/

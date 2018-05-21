@@ -8,95 +8,114 @@ import javax.swing.ImageIcon;
 public class Explosion {
     private int time = 0, Booming = 30;
     private int heng, shu;
-    public String direction;
-    //爆炸中的图  四个方向 中心   w,s,a,d,zw,za,zs,zd,oo,sw,sa,ss,sd
-    private ImageIcon now;
+    public String position;
+
+    public static final String UP_RUINED_EXPLOSION = "sw";
+    public static final String LEFT_RUINED_EXPLOSION = "sa";
+    public static final String RIGHT_RUINED_EXPLOSION = "sd";
+    public static final String DOWN_RUINED_EXPLOSION = "ss";
+    public static final String UP_HEAD_EXPLOSION = "w";
+    public static final String LEFT_HEAD_EXPLOSION = "a";
+    public static final String RIGHT_HEAD_EXPLOSION = "d";
+    public static final String DOWN_HEAD_EXPLOSION = "s";
+    public static final String UP_CENTER_EXPLOSION = "zw";
+    public static final String LEFT_CENTER_EXPLOSION = "za";
+    public static final String RIGHT_CENTER_EXPLOSION = "zd";
+    public static final String DOWN_CENTER_EXPLOSION = "zs";
+    public static final String CENTER_EXPLOSION = "oo";
+
+    private ImageIcon explosionIcon;
 
     private Maps maps;
-    public Explosion(int h, int s, String _direction, Maps maps) {
+    public Explosion(int h, int s, String position, Maps maps) {
         heng = h;
         shu = s;
-        direction = _direction;
+        this.position = position;
         this.maps = maps;
-        switch (direction) {
-            case "w": {
-                now = new ImageIcon("上头.jpg");
+
+        setExplosionIcon();
+        maps.getExplosionMap()[heng][shu] = this;
+    }
+
+    private void setExplosionIcon() {
+        switch (this.position) {
+            case UP_HEAD_EXPLOSION: {
+                explosionIcon = new ImageIcon("上头.jpg");
                 break;
             }
-            case "s": {
-                now = new ImageIcon("下头.jpg");
+            case DOWN_HEAD_EXPLOSION: {
+                explosionIcon = new ImageIcon("下头.jpg");
                 break;
             }
-            case "a": {
-                now = new ImageIcon("左头.jpg");
+            case LEFT_HEAD_EXPLOSION: {
+                explosionIcon = new ImageIcon("左头.jpg");
                 break;
             }
-            case "d": {
-                now = new ImageIcon("右头.jpg");
+            case RIGHT_HEAD_EXPLOSION: {
+                explosionIcon = new ImageIcon("右头.jpg");
                 break;
             }
-            case "zw": {
-                now = new ImageIcon("上中.jpg");
+            case UP_CENTER_EXPLOSION: {
+                explosionIcon = new ImageIcon("上中.jpg");
                 break;
             }
-            case "za": {
-                now = new ImageIcon("左中.jpg");
+            case LEFT_CENTER_EXPLOSION: {
+                explosionIcon = new ImageIcon("左中.jpg");
                 break;
             }
-            case "zs": {
-                now = new ImageIcon("下中.jpg");
+            case DOWN_CENTER_EXPLOSION: {
+                explosionIcon = new ImageIcon("下中.jpg");
                 break;
             }
-            case "zd": {
-                now = new ImageIcon("右中.jpg");
+            case RIGHT_CENTER_EXPLOSION: {
+                explosionIcon = new ImageIcon("右中.jpg");
                 break;
             }
-            case "oo": {
-                now = new ImageIcon("中心.jpg");
+            case CENTER_EXPLOSION: {
+                explosionIcon = new ImageIcon("中心.jpg");
                 break;
             }
-            case "sw": {
-                now = new ImageIcon("碎.jpg");
+            case UP_RUINED_EXPLOSION: {
+                explosionIcon = new ImageIcon("碎.jpg");
                 break;
             }
-            case "sa": {
-                now = new ImageIcon("碎.jpg");
+            case LEFT_RUINED_EXPLOSION: {
+                explosionIcon = new ImageIcon("碎.jpg");
                 break;
             }
-            case "ss": {
-                now = new ImageIcon("碎.jpg");
+            case DOWN_RUINED_EXPLOSION: {
+                explosionIcon = new ImageIcon("碎.jpg");
                 break;
             }
-            case "sd": {
-                now = new ImageIcon("碎.jpg");
+            case RIGHT_RUINED_EXPLOSION: {
+                explosionIcon = new ImageIcon("碎.jpg");
                 break;
             }
         }
-        maps.getExplosionMap()[heng][shu] = this;
     }
 
     public void addTime() {
         time += 1;
         if (time == Booming) {
-            if (direction.equals("sw") || direction.equals("sd") || direction.equals("ss")
-                    || direction.equals("sa")) {
-                getDaoju();
-                //maps.getWallMap()[heng][shu].remove(maps);
+            if (position.equals("sw") || position.equals("sd") || position.equals("ss")
+                    || position.equals("sa")) {
+                creatDaoju();
                 maps.getWallMap()[heng][shu] = null;
-                //maps.removeWall(heng, shu);
             }
             remove();
         }
     }
 
-    public void getDaoju() {
-        Random a = new Random();
-        int has = a.nextInt(3);
-        if (has == 0 || has == 1) maps.getDaojuMap()[heng][shu] = new Daoju(heng, shu, maps);
+    public void creatDaoju() {
+        Random random = new Random();
+        int has = random.nextInt(3);
+        if (has == 0 || has == 1) {
+            maps.getDaojuMap()[heng][shu] = new Daoju();
+        }
     }
 
     public ImageIcon getImage() {
-        return now;
+        return explosionIcon;
     }
 
     public void remove() {

@@ -63,92 +63,109 @@ public class Ball {
         //s
         for (int i = 1; i <= power; i++) {
             if (cangos(i) == 0) {
-                if (i == power)
+                if (i == power) {
                     //maps.getExplosionMap()[heng][shu + i] = new Explosion(heng, shu + i, "s", maps);
                     new Explosion(heng, shu + i, "s", maps);
-                if (i != power)
+                }
+                if (i != power) {
                     //maps.getExplosionMap()[heng][shu + i] = new Explosion(heng, shu + i, "zs", maps);
                     new Explosion(heng, shu + i, "zs", maps);
+                }
+                maps.getDaojuMap()[heng][shu + i] = null;
             }
             if (cangos(i) == 1) {
-                maps.getWallMap()[heng][shu + i].Ruin();
+                maps.getWallMap()[heng][shu + i].beRuined();
                 //maps.getExplosionMap()[heng][shu + i] = new Explosion(heng, shu + i, "ss", maps);
                 new Explosion(heng, shu + i, "ss", maps);
                 break;
             }
             if (cangos(i) == 2) {
-                if (i != 1)
+                if (i != 1) {
                     //maps.getExplosionMap()[heng][shu + i - 1] = new Explosion(heng, shu + i - 1, "zs", maps);
                     new Explosion(heng, shu + i - 1, "zs", maps);
+                }
                 break;
             }
         }
         //w
         for (int i = 1; i <= power; i++) {
             if (cangow(i) == 0) {
-                if (i == power)
+                if (i == power) {
                     //maps.getExplosionMap()[heng][shu - i] = new Explosion(heng, shu - i, "w", maps);
                     new Explosion(heng, shu - i, "w", maps);
-                if (i != power)
+                }
+                if (i != power) {
                     //maps.getExplosionMap()[heng][shu - i] = new Explosion(heng, shu - i, "zw", maps);
                     new Explosion(heng, shu - i, "zw", maps);
+                }
+                maps.getDaojuMap()[heng][shu - i] = null;
             }
             if (cangow(i) == 1) {
-                maps.getWallMap()[heng][shu - i].Ruin();
+                maps.getWallMap()[heng][shu - i].beRuined();
                 //maps.getExplosionMap()[heng][shu - i] = new Explosion(heng, shu - i, "sw", maps);
                 new Explosion(heng, shu - i, "sw", maps);
                 break;
             }
             if (cangow(i) == 2) {
-                if (i != 1)
+                if (i != 1) {
                     //maps.getExplosionMap()[heng][shu - i + 1] = new Explosion(heng, shu - i + 1, "zw", maps);
                     new Explosion(heng, shu - i + 1, "zw", maps);
+                }
                 break;
             }
         }
         //a
         for (int i = 1; i <= power; i++) {
             if (cangoa(i) == 0) {
-                if (i == power)
+                if (i == power) {
                     //maps.getExplosionMap()[heng - i][shu] = new Explosion(heng - i, shu, "a", maps);
                     new Explosion(heng - i, shu, "a", maps);
-                if (i != power)
+                }
+
+                if (i != power) {
                     //maps.getExplosionMap()[heng - i][shu] = new Explosion(heng - i, shu, "za", maps);
                     new Explosion(heng - i, shu, "za", maps);
+                }
+                maps.getDaojuMap()[heng - i][shu] = null;
             }
             if (cangoa(i) == 1) {
-                maps.getWallMap()[heng - i][shu].Ruin();
+                maps.getWallMap()[heng - i][shu].beRuined();
                 //maps.getExplosionMap()[heng - i][shu] = new Explosion(heng - i, shu, "sa", maps);
                 new Explosion(heng - i, shu, "sa", maps);
                 break;
             }
             if (cangoa(i) == 2) {
-                if (i != 1)
+                if (i != 1) {
                     //maps.getExplosionMap()[heng - i + 1][shu] = new Explosion(heng - i + 1, shu, "za", maps);
                     new Explosion(heng - i + 1, shu, "za", maps);
+                }
                 break;
             }
         }
         //d
         for (int i = 1; i <= power; i++) {
             if (cangod(i) == 0) {
-                if (i == power)
+                if (i == power) {
                     //maps.getExplosionMap()[heng + i][shu] = new Explosion(heng + i, shu, "d", maps);
                     new Explosion(heng + i, shu, "d", maps);
-                if (i != power)
+                }
+                if (i != power) {
                     //maps.getExplosionMap()[heng + i][shu] = new Explosion(heng + i, shu, "zd", maps);
                     new Explosion(heng + i, shu, "zd", maps);
+                }
+                maps.getDaojuMap()[heng + i][shu] = null;
             }
             if (cangod(i) == 1) {
-                maps.getWallMap()[heng + i][shu].Ruin();
+                maps.getWallMap()[heng + i][shu].beRuined();
                 //maps.getExplosionMap()[heng + i][shu] = new Explosion(heng + i, shu, "sd", maps);
                 new Explosion(heng + i, shu, "sd", maps);
                 break;
             }
             if (cangod(i) == 2) {
-                if (i != 1)
+                if (i != 1) {
                     //maps.getExplosionMap()[heng + i - 1][shu] = new Explosion(heng + i - 1, shu, "zd", maps);
                     new Explosion(heng + i - 1, shu, "zd", maps);
+                }
                 break;
             }
         }

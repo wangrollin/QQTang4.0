@@ -6,7 +6,6 @@ import element.Daoju;
 import element.Maps;
 import element.MusicTool;
 import panel.battle.BattleAIPanel;
-import player.Player;
 
 import java.util.Random;
 
@@ -14,13 +13,11 @@ import javax.swing.ImageIcon;
 
 public class AI extends Player {
     protected int amount = MAXamount, power = 5, speed = MAXspeed + 2;
-    protected int myheng, myshu, hengcount, shucount, findheng, findshu, ws, ad, way;
-    protected Random aa;
+    //protected int myheng, myshu, hengcount, shucount, findheng, findshu, ws, ad, way;
+    private Random random;
     public AI(Maps maps) {
-
         super(GameConstants.PLAYER_AI, maps);
-        //X=125;
-        //Y=75;
+
         ps = new ImageIcon("包子下.gif");
         pw = new ImageIcon("包子上.gif");
         pa = new ImageIcon("包子左.gif");
@@ -36,12 +33,12 @@ public class AI extends Player {
         pwin = new ImageIcon("P2win.jpg");
         ballIcon = new ImageIcon("糖泡蓝.gif");
         now = ps;
-        aa = new Random();
+        random = new Random();
     }
 
 
     public void doing() {
-        eatdaoju();
+        eatDaoju();
         beexp();
     }
 
@@ -52,10 +49,10 @@ public class AI extends Player {
             if (jall(getHeng(), getShu()) == true && !isbianjie(getHeng(), getShu())) setBall();
             else return -1;
         } else if (i % 21 >= 1 && i % 21 <= 10) {
-            if (cangod()) goD();
+            if (canGoRight()) goD();
             else return -1;
         } else if (i % 21 >= 11 && i % 21 <= 20) {
-            if (cangow()) goW();
+            if (canGoUp()) goW();
             else return -1;
         }
         return 1;
@@ -67,10 +64,10 @@ public class AI extends Player {
             if (jall(getHeng(), getShu()) == true && !isbianjie(getHeng(), getShu())) setBall();
             else return -1;
         } else if (i % 21 >= 1 && i % 21 <= 10) {
-            if (cangoa()) goA();
+            if (cangGoLeft()) goA();
             else return -1;
         } else if (i % 21 >= 11 && i % 21 <= 20) {
-            if (cangow()) goW();
+            if (canGoUp()) goW();
             else return -1;
         }
         return 1;
@@ -82,10 +79,10 @@ public class AI extends Player {
             if (jall(getHeng(), getShu()) == true && !isbianjie(getHeng(), getShu())) setBall();
             else return -1;
         } else if (i % 21 >= 1 && i % 21 <= 10) {
-            if (cangoa()) goA();
+            if (cangGoLeft()) goA();
             else return -1;
         } else if (i % 21 >= 11 && i % 21 <= 20) {
-            if (cangos()) goS();
+            if (canGoDown()) goS();
             else return -1;
         }
         return 1;
@@ -97,10 +94,10 @@ public class AI extends Player {
             if (jall(getHeng(), getShu()) == true && !isbianjie(getHeng(), getShu())) setBall();
             else return -1;
         } else if (i % 21 >= 1 && i % 21 <= 10) {
-            if (cangod()) goD();
+            if (canGoRight()) goD();
             else return -1;
         } else if (i % 21 >= 11 && i % 21 <= 20) {
-            if (cangos()) goS();
+            if (canGoDown()) goS();
             else return -1;
         }
         return 1;
@@ -110,7 +107,7 @@ public class AI extends Player {
     //技能--长龙    1继续执行 -1中断
     public int changlong1(int i) {
         if (i >= 55) return -1;
-        else if (cangow() == false) return -1;
+        else if (canGoUp() == false) return -1;
         else if (getShu() - 1 < 0) return -1;
         else if (changlongsafe(1) == false) return -1;
         if (i % 11 == 0) setBall();
@@ -120,7 +117,7 @@ public class AI extends Player {
 
     public int changlong2(int i) {
         if (i >= 55) return -1;
-        else if (cangoa() == false) return -1;
+        else if (cangGoLeft() == false) return -1;
         else if (getHeng() - 1 < 0) return -1;
         else if (changlongsafe(2) == false) return -1;
         if (i % 11 == 0) setBall();
@@ -130,7 +127,7 @@ public class AI extends Player {
 
     public int changlong3(int i) {
         if (i >= 55) return -1;
-        else if (cangos() == false) return -1;
+        else if (canGoDown() == false) return -1;
         else if (getShu() + 1 > 7) return -1;
         else if (changlongsafe(3) == false) return -1;
         if (i % 11 == 0) setBall();
@@ -140,7 +137,7 @@ public class AI extends Player {
 
     public int changlong4(int i) {
         if (i >= 55) return -1;
-        else if (cangod() == false) return -1;
+        else if (canGoRight() == false) return -1;
         else if (getHeng() + 1 > 12) return -1;
         else if (changlongsafe(4) == false) return -1;
         else if (i % 11 == 0) setBall();
@@ -221,12 +218,12 @@ public class AI extends Player {
     public void sajiao() {
 
         for (int k = 0; k < 15; ++k) {
-            int i = aa.nextInt(13);
-            int j = aa.nextInt(8);
+            int i = random.nextInt(13);
+            int j = random.nextInt(8);
             if (i <= 12 && i >= 0 && j <= 7 && j >= 0 && maps.getDaojuMap()[i][j] == null
                     && maps.getBallMap()[i][j] == null && maps.getExplosionMap()[i][j] == null
                     && maps.getWallMap()[i][j] == null)
-                new Daoju(i, j, 11, maps);
+                new Daoju(11);
         }
         MusicTool.music[12].stop();
         MusicTool.music[12].play();
@@ -248,10 +245,10 @@ public class AI extends Player {
 
     //象限的名义查找玩家的位置
     public int where() {
-        if (BattleAIPanel.p1.getX() > getX() && BattleAIPanel.p1.getY() > getY()) return 4;
-        if (BattleAIPanel.p1.getX() < getX() && BattleAIPanel.p1.getY() > getY()) return 3;
-        if (BattleAIPanel.p1.getX() > getX() && BattleAIPanel.p1.getY() < getY()) return 1;
-        if (BattleAIPanel.p1.getX() < getX() && BattleAIPanel.p1.getY() < getY()) return 2;
+        if (BattleAIPanel.p1.getJudgeXPosition() > getJudgeXPosition() && BattleAIPanel.p1.getJudgeYPosition() > getJudgeYPosition()) return 4;
+        if (BattleAIPanel.p1.getJudgeXPosition() < getJudgeXPosition() && BattleAIPanel.p1.getJudgeYPosition() > getJudgeYPosition()) return 3;
+        if (BattleAIPanel.p1.getJudgeXPosition() > getJudgeXPosition() && BattleAIPanel.p1.getJudgeYPosition() < getJudgeYPosition()) return 1;
+        if (BattleAIPanel.p1.getJudgeXPosition() < getJudgeXPosition() && BattleAIPanel.p1.getJudgeYPosition() < getJudgeYPosition()) return 2;
         return 0;
     }
 
@@ -431,11 +428,11 @@ public class AI extends Player {
         if (j > 0)
             bianjie = true;
         if ((j - 1 >= 0 && maps.isWall(i, j - 1) == false)
-                || (j - 1 >= 0 && maps.isWall(i, j - 1) == true && getY() > ((j - 1) * 50 + 65))
+                || (j - 1 >= 0 && maps.isWall(i, j - 1) == true && getJudgeYPosition() > ((j - 1) * 50 + 65))
                 || (j - 1 < 0 && maps.isWall(i, j) == false))
             wall = true;
         if ((j - 1 >= 0 && maps.isBoom(i, j - 1) == false)
-                || (j - 1 >= 0 && maps.isBoom(i, j - 1) == true && getY() > ((j - 1) * 50 + 65))
+                || (j - 1 >= 0 && maps.isBoom(i, j - 1) == true && getJudgeYPosition() > ((j - 1) * 50 + 65))
                 || (j - 1 < 0 && maps.isBoom(i, j) == false))
             ball = true;
 
@@ -451,11 +448,11 @@ public class AI extends Player {
         if (i > 0)
             bianjie = true;
         if ((i - 1 >= 0 && maps.isBoom(i - 1, j) == false)
-                || (i - 1 >= 0 && maps.isBoom(i - 1, j) == true && getX() > (i - 1) * 50 + 65)
+                || (i - 1 >= 0 && maps.isBoom(i - 1, j) == true && getJudgeXPosition() > (i - 1) * 50 + 65)
                 || (i - 1 < 0 && maps.isBoom(i, j) == false))
             ball = true;
         if ((i - 1 >= 0 && maps.isWall(i - 1, j) == false)
-                || (i - 1 >= 0 && maps.isWall(i - 1, j) == true && getX() > (i - 1) * 50 + 65)
+                || (i - 1 >= 0 && maps.isWall(i - 1, j) == true && getJudgeXPosition() > (i - 1) * 50 + 65)
                 || (i - 1 < 0 && maps.isWall(i, j) == false))
             wall = true;
         return (wall && ball && bianjie);
@@ -471,11 +468,11 @@ public class AI extends Player {
         if (j < 7)
             bianjie = true;
         if ((j + 1 <= 7 && maps.isBoom(i, j + 1) == false)
-                || (j + 1 <= 7 && maps.isBoom(i, j + 1) == true && getY() < ((j + 1) * 50 - 15))
+                || (j + 1 <= 7 && maps.isBoom(i, j + 1) == true && getJudgeYPosition() < ((j + 1) * 50 - 15))
                 || (j + 1 > 7 && maps.isBoom(i, j) == false))
             ball = true;
         if ((j + 1 <= 7 && maps.isWall(i, j + 1) == false)
-                || (j + 1 <= 7 && maps.isWall(i, j + 1) == true && getY() < ((j + 1) * 50 - 15))
+                || (j + 1 <= 7 && maps.isWall(i, j + 1) == true && getJudgeYPosition() < ((j + 1) * 50 - 15))
                 || (j + 1 > 7 && maps.isWall(i, j) == false))
             wall = true;
         return (wall && ball && bianjie);
@@ -489,11 +486,11 @@ public class AI extends Player {
         if (i < 12)
             bianjie = true;
         if ((i + 1 <= 12 && maps.isBoom(i + 1, j) == false)
-                || (i + 1 <= 12 && maps.isBoom(i + 1, j) == true && getX() < (i + 1) * 50 - 15)
+                || (i + 1 <= 12 && maps.isBoom(i + 1, j) == true && getJudgeXPosition() < (i + 1) * 50 - 15)
                 || (i + 1 > 12 && maps.isBoom(i, j) == false))
             ball = true;
         if ((i + 1 <= 12 && maps.isWall(i + 1, j) == false)
-                || (i + 1 <= 12 && maps.isWall(i + 1, j) == true && getX() < (i + 1) * 50 - 15)
+                || (i + 1 <= 12 && maps.isWall(i + 1, j) == true && getJudgeXPosition() < (i + 1) * 50 - 15)
                 || (i + 1 > 12 && maps.isWall(i, j) == false))
             wall = true;
         return (wall && ball && bianjie);
@@ -507,29 +504,29 @@ public class AI extends Player {
     public void move() {
         if (RIGHT == true) {
             now = pd;
-            if (cangod()) setX(getX() + speed);
+            if (canGoRight()) setJudgeXPosition(getJudgeXPosition() + speed);
             stop();
             return;
         } else if (LEFT == true) {
             now = pa;
-            if (cangoa()) setX(getX() - speed);
+            if (cangGoLeft()) setJudgeXPosition(getJudgeXPosition() - speed);
             stop();
             return;
         } else if (UP == true) {
             now = pw;
-            if (cangow()) setY(getY() - speed);
+            if (canGoUp()) setJudgeYPosition(getJudgeYPosition() - speed);
             stop();
             return;
         } else if (DOWN == true) {
             now = ps;
-            if (cangos()) setY(getY() + speed);
+            if (canGoDown()) setJudgeYPosition(getJudgeYPosition() + speed);
             stop();
             return;
         }
 
     }
 
-    public void eatdaoju() {
+    public void eatDaoju() {
         if (maps.isDaoju(getHeng(), getShu())) {
             switch (maps.getDaojuMap()[getHeng()][getShu()].getType()) {
                 case 1:

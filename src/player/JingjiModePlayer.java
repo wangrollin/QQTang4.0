@@ -1,7 +1,6 @@
 package player;
 
 import constants.GameConstants;
-import element.Ball;
 import element.Maps;
 
 import javax.swing.ImageIcon;
@@ -16,8 +15,8 @@ public class JingjiModePlayer extends Player {
         super(playerNumber, maps);
         //this.playerNumber = playerNumber;
         if (getPlayerNumber() == GameConstants.PLAYER1) {
-            X = 125;
-            Y = 325;
+            judgeXPosition = 125;
+            judgeYPosition = 325;
             ps = new ImageIcon("战士下.gif");
             pw = new ImageIcon("战士上.gif");
             pa = new ImageIcon("战士左.gif");
@@ -33,8 +32,8 @@ public class JingjiModePlayer extends Player {
             pwin = new ImageIcon("P1win.gif");
             ballIcon = new ImageIcon("糖泡红.gif");
         } else {
-            X = 125;
-            Y = 75;
+            judgeXPosition = 125;
+            judgeYPosition = 75;
             ps = new ImageIcon("包子下.gif");
             pw = new ImageIcon("包子上.gif");
             pa = new ImageIcon("包子左.gif");
@@ -53,10 +52,5 @@ public class JingjiModePlayer extends Player {
 
         now = ps;
     }
-
-  /*  public void setBall() {
-            Ball ball = new Ball(1, getHeng(), getShu(), power, getBallIcon());
-            element.MusicTool.music[5].play();
-    }*/
 
 }
