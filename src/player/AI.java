@@ -15,8 +15,8 @@ public class AI extends Player {
 
     private Random random;
 
-    public AI(Maps maps, Player anotherPlayer) {
-        super(GameConstants.PLAYER_AI, maps, anotherPlayer);
+    public AI(Maps maps) {
+        super(GameConstants.PLAYER_AI, maps);
 
         originGoDownIcon = new ImageIcon("包子下.gif");
         originGoUpIcon = new ImageIcon("包子上.gif");
@@ -39,7 +39,10 @@ public class AI extends Player {
 
     public void doing() {
         pickupItem();
-        isBeBombed();
+        //isBeBombed();
+        dieIfPossible();
+        //pickupItem();
+        beBombed();
     }
 
     //技能--斜泡    1继续执行 -1中断
@@ -225,7 +228,6 @@ public class AI extends Player {
                     && !maps.isWall(i, j))
                 maps.setItem(i, j, Item.createItemFox());
         }
-        MusicTool.SCATTER_ITEM.stop();
         MusicTool.SCATTER_ITEM.play();
     }
 
@@ -541,7 +543,6 @@ public class AI extends Player {
 
     public void pickupItem() {
         if (maps.isItem(getHeng(), getShu())) {
-                MusicTool.PICKUP_ITEM.stop();
                 MusicTool.PICKUP_ITEM.play();
                 maps.removeItem(getHeng(), getShu());
         }

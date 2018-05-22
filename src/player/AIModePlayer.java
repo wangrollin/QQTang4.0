@@ -9,11 +9,17 @@ import javax.swing.ImageIcon;
 
 public class AIModePlayer extends Player {
 
-    protected int nspeed = 4;
-    protected int speed = 4;
+    //protected int nspeed = 4;
+    //protected int speed = 4;
+// todo aimodePlayer 太弱
+    //各种道具的持有量  收集用这个
+    int namount = MAX_BALL_CAPACITY, npower = MAX_BALL_POWER, nspeed = MAX_SPEED;
+    //各种道具的持有量 最终显示效果用这个改变这个
+    int amount = MAX_BALL_CAPACITY, power = MAX_BALL_POWER, speed = MAX_SPEED, fork = 0;
 
-    public AIModePlayer(Maps maps, Player anotherPlayer) {
-        super(GameConstants.PLAYER1, maps, anotherPlayer);
+
+    public AIModePlayer(Maps maps) {
+        super(GameConstants.PLAYER1, maps);
         judgeXPosition = 125;
         judgeYPosition = 75;
 

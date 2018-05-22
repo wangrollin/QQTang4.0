@@ -5,7 +5,6 @@ import element.Item;
 import element.Maps;
 import element.Ball;
 import element.MusicTool;
-import panel.battle.BattleJingjiPanel;
 
 import javax.swing.ImageIcon;
 import java.awt.event.KeyEvent;
@@ -107,10 +106,13 @@ public class Player implements KeyListener {
         return playerNumber;
     }
 
-    public Player(int playNumber, Maps maps, Player anotherPlayer) {
+    public void setAnotherPlayer(Player anotherPlayer) {
+        this.anotherPlayer = anotherPlayer;
+    }
+
+    public Player(int playNumber, Maps maps) {
         this.playerNumber = playNumber;
         this.maps = maps;
-        this.anotherPlayer = anotherPlayer;
 
         windGoUpIcon = new ImageIcon("fengw.gif");
         windGoDownIcon = new ImageIcon("fengs.gif");
@@ -331,43 +333,43 @@ public class Player implements KeyListener {
     }
 
 
-    public void keepDoing(Player anotherPlayer) {
+    public void keepDoing() {
         move();
-        dieIfPossible(anotherPlayer);
+        dieIfPossible();
         pickupItem();
         beBombed();
         transformToOrigin();
     }
 
-    public void dieIfPossible(Player anotherPlayer) {
+    public void dieIfPossible() {
         if (flashTime > 0) flashTime += 1;
         if (flashTime == FLASH_MAX_TIME) flashTime = 0;
         if (outlooking == OUTLOOKING_STUCK) {
             stuckTime += 1;
             if (stuckTime == BEFORE_DIE_TIME) {
-                die();
+                lose();
                 anotherPlayer.win();
             } else if (anotherPlayer.outlooking != OUTLOOKING_STUCK
                     && getHeng() == anotherPlayer.getHeng()
                     && getShu() == anotherPlayer.getShu()) {
-                die();
+                lose();
                 anotherPlayer.win();
             }
         }
     }
 
-    private void die() {
+    public void lose() {
         outlooking = OUTLOOKING_LOSER;
         setIconsByOutlooking();
         currentPlayerIcon = deadIcon;
+
         MusicTool.PLAYER_EXPLODE.play();
     }
 
-    private void win() {
+    public void win() {
         outlooking = OUTLOOKING_WINNER;
         setIconsByOutlooking();
         currentPlayerIcon = winningIcon;
-        //MusicTool.music[3].stop();
     }
 
     public void transformToOrigin() {
@@ -552,8 +554,7 @@ public class Player implements KeyListener {
                 }
             }
             maps.removeItem(getHeng(),getShu());
-            MusicTool.PICKUP_ITEM.stop();
-            MusicTool.PICKUP_ITEM.play();//TODO
+            MusicTool.PICKUP_ITEM.play();
         }
     }
 

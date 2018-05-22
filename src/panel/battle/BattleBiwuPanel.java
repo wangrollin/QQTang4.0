@@ -26,7 +26,7 @@ public class BattleBiwuPanel extends JPanel {
     //闪出来的长度
     //protected final static int jiangeheng = 0, jiangeshu = 0;
     //时间监听毫秒
-    private final int DELAY = 15;
+    private final int DELAY = 10;
     //时间老人
     private Timer timer;
     //地图
@@ -51,6 +51,9 @@ public class BattleBiwuPanel extends JPanel {
     private ImageIcon num, num0, num1, num2, num3, num4, num5, num6, num7, num8, num9;
     protected static boolean timeover = false;
     TimeCounter timeCounter;
+
+    private static final int DELAY_TO_JUMP_MAX_TIME = 200;
+    private int delayToJumpTime = 0;
 
     public void initPlayerPosition() {
         Random random = new Random();
@@ -83,7 +86,8 @@ public class BattleBiwuPanel extends JPanel {
         p2 = null;
 
         cardLayout.show(myPanelCard, panelName);
-        bgmToPlay.play();
+        bgmToPlay.loop();
+        timer.stop();
     }
 
     public void initAndShowAndStartGame() {
@@ -97,15 +101,19 @@ public class BattleBiwuPanel extends JPanel {
         /**
          * init players
          */
-        p1 = new BiwuModePlayer(GameConstants.PLAYER1, maps, p2);
-        p2 = new BiwuModePlayer(GameConstants.PLAYER2, maps, p1);
+        p1 = new BiwuModePlayer(GameConstants.PLAYER1, maps);
+        p2 = new BiwuModePlayer(GameConstants.PLAYER2, maps);
+        p1.setAnotherPlayer(p2);
+        p2.setAnotherPlayer(p1);
         initPlayerPosition();
         myPanelCard.addKeyListener(p1);
         myPanelCard.addKeyListener(p2);
 
 
-        timeover = false; // TODO
+        timeover = false;
 
+        delayToJumpTime = 0;
+        timer.start();
         cardLayout.show(myPanelCard, "battleBiwuPanel");
         timeCounter = new TimeCounter();
         /**
@@ -122,8 +130,10 @@ public class BattleBiwuPanel extends JPanel {
         this.cardLayout = cardLayout;
 
 
-        p1 = new BiwuModePlayer(GameConstants.PLAYER1, maps, p2);
-        p2 = new BiwuModePlayer(GameConstants.PLAYER2, maps, p1);
+        p1 = new BiwuModePlayer(GameConstants.PLAYER1, maps);
+        p2 = new BiwuModePlayer(GameConstants.PLAYER2, maps);
+        p1.setAnotherPlayer(p2);
+        p2.setAnotherPlayer(p1);
 
         gobackBtn = new JButton(new ImageIcon("replay1.png"));
         gobackBtn.setBounds(10, 10, 128, 50);
@@ -153,36 +163,16 @@ public class BattleBiwuPanel extends JPanel {
         setLayout(null);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
-        timer.start();
+        //timer.start();
     }
 
     //画图啦**********************************************************************************************
     public void paintComponent(Graphics page) {
-        if (timeCounter.over) {
-            if (p1.deathFrequency < p2.deathFrequency) {
-                closeGameAndJumpAway("fighterWinPanel", MusicTool.WINNING_BGM);
-            } else if (p1.deathFrequency > p2.deathFrequency) {
-                closeGameAndJumpAway("baoziWinPanel", MusicTool.WINNING_BGM);
-            } else if (p1.deathFrequency == p2.deathFrequency) {
-                closeGameAndJumpAway("dagfallPanel", MusicTool.WINNING_BGM);
-            }
-        }
-
         super.paintComponent(page);
         maps.getBiwumenIcon().paintIcon(this, page, 0, 0);
         maps.getGroundIcon().paintIcon(this, page, 0, 200);
-        //不断刷新的
-        p1.keepDoing();
-        p2.keepDoing();
-
         paintTime(page);
-
         paintScore(page);
-
-        timeCounter.count();
-
-
-
         //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具
         for (int j = 0; j < GameConstants.SHU; j++)
             for (int i = 0; i < GameConstants.HENG; i++) {
@@ -220,6 +210,54 @@ public class BattleBiwuPanel extends JPanel {
                 }
             }
 
+    }
+
+    private void playerDoing() {
+        //不断刷新的
+        p1.keepDoing();
+        p2.keepDoing();
+    }
+
+    private void jumpAwayIfPossible() {
+        if (timeCounter.over) {
+            if (p1.deathFrequency < p2.deathFrequency) {
+                p1.win();
+                p2.lose();
+                if(delayToJumpTime == 0) {
+                    MusicTool.stopAllMusic();
+                    MusicTool.WINNING_BGM.loop();
+                }
+                if (delayToJumpTime < DELAY_TO_JUMP_MAX_TIME) {
+                    ++delayToJumpTime;
+                } else {
+                    closeGameAndJumpAway("fighterWinPanel", MusicTool.WINNING_BGM);
+                }
+            } else if (p1.deathFrequency > p2.deathFrequency) {
+                p1.lose();
+                p2.win();
+                if(delayToJumpTime == 0) {
+                    MusicTool.stopAllMusic();
+                    MusicTool.WINNING_BGM.loop();
+                }
+                if (delayToJumpTime < DELAY_TO_JUMP_MAX_TIME) {
+                    ++delayToJumpTime;
+                } else {
+                    closeGameAndJumpAway("baoziWinPanel", MusicTool.WINNING_BGM);
+                }
+            } else if (p1.deathFrequency == p2.deathFrequency) {
+                p1.win();
+                p2.win();
+                if(delayToJumpTime == 0) {
+                    MusicTool.stopAllMusic();
+                    MusicTool.WINNING_BGM.loop();
+                }
+                if (delayToJumpTime < DELAY_TO_JUMP_MAX_TIME) {
+                    ++delayToJumpTime;
+                } else {
+                    closeGameAndJumpAway("dagfallPanel", MusicTool.WINNING_BGM);
+                }
+            }
+        }
     }
 
     private void paintTime(Graphics page) {
@@ -303,6 +341,9 @@ public class BattleBiwuPanel extends JPanel {
     public class Mytime implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             repaint();
+            jumpAwayIfPossible();
+            playerDoing();
+            timeCounter.count();
         }
     }
 

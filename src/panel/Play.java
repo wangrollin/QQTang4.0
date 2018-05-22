@@ -11,7 +11,7 @@ public class Play extends JFrame {
     //static int moshi = 2;
     static int zanting = 0;
     //static panel.Play play;
-
+// TODO: 18/5/22 到底是什么吃资源,消灭掉
     public Play() {
         this.panel = new MyPanelCard(this);
 

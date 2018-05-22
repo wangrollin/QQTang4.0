@@ -13,7 +13,7 @@ public class Ball {
     //炸弹计时
     private int timeCounter = 0;
     //不爆炸的时间
-    private static final int MAX_TIME = 300;
+    private static final int MAX_TIME = 400;
     //动态图
     private ImageIcon ballIcon;
     //谁放的
@@ -62,8 +62,7 @@ public class Ball {
     }
 
     private void booit() {
-        MusicTool.BALL_EXPLODE.stop();
-        MusicTool.BALL_EXPLODE.play();// TODO
+        MusicTool.BALL_EXPLODE.play();
         //maps.getExplosionMap()[heng][shu] = new Explosion(heng, shu, "oo", maps);
         maps.setExplosion(new Explosion(heng, shu, "oo", maps));
         //0能炸过去     1遇到了墙能炸碎     2遇到了便边界 或者炸不碎的墙

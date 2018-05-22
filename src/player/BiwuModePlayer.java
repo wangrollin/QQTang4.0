@@ -10,14 +10,11 @@ import javax.swing.ImageIcon;
 
 
 public class BiwuModePlayer extends Player {
-    //private int playerNumber;
-/*    //现在放下去的糖泡的数量
-    protected static int count = 0;*/
     private Random random;
     public int deathFrequency = 0, rebornTime = 0, rebornMaxTime = 500;
 
-    public BiwuModePlayer(int playerNumber, Maps maps, Player anotherPlayer) {
-        super(playerNumber, maps, anotherPlayer);
+    public BiwuModePlayer(int playerNumber, Maps maps) {
+        super(playerNumber, maps);
         random = new Random();
 
         if (getPlayerNumber() == GameConstants.PLAYER1) {
@@ -68,7 +65,7 @@ public class BiwuModePlayer extends Player {
 
     public void keepDoing() {
         move();
-        dieIfPossible(getAnotherPlayer());
+        dieIfPossible();
         pickupItem();
         beBombed();
         transformToOrigin();

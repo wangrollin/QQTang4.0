@@ -5,12 +5,12 @@ public class TimeCounter {
     public int minute = 3, scond = 0;
     public boolean over = false;
     private int oneSecond = 0;
-    private final int OneSecond = 100;
+    private final int ONE_SECOND = 87;//test out, it is 87
 
     public void count() {
         if (!over) {
             oneSecond += 1;
-            if (oneSecond == OneSecond) {
+            if (oneSecond == ONE_SECOND) {
                 oneSecond = 0;
                 if (scond > 0) {
                     scond -= 1;

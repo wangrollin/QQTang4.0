@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 
 public class Explosion {
-    private int time = 0, Booming = 30;
+    private int time = 0, Booming = 40;
     private int heng, shu;
     public String position;
 

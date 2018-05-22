@@ -11,8 +11,8 @@ public class JingjiModePlayer extends Player {
 /*    //现在放下去的糖泡的数量
     protected static int count = 0;*/
 
-    public JingjiModePlayer(int playerNumber, Maps maps, Player anotherPlayer) {
-        super(playerNumber, maps, anotherPlayer);
+    public JingjiModePlayer(int playerNumber, Maps maps) {
+        super(playerNumber, maps);
 
         if (getPlayerNumber() == GameConstants.PLAYER1) {
             judgeXPosition = 125;

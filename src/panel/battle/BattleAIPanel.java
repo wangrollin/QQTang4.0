@@ -30,12 +30,14 @@ public class BattleAIPanel extends JPanel {
 
     private JButton gobackBtn, exitBtn;
     //时间监听毫秒
-    private static final int DELAY = 15;
+    private static final int DELAY = 10;
     //时间老人
     private Timer timer;
 
     private Maps maps = new Maps();
 
+    private static final int DELAY_TO_JUMP_MAX_TIME = 200;
+    private int delayToJumpTime = 0;
 
     public void setGroundIconByType(int groundType) {
         this.maps.setGroundIconByType(groundType);
@@ -77,14 +79,15 @@ public class BattleAIPanel extends JPanel {
         exitBtn.setBounds(510, 10, 130, 50);
         add(exitBtn);
 
-        p1 = new AIModePlayer(maps, p2);
-        p2 = new AI(maps, p1);
+        p1 = new AIModePlayer(maps);
+        p2 = new AI(maps);
+        p1.setAnotherPlayer(p2);
+        p2.setAnotherPlayer(p1);
 
         timer = new Timer(DELAY, new Mytime());
         setLayout(null);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
-        timer.start();
     }
     public void setWallMapAndWallMapType(Wall[][] wallMap, int wallMapType) {
         this.maps.setWallMap(wallMap, wallMapType);
@@ -96,7 +99,8 @@ public class BattleAIPanel extends JPanel {
         p2 = null;
 
         cardLayout.show(myPanelCard, panelName);
-        bgmToPlay.play();
+        bgmToPlay.loop();
+        timer.stop();
     }
     public void initAndShowAndStartGame() {
         /**
@@ -109,8 +113,10 @@ public class BattleAIPanel extends JPanel {
         /**
          * init players
          */
-        p1 = new AIModePlayer(maps, p2);
-        p2 = new AI(maps, p1);
+        p1 = new AIModePlayer(maps);
+        p2 = new AI(maps);
+        p1.setAnotherPlayer(p2);
+        p2.setAnotherPlayer(p1);
         initPlayerPosition();
         myPanelCard.addKeyListener(p1);
 
@@ -120,39 +126,56 @@ public class BattleAIPanel extends JPanel {
         jineng = 0;
         wushi = 0;
         weizhi = p2.getPlayerQuadrant();
+        delayToJumpTime = 0;
 
+        timer.start();
         cardLayout.show(myPanelCard, "battleAIPanel");
 
         /**
          * play music, loop bgm
          */
         MusicTool.READ_GO.play();
-        if (this.maps.getWallMapType() == GameConstants.BIWU_MAP) {
-            MusicTool.AI_MODE_BGM.loop();
-        }
+        MusicTool.AI_MODE_BGM.loop();
+
     }
 
     public void paintComponent(Graphics page) {
         super.paintComponent(page);
-
-        // TODO
-        if (p2.isBeBombed()) {
-            closeGameAndJumpAway("fighterWinPanel", MusicTool.WINNING_BGM);
-        } else if (p1.toDie()) {
-            closeGameAndJumpAway("fighterLosePanel", MusicTool.LOSING_BGM);
-        }
-
         maps.getBiwumenIcon().paintIcon(this, page, 0, 0);
         maps.getGroundIcon().paintIcon(this, page, 0, 200);
-        //不断刷新的
-        p1.move();
 
-        p1.pickupItem();
-        p1.beBombed();
-        p1.transformToOrigin();
+        //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具
+        for (int j = 0; j < GameConstants.SHU; j++)
+            for (int i = 0; i < GameConstants.HENG; i++) {
+                if (maps.isWall(i, j) && !maps.getWall(i, j).isRuined()) {
+                    maps.getWall(i, j).getWallIcon().paintIcon(this, page, i * 50, j * 50 - 12 + 200);
+                }
 
-        p2.doing();
+                if (maps.isItem(i, j)) {
+                    maps.getItem(i, j).getItemIcon().paintIcon(this, page, i * 50, j * 50 + 200);
+                }
 
+                if (maps.isBall(i, j)) {
+                    maps.getBall(i, j).getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
+                    maps.getBall(i, j).addTime();
+                }
+
+                if (maps.isExplosion(i, j)) {
+                    maps.getExplosion(i, j).getImage().paintIcon(this, page, i * 50, j * 50 + 200);
+                    maps.getExplosion(i, j).addTime();
+                }
+
+                if (p1.getHeng() == i && p1.getShu() == j)
+                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
+
+                if (p2.getHeng() == i && p2.getShu() == j)
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
+            }
+
+
+    }
+
+    private void aiDoing() {
         if (safe == 0) {
             //攻击
             //未释放
@@ -340,44 +363,51 @@ public class BattleAIPanel extends JPanel {
             }
             safe = p2.safecheck();
         }
-        ////////////////////////////////////////////////////////////////
+    }
 
+    private void playerDoing() {
+        //不断刷新的
+        p1.move();
 
+        p1.pickupItem();
+        p1.beBombed();
+        p1.transformToOrigin();
 
-        //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具
-        for (int j = 0; j < GameConstants.SHU; j++)
-            for (int i = 0; i < GameConstants.HENG; i++) {
-                if (maps.isWall(i, j) && !maps.getWall(i, j).isRuined()) {
-                    maps.getWall(i, j).getWallIcon().paintIcon(this, page, i * 50, j * 50 - 12 + 200);
-                }
+        p2.doing();
+    }
 
-                if (maps.isItem(i, j)) {
-                    maps.getItem(i, j).getItemIcon().paintIcon(this, page, i * 50, j * 50 + 200);
-                }
-
-                if (maps.isBall(i, j)) {
-                    maps.getBall(i, j).getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
-                    maps.getBall(i, j).addTime();
-                }
-
-                if (maps.isExplosion(i, j)) {
-                    maps.getExplosion(i, j).getImage().paintIcon(this, page, i * 50, j * 50 + 200);
-                    maps.getExplosion(i, j).addTime();
-                }
-
-                if (p1.getHeng() == i && p1.getShu() == j)
-                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
-
-                if (p2.getHeng() == i && p2.getShu() == j)
-                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
+    private void jumpAwayIfPossible() {
+        // TODO ai一旦被炸到,就dieIcon, human变成ideIcon才是, 谁先谁输
+        if (p2.isBeBombed()) {
+            if(delayToJumpTime == 0) {
+                MusicTool.stopAllMusic();
+                MusicTool.WINNING_BGM.loop();
             }
-
+            if (delayToJumpTime < DELAY_TO_JUMP_MAX_TIME) {
+                ++delayToJumpTime;
+            } else {
+                closeGameAndJumpAway("fighterWinPanel", MusicTool.WINNING_BGM);
+            }
+        } else if (p1.toDie()) {
+            if(delayToJumpTime == 0) {
+                MusicTool.stopAllMusic();
+                MusicTool.WINNING_BGM.loop();
+            }
+            if (delayToJumpTime < DELAY_TO_JUMP_MAX_TIME) {
+                ++delayToJumpTime;
+            } else {
+                closeGameAndJumpAway("fighterLosePanel", MusicTool.LOSING_BGM);
+            }
+        }
     }
 
     //时间监听*******************************************************************************************
     public class Mytime implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             repaint();
+            jumpAwayIfPossible();
+            playerDoing();
+            aiDoing();
         }
     }
 

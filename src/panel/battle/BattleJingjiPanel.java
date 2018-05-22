@@ -27,7 +27,7 @@ public class BattleJingjiPanel extends JPanel {
     private JButton gobackBtn, exitBtn;
 
     //时间监听毫秒
-    private static final int DELAY = 15;
+    private static final int DELAY = 10;
     //时间老人
     Timer timer;
 
@@ -44,8 +44,9 @@ public class BattleJingjiPanel extends JPanel {
     private JingjiModePlayer p1;
     private JingjiModePlayer p2;
 
-    private static int cishu = 0;
-
+    //private static int cishu = 0;
+    private static final int DELAY_TO_JUMP_MAX_TIME = 200;
+    private int delayToJumpTime = 0;
 
     public void initPlayerPosition() {
         Random random = new Random();
@@ -64,7 +65,6 @@ public class BattleJingjiPanel extends JPanel {
         }
     }
 
-    // TODO
     public void closeGameAndJumpAway(String panelName, AudioClip bgmToPlay) {
         MusicTool.stopAllMusic();
         myPanelCard.removeKeyListener(p1);
@@ -73,10 +73,10 @@ public class BattleJingjiPanel extends JPanel {
         p2 = null;
 
         cardLayout.show(myPanelCard, panelName);
-        bgmToPlay.play();
+        bgmToPlay.loop();
+        timer.stop();
     }
-// TODO 返回游戏 再次游戏 使用closeGame() initAndStartGame()
-//开始游戏 直接返回 游戏结束跳到结束panel
+
     public void initAndShowAndStartGame() {
         /**
          * init maps
@@ -88,15 +88,18 @@ public class BattleJingjiPanel extends JPanel {
         /**
          * init players
          */
-        p1 = new JingjiModePlayer(GameConstants.PLAYER1, maps, p2);
-        p2 = new JingjiModePlayer(GameConstants.PLAYER2, maps, p1);
+        p2 = new JingjiModePlayer(GameConstants.PLAYER2, maps);
+        p1 = new JingjiModePlayer(GameConstants.PLAYER1, maps);
+        p1.setAnotherPlayer(p2);
+        p2.setAnotherPlayer(p1);
         initPlayerPosition();
         myPanelCard.addKeyListener(p1);
         myPanelCard.addKeyListener(p2);
 
 
-        cishu = 0; // TODO
-
+        //cishu = 0;
+        delayToJumpTime = 0;
+        timer.start();
         cardLayout.show(myPanelCard, "battleJingjiPanel");
 
         /**
@@ -121,8 +124,10 @@ public class BattleJingjiPanel extends JPanel {
         this.cardLayout = cardLayout;
 
 
-        p1 = new JingjiModePlayer(GameConstants.PLAYER1, maps, p2);
-        p2 = new JingjiModePlayer(GameConstants.PLAYER2, maps, p1);
+        p2 = new JingjiModePlayer(GameConstants.PLAYER2, maps);
+        p1 = new JingjiModePlayer(GameConstants.PLAYER1, maps);
+        p1.setAnotherPlayer(p2);
+        p2.setAnotherPlayer(p1);
 
         gobackBtn = new JButton(new ImageIcon("replay1.png"));
         gobackBtn.setBounds(10, 10, 128, 50);
@@ -136,7 +141,7 @@ public class BattleJingjiPanel extends JPanel {
         setLayout(null);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
-        timer.start();
+
     }
 
     //画图啦**********************************************************************************************
@@ -144,21 +149,6 @@ public class BattleJingjiPanel extends JPanel {
         super.paintComponent(page);
         maps.getBiwumenIcon().paintIcon(this, page, 0, 0);
         maps.getGroundIcon().paintIcon(this, page, 0, 200);
-
-        //TODO
-        p1.keepDoing(p2);
-        p2.keepDoing(p1);
-
-        if (cishu == 0) {
-            if (p1.outlooking == Player.OUTLOOKING_WINNER) {
-                cishu = 1;
-                closeGameAndJumpAway("fighterWinPanel", MusicTool.WINNING_BGM);
-            }
-            if (p2.outlooking == Player.OUTLOOKING_WINNER) {
-                cishu = 1;
-                closeGameAndJumpAway("baoziWinPanel", MusicTool.WINNING_BGM);
-            }
-        }
         //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具
         for (int j = 0; j < GameConstants.SHU; j++)
             for (int i = 0; i < GameConstants.HENG; i++) {
@@ -180,27 +170,85 @@ public class BattleJingjiPanel extends JPanel {
                     maps.getExplosion(i, j).addTime();
                 }
 
-                if (p1.getHeng() == i && p1.getShu() == j && p2.getShu() != j)
+                if (p1.getHeng() == i && p1.getShu() == j)
                     p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
+
+                if (p2.getHeng() == i && p2.getShu() == j)
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
+                //todo 50 200 消灭魔鬼数字
+
+                //todo below display issues
+                /*if (p1.getHeng() == i && p1.getShu() == j && p2.getShu() != j)
+                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
+
                 if (p2.getHeng() == i && p2.getShu() == j && p1.getShu() != j)
                     p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
+
                 if (p2.getJudgeXPosition() == i && p2.getJudgeYPosition() == j)
                     p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
+
                 if (p1.getShu() == j && p2.getShu() == j && p1.getJudgeYPosition() > p2.getJudgeYPosition()) {
                     p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
                     p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
                 }
+
                 if (p1.getShu() == j && p2.getShu() == j && p1.getJudgeYPosition() < p2.getJudgeYPosition()) {
                     p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
                     p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
-                }
+                }*/
             }
     }
+
+    private void jumpAwayIfPossible() {
+    /*if (cishu == 0) {
+        if (p1.outlooking == Player.OUTLOOKING_WINNER) {
+            cishu = 1;
+            closeGameAndJumpAway("fighterWinPanel", MusicTool.WINNING_BGM);
+        }
+        if (p2.outlooking == Player.OUTLOOKING_WINNER) {
+            cishu = 1;
+            closeGameAndJumpAway("baoziWinPanel", MusicTool.WINNING_BGM);
+        }
+    }*/
+        if (p1.outlooking == Player.OUTLOOKING_WINNER) {
+            //cishu = 1;
+            if(delayToJumpTime == 0) {
+                MusicTool.stopAllMusic();
+                MusicTool.WINNING_BGM.loop();
+            }
+            if (delayToJumpTime < DELAY_TO_JUMP_MAX_TIME) {
+                ++delayToJumpTime;
+            } else {
+                closeGameAndJumpAway("fighterWinPanel", MusicTool.WINNING_BGM);
+            }
+
+        }
+        if (p2.outlooking == Player.OUTLOOKING_WINNER) {
+            //cishu = 1;
+            if(delayToJumpTime == 0) {
+                MusicTool.stopAllMusic();
+                MusicTool.WINNING_BGM.loop();
+            }
+            if (delayToJumpTime < DELAY_TO_JUMP_MAX_TIME) {
+                ++delayToJumpTime;
+            } else {
+                closeGameAndJumpAway("baoziWinPanel", MusicTool.WINNING_BGM);
+            }
+        }
+    }
+
+    private void playerDoing() {
+        p1.keepDoing();
+        p2.keepDoing();
+    }
+
 
     //时间监听*******************************************************************************************
     public class Mytime implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             repaint();
+            playerDoing();
+            jumpAwayIfPossible();
         }
     }
 
