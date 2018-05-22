@@ -27,7 +27,7 @@ public class Player implements KeyListener {
     /**
      * player attribute
      */
-    public static final int MAX_BALL_CAPACITY = 8, MAX_BALL_POWER = 5, MAX_SPEED = 3, MAX_FORK_NUMBER = 3;
+    public static final int MAX_BALL_CAPACITY = 7, MAX_BALL_POWER = 5, MAX_SPEED = 3, MAX_FORK_NUMBER = 3;
     private int realBallCapacity = 2, realBallPower = 1, realSpeed = 1;
     private int showBallCapacity = 2, showBallPower = 1, showSpeed = 1, forkNumber = 0;
     private int usedBallCount = 0;
