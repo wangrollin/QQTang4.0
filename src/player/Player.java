@@ -10,74 +10,38 @@ import javax.swing.ImageIcon;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+// TODO: 18/5/22  player 整理
 
 public class Player implements KeyListener {
+
+
+
+
+    /**
+     * myself, anotherPlayer, maps
+     */
+    private int playerNumber;
+    private Player anotherPlayer;
     public Maps maps = new Maps();
 
-    public Maps getMaps() {
-        return maps;
-    }
-
-    //现在放下去的糖泡的数量
+    /**
+     * player attribute
+     */
+    public static final int MAX_BALL_CAPACITY = 8, MAX_BALL_POWER = 5, MAX_SPEED = 3, MAX_FORK_NUMBER = 3;
+    private int realBallCapacity = 2, realBallPower = 1, realSpeed = 1;
+    private int showBallCapacity = 2, showBallPower = 1, showSpeed = 1, forkNumber = 0;
     private int usedBallCount = 0;
 
-    //各种道具的最大量
-    public static final int MAX_BALL_CAPACITY = 10, MAX_BALL_POWER = 8, MAX_SPEED = 3, MAX_FORK_NUMBER = 3;
-
-    //各种道具的持有量  收集用这个
-    int namount = 2, npower = 1, nspeed = 1;
-    //各种道具的持有量 最终显示效果用这个改变这个
-    int amount = 2, power = 1, speed = 1, fork = 0;
-
-    //各个时期的玩家图片
-    public ImageIcon currentPlayerIcon;
-    public ImageIcon currentGoUpIcon, currentGoLeftIcon, currentGoDownIcon, currentGoRightIcon;
-    public ImageIcon originGoLeftIcon, originGoDownIcon, orginGoRightIcon, originGoUpIcon;
-    public ImageIcon originGoLeftFlashIcon, originGoDownFlashIcon, orginGoRightFlashIcon, originGoUpFlashIcon;
-    public ImageIcon stuckIcon, deadIcon, winningIcon;
-
-    //特效之后的样子
-    private ImageIcon windGoUpIcon, windGoLeftIcon, windGoDownIcon, windGoRightIcon;
-    private ImageIcon candyGoUpIcon, candyGoLeftIcon, candyGoDownIcon, candyGoRightIcon;
-    private ImageIcon ghostGoUpIcon, ghostGoLeftIcon, ghostGoDownIcon, ghostGoRightIcon;
-    private ImageIcon foxGoUpIcon, foxGoLeftIcon, foxGoDownIcon, foxGoRightIcon;
-    //闪图
-    private ImageIcon windGoUpFlashIcon, windGoLeftFlashIcon, windGoDownFlashIcon, windGoRightFlashIcon;
-    private ImageIcon candyGoUpFlashIcon, candyGoLeftFlashIcon, candyGoDownFlashIcon, candyGoRightFlashIcon;
-    private ImageIcon ghostGoUpFlashIcon, ghostGoLeftFlashIcon, ghostGoDownFlashIcon, ghostGoRightFlashIcon;
-    private ImageIcon foxGoUpFlashIcon, foxGoLeftFlashIcon, foxGoDownFlashIcon, foxGoRightFlashIcon;
-
-
-    //玩家专属糖泡
-    ImageIcon ballIcon;
-    //xy表示贴图坐标  XY表示判定位置
-    public int pinXPosition, pinYPosition, judgeXPosition, judgeYPosition;
-
-    //方向按键的值
-    boolean UP = false, DOWN = false, LEFT = false, RIGHT = false;
-    //被打断的次数
-    int UpInterruptCount = 0, DownInterruptCount = 0, LeftInterruptCount = 0, RightInterruptCount = 0;
-    //按键的松开值
-    boolean isUpReleased = true, isDownReleased = true, isLeftReleased = true, isRightReleased = true;
-
-    //判断是否按下一个键（为流畅的走位） 是否在使用叉子   判断是否被困住  是否变身
-    boolean isUsingBallBtn = false, isUsingForkBtn = false;
-    //困住 死亡
-    protected boolean kunzhu = false, die = false;
-    //变身总时间
-    private static final int TRANSFORM_MAX_TIME = 1000;
-    //计算变身时间
-    int transformTime = 0;
-    //变成什么啦？     0原来的样子 1风 2泡 3鬼 4猪   5困住了  6死掉啦  7胜利啦
+    /**
+     * player outlooking
+     */
     public int outlooking = 0;
     public static final int OUTLOOKING_ORIGIN = 0;
 
     public static final int OUTLOOKING_FIRST_TRANSFORM = 1;
-    public static final int OUTLOOKING_FIRST_SUPER = 1;
     public static final int OUTLOOKING_WIND = 1;
     public static final int OUTLOOKING_CANDY = 2;
     public static final int OUTLOOKING_GHOST = 3;
-    public static final int OUTLOOKING_LAST_SUPER = 3;
     public static final int OUTLOOKING_CAN_SETBALL_UPPER_LIMIT = 3;
 
     public static final int OUTLOOKING_FOX = 4;
@@ -88,32 +52,175 @@ public class Player implements KeyListener {
     public static final int OUTLOOKING_LOSER = 6;
     public static final int OUTLOOKING_WINNER = 7;
 
-    //判断死神的秒表
-    int stuckTime;
-    public static final int BEFORE_DIE_TIME = 600;
-    //无敌时间
+    /**
+     * player and ball icon
+     */
+    public ImageIcon currentPlayerIcon;
+    public ImageIcon currentGoUpIcon, currentGoLeftIcon, currentGoDownIcon, currentGoRightIcon;
+    public ImageIcon stuckIcon, loseIcon, winningIcon;
+
+    public ImageIcon originGoLeftIcon, originGoDownIcon, orginGoRightIcon, originGoUpIcon;
+    public ImageIcon originGoLeftFlashIcon, originGoDownFlashIcon, orginGoRightFlashIcon, originGoUpFlashIcon;
+
+    private ImageIcon windGoUpIcon, windGoLeftIcon, windGoDownIcon, windGoRightIcon;
+    private ImageIcon candyGoUpIcon, candyGoLeftIcon, candyGoDownIcon, candyGoRightIcon;
+    private ImageIcon ghostGoUpIcon, ghostGoLeftIcon, ghostGoDownIcon, ghostGoRightIcon;
+    private ImageIcon foxGoUpIcon, foxGoLeftIcon, foxGoDownIcon, foxGoRightIcon;
+
+    private ImageIcon windGoUpFlashIcon, windGoLeftFlashIcon, windGoDownFlashIcon, windGoRightFlashIcon;
+    private ImageIcon candyGoUpFlashIcon, candyGoLeftFlashIcon, candyGoDownFlashIcon, candyGoRightFlashIcon;
+    private ImageIcon ghostGoUpFlashIcon, ghostGoLeftFlashIcon, ghostGoDownFlashIcon, ghostGoRightFlashIcon;
+    private ImageIcon foxGoUpFlashIcon, foxGoLeftFlashIcon, foxGoDownFlashIcon, foxGoRightFlashIcon;
+
+    public ImageIcon ballIcon;
+
+    /**
+     * player transform time
+     */
     int flashTime = 0;
-    public static final int FLASH_MAX_TIME = 300;
+    public static final int FLASH_MAX_TIME = 500;
 
-    private int playerNumber;
-    private Player anotherPlayer;
+    private int transformTime = 0;
+    public static final int TRANSFORM_MAX_TIME = 1000;
 
-    public Player getAnotherPlayer() {
+    private int stuckTime;
+    public static final int BEFORE_LOSE_TIME = 500;
+
+
+
+    /**
+     * player walk, set ball, use fork
+     */
+    public boolean isUpPressed = false, isDownPressed = false, isLeftPressed = false, isRightPressed = false;
+    public boolean isBallBtnPressed = false, isForkBtnPressed = false;
+    public boolean isUpReleased = true, isDownReleased = true, isLeftReleased = true, isRightReleased = true;
+    public int UpInterruptCount = 0, DownInterruptCount = 0, LeftInterruptCount = 0, RightInterruptCount = 0;
+
+    /**
+     * player position
+     */
+    private int judgeXPosition, judgeYPosition;
+
+
+
+    /**
+     * getter
+     */
+    protected int getRealSpeed() {
+        return realSpeed;
+    }
+
+    public Maps getMaps() {
+        return maps;
+    }
+
+    protected int getStuckTime() {
+        return stuckTime;
+    }
+
+    protected Player getAnotherPlayer() {
         return anotherPlayer;
     }
 
-    public int getPlayerNumber() {
+    protected int getPlayerNumber() {
         return playerNumber;
+    }
+
+    /**
+     * setter and operator
+     */
+
+    /**
+     * protected methods
+     */
+
+
+    /**
+     * private methods
+     */
+    private void setMaxAttribute() {
+        this.realBallCapacity = MAX_BALL_CAPACITY;
+        this.realBallPower = MAX_BALL_POWER;
+        this.realSpeed = MAX_SPEED;
     }
 
     public void setAnotherPlayer(Player anotherPlayer) {
         this.anotherPlayer = anotherPlayer;
     }
 
+    protected void incStuckTime() {
+        stuckTime++;
+    }
+
+    /**
+     * public methods
+     */
     public Player(int playNumber, Maps maps) {
         this.playerNumber = playNumber;
         this.maps = maps;
 
+        setBasicCharacterIcon();
+        loadSuperCharacterIcon();
+        setMaxAttributeIfNeeded();
+    }
+
+
+    private void setBasicCharacterIcon() {
+        if (this.playerNumber == GameConstants.PLAYER1
+                || this.playerNumber == GameConstants.PLAYER_HUMAN) {
+            //judgeXPosition = 125;
+            //judgeYPosition = 325;
+            originGoDownIcon = new ImageIcon("战士下.gif");
+            originGoUpIcon = new ImageIcon("战士上.gif");
+            originGoLeftIcon = new ImageIcon("战士左.gif");
+            orginGoRightIcon = new ImageIcon("战士右.gif");
+
+            originGoDownFlashIcon = new ImageIcon("s战士下.gif");
+            originGoUpFlashIcon = new ImageIcon("s战士上.gif");
+            originGoLeftFlashIcon = new ImageIcon("s战士左.gif");
+            orginGoRightFlashIcon = new ImageIcon("s战士右.gif");
+
+            stuckIcon = new ImageIcon("炸弹火.gif");
+            loseIcon = new ImageIcon("P1die.gif");
+            winningIcon = new ImageIcon("P1win.gif");
+            ballIcon = new ImageIcon("糖泡红.gif");
+
+
+        } else if (this.playerNumber == GameConstants.PLAYER2
+                || this.playerNumber == GameConstants.PLAYER_AI){
+            //judgeXPosition = 125;
+            //judgeYPosition = 75;
+            originGoDownIcon = new ImageIcon("包子下.gif");
+            originGoUpIcon = new ImageIcon("包子上.gif");
+            originGoLeftIcon = new ImageIcon("包子左.gif");
+            orginGoRightIcon = new ImageIcon("包子右.gif");
+
+            originGoDownFlashIcon = new ImageIcon("s包子下.gif");
+            originGoUpFlashIcon = new ImageIcon("s包子上.gif");
+            originGoLeftFlashIcon = new ImageIcon("s包子左.gif");
+            orginGoRightFlashIcon = new ImageIcon("s包子右.gif");
+
+            stuckIcon = new ImageIcon("炸弹水.gif");
+            loseIcon = new ImageIcon("P2die.gif");
+            winningIcon = new ImageIcon("P2win.jpg");
+            ballIcon = new ImageIcon("糖泡蓝.gif");
+
+            setMaxAttributeIfNeeded();
+        }
+        currentPlayerIcon = originGoDownIcon;
+    }
+
+
+    private void setMaxAttributeIfNeeded() {
+        if (this.playerNumber == GameConstants.PLAYER_HUMAN) {
+            setMaxAttribute();
+        } else if (this.playerNumber == GameConstants.PLAYER_AI) {
+            setMaxAttribute();
+        }
+    }
+
+
+    private void loadSuperCharacterIcon() {
         windGoUpIcon = new ImageIcon("fengw.gif");
         windGoDownIcon = new ImageIcon("fengs.gif");
         windGoLeftIcon = new ImageIcon("fenga.gif");
@@ -231,10 +338,10 @@ public class Player implements KeyListener {
                 currentGoRightIcon = stuckIcon;
                 break;
             case OUTLOOKING_LOSER:
-                currentGoDownIcon = deadIcon;
-                currentGoUpIcon = deadIcon;
-                currentGoLeftIcon = deadIcon;
-                currentGoRightIcon = deadIcon;
+                currentGoDownIcon = loseIcon;
+                currentGoUpIcon = loseIcon;
+                currentGoLeftIcon = loseIcon;
+                currentGoRightIcon = loseIcon;
                 break;
 
             case OUTLOOKING_WINNER:
@@ -247,7 +354,7 @@ public class Player implements KeyListener {
     }
 
     public void move() {
-        if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT && !RIGHT && !LEFT && !DOWN && !UP) {
+        if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT && !isRightPressed && !isLeftPressed && !isDownPressed && !isUpPressed) {
             if (currentPlayerIcon == currentGoDownIcon) {
                 setIconsByOutlooking();
                 currentPlayerIcon = currentGoDownIcon;
@@ -268,49 +375,55 @@ public class Player implements KeyListener {
         setIconsByOutlooking();
         if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT && outlooking != OUTLOOKING_GHOST) {
             if (outlooking != OUTLOOKING_WIND) {
-                speed = nspeed;
+                showSpeed = realSpeed;
             }
-            if (RIGHT && RightInterruptCount == 0) {
+            if (isRightPressed && RightInterruptCount == 0) {
                 currentPlayerIcon = currentGoRightIcon;
-                if (canGoRight()) judgeXPosition += speed;
+                if (canGoRight()) judgeXPosition += showSpeed;
                 return;
             }
-            if (LEFT && LeftInterruptCount == 0) {
+            if (isLeftPressed && LeftInterruptCount == 0) {
                 currentPlayerIcon = currentGoLeftIcon;
-                if (canGoLeft()) judgeXPosition -= speed;
+                if (canGoLeft()) judgeXPosition -= showSpeed;
                 return;
             }
-            if (DOWN && DownInterruptCount == 0) {
+            if (isDownPressed && DownInterruptCount == 0) {
                 currentPlayerIcon = currentGoDownIcon;
-                if (canGoDown()) judgeYPosition += speed;
+                if (canGoDown()) judgeYPosition += showSpeed;
                 return;
             }
-            if (UP && UpInterruptCount == 0) {
+            if (isUpPressed && UpInterruptCount == 0) {
                 currentPlayerIcon = currentGoUpIcon;
-                if (canGoUp()) judgeYPosition -= speed;
+                if (canGoUp()) judgeYPosition -= showSpeed;
                 return;
             }
         }
         if (outlooking == OUTLOOKING_GHOST) {
-            if (LEFT && RightInterruptCount == 0) {
-                if (canGoRight()) judgeXPosition += speed;
+            if (isLeftPressed && LeftInterruptCount == 0) {
+                if (canGoRight()) judgeXPosition += showSpeed;
                 currentPlayerIcon = currentGoRightIcon;
                 return;
             }
-            if (RIGHT && LeftInterruptCount == 0) {
-                if (canGoLeft()) judgeXPosition -= speed;
+            if (isRightPressed && RightInterruptCount == 0) {
+                if (canGoLeft()) judgeXPosition -= showSpeed;
                 currentPlayerIcon = currentGoLeftIcon;
                 return;
             }
-            if (UP && DownInterruptCount == 0) {
-                if (canGoDown()) judgeYPosition += speed;
+            if (isUpPressed && UpInterruptCount == 0) {
+                if (canGoDown()) judgeYPosition += showSpeed;
                 currentPlayerIcon = currentGoDownIcon;
                 return;
             }
-            if (DOWN && UpInterruptCount == 0) {
-                if (canGoUp()) judgeYPosition -= speed;
+            if (isDownPressed && DownInterruptCount == 0) {
+                if (canGoUp()) judgeYPosition -= showSpeed;
                 currentPlayerIcon = currentGoUpIcon;
             }
+        }
+        if (playerNumber == GameConstants.PLAYER_AI) {
+            isUpPressed = false;
+            isDownPressed = false;
+            isLeftPressed = false;
+            isRightPressed = false;
         }
     }
 
@@ -320,14 +433,14 @@ public class Player implements KeyListener {
 
     public void beStuck() {
         outlooking = OUTLOOKING_STUCK;
-        setIconsByOutlooking();
+        //setIconsByOutlooking();
         currentPlayerIcon = stuckIcon;
     }
 
     void escape() {
         stuckTime = 0;
         outlooking = OUTLOOKING_ORIGIN;
-        setIconsByOutlooking();
+        //setIconsByOutlooking();
         currentPlayerIcon = currentGoDownIcon;
         MusicTool.ESCAPE.play();
     }
@@ -335,21 +448,21 @@ public class Player implements KeyListener {
 
     public void keepDoing() {
         move();
-        dieIfPossible();
+        countTimeToLoseIfPossible();
         pickupItem();
         beBombed();
-        transformToOrigin();
+        transformToOriginIfPossible();
     }
 
-    public void dieIfPossible() {
+    public void countTimeToLoseIfPossible() {
         if (flashTime > 0) flashTime += 1;
         if (flashTime == FLASH_MAX_TIME) flashTime = 0;
         if (outlooking == OUTLOOKING_STUCK) {
             stuckTime += 1;
-            if (stuckTime == BEFORE_DIE_TIME) {
+            if (stuckTime == BEFORE_LOSE_TIME) {
                 lose();
                 anotherPlayer.win();
-            } else if (anotherPlayer.outlooking != OUTLOOKING_STUCK
+            } else if (anotherPlayer.outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT
                     && getHeng() == anotherPlayer.getHeng()
                     && getShu() == anotherPlayer.getShu()) {
                 lose();
@@ -360,19 +473,19 @@ public class Player implements KeyListener {
 
     public void lose() {
         outlooking = OUTLOOKING_LOSER;
-        setIconsByOutlooking();
-        currentPlayerIcon = deadIcon;
+        //setIconsByOutlooking();
+        currentPlayerIcon = loseIcon;
 
         MusicTool.PLAYER_EXPLODE.play();
     }
 
     public void win() {
         outlooking = OUTLOOKING_WINNER;
-        setIconsByOutlooking();
+        //setIconsByOutlooking();
         currentPlayerIcon = winningIcon;
     }
 
-    public void transformToOrigin() {
+    public void transformToOriginIfPossible() {
         if (transformTime == TRANSFORM_MAX_TIME) {
             transformTime = 0;
             outlooking = OUTLOOKING_ORIGIN;
@@ -392,9 +505,9 @@ public class Player implements KeyListener {
                 setIconsByOutlooking();
                 currentPlayerIcon = currentGoRightIcon;
             }
-            amount = namount;
-            power = npower;
-            speed = nspeed;
+            showBallCapacity = realBallCapacity;
+            showBallPower = realBallPower;
+            showSpeed = realSpeed;
         }
         if (transformTime == TRANSFORM_MAX_TIME + 1) {
             flashTime += 1;
@@ -416,9 +529,9 @@ public class Player implements KeyListener {
                 setIconsByOutlooking();
                 currentPlayerIcon = currentGoRightIcon;
             }
-            amount = namount;
-            power = npower;
-            speed = nspeed;
+            showBallCapacity = realBallCapacity;
+            showBallPower = realBallPower;
+            showSpeed = realSpeed;
         }
         if (outlooking >= OUTLOOKING_FIRST_TRANSFORM
                 && outlooking <= OUTLOOKING_LAST_TRANSFORM) {
@@ -446,7 +559,7 @@ public class Player implements KeyListener {
             setIconsByOutlooking();
             currentPlayerIcon = currentGoRightIcon;
         }
-        speed = MAX_SPEED;
+        showSpeed = MAX_SPEED;
     }
 
     private void transformToCandy() {
@@ -469,7 +582,7 @@ public class Player implements KeyListener {
             setIconsByOutlooking();
             currentPlayerIcon = currentGoRightIcon;
         }
-        amount = MAX_BALL_CAPACITY;
+        showBallCapacity = MAX_BALL_CAPACITY;
     }
 
     private void transformToGhost() {
@@ -492,9 +605,9 @@ public class Player implements KeyListener {
             setIconsByOutlooking();
             currentPlayerIcon = currentGoRightIcon;
         }
-        amount = MAX_BALL_CAPACITY;
-        power = MAX_BALL_POWER;
-        speed = MAX_SPEED;
+        showBallCapacity = MAX_BALL_CAPACITY;
+        showBallPower = MAX_BALL_POWER;
+        showSpeed = MAX_SPEED;
     }
 
     public void transformToFox() {
@@ -567,28 +680,28 @@ public class Player implements KeyListener {
                     && outlooking <= OUTLOOKING_LAST_TRANSFORM)
                 && flashTime == 0) {
             transformTime = TRANSFORM_MAX_TIME + 1;
-            transformToOrigin();
+            transformToOriginIfPossible();
         }
     }
 
     private void addBallCapacity() {
-        if (namount < MAX_BALL_CAPACITY)
-            namount += 1;
+        if (realBallCapacity < MAX_BALL_CAPACITY)
+            realBallCapacity += 1;
     }
 
     private void addBallPower() {
-        if (npower < MAX_BALL_POWER)
-            npower += 1;
+        if (realBallPower < MAX_BALL_POWER)
+            realBallPower += 1;
     }
 
     private void addSpeed() {
-        if (nspeed < MAX_SPEED)
-            nspeed += 1;
+        if (realSpeed < MAX_SPEED)
+            realSpeed += 1;
     }
 
     private void addFork() {
-        if (fork < MAX_FORK_NUMBER)
-            fork += 1;
+        if (forkNumber < MAX_FORK_NUMBER)
+            forkNumber += 1;
     }
 
     public ImageIcon getBallIcon() {
@@ -716,19 +829,19 @@ public class Player implements KeyListener {
         } else return false;
     }
 
-    public void subUsedBallCount() {
-        --usedBallCount;
+    public void decUsedBallCount() {
+        usedBallCount--;
     }
 
-    public void addUsedBallCount() {
-        ++usedBallCount;
+    public void incUsedBallCount() {
+        usedBallCount++;
     }
 
     public void setBall() {
-        maps.setBall(new Ball(this, getHeng(), getShu(), power, getBallIcon(), maps));
-
+        maps.setBall(new Ball(this, getHeng(), getShu(), showBallPower, getBallIcon(), maps));
         MusicTool.SET_BALL.play();
     }
+
     //完美的行动派监听器！！！！！！！！！********************************************************************
     @Override
     public void keyTyped(KeyEvent e) {
@@ -737,40 +850,40 @@ public class Player implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (this.playerNumber == GameConstants.PLAYER1) {
+        if (this.playerNumber == GameConstants.PLAYER1 || this.playerNumber == GameConstants.PLAYER_HUMAN) {
             if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT) {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
                         UpInterruptCount = 0;
                         isUpReleased = false;
-                        if (!isRightReleased && !UP) RightInterruptCount++;
-                        if (!isLeftReleased && !UP) LeftInterruptCount++;
-                        if (!isDownReleased && !UP) DownInterruptCount++;
-                        UP = true;
+                        if (!isRightReleased && !isUpPressed) RightInterruptCount++;
+                        if (!isLeftReleased && !isUpPressed) LeftInterruptCount++;
+                        if (!isDownReleased && !isUpPressed) DownInterruptCount++;
+                        isUpPressed = true;
                         break;
                     case KeyEvent.VK_DOWN:
                         DownInterruptCount = 0;
                         isDownReleased = false;
-                        if (!isRightReleased && !DOWN) RightInterruptCount++;
-                        if (!isLeftReleased && !DOWN) LeftInterruptCount++;
-                        if (!isUpReleased && !DOWN) UpInterruptCount++;
-                        DOWN = true;
+                        if (!isRightReleased && !isDownPressed) RightInterruptCount++;
+                        if (!isLeftReleased && !isDownPressed) LeftInterruptCount++;
+                        if (!isUpReleased && !isDownPressed) UpInterruptCount++;
+                        isDownPressed = true;
                         break;
                     case KeyEvent.VK_LEFT:
                         LeftInterruptCount = 0;
                         isLeftReleased = false;
-                        if (!isRightReleased && !LEFT) RightInterruptCount++;
-                        if (!isUpReleased && !LEFT) UpInterruptCount++;
-                        if (!isDownReleased && !LEFT) DownInterruptCount++;
-                        LEFT = true;
+                        if (!isRightReleased && !isLeftPressed) RightInterruptCount++;
+                        if (!isUpReleased && !isLeftPressed) UpInterruptCount++;
+                        if (!isDownReleased && !isLeftPressed) DownInterruptCount++;
+                        isLeftPressed = true;
                         break;
                     case KeyEvent.VK_RIGHT:
                         RightInterruptCount = 0;
                         isRightReleased = false;
-                        if (isUpReleased == false && RIGHT == false) UpInterruptCount++;
-                        if (isLeftReleased == false && RIGHT == false) LeftInterruptCount++;
-                        if (isDownReleased == false && RIGHT == false) DownInterruptCount++;
-                        RIGHT = true;
+                        if (isUpReleased == false && isRightPressed == false) UpInterruptCount++;
+                        if (isLeftReleased == false && isRightPressed == false) LeftInterruptCount++;
+                        if (isDownReleased == false && isRightPressed == false) DownInterruptCount++;
+                        isRightPressed = true;
                         break;
                 }
             }
@@ -778,25 +891,25 @@ public class Player implements KeyListener {
             if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 
                 if (outlooking == OUTLOOKING_ORIGIN || outlooking == OUTLOOKING_WIND) {
-                    amount = namount;
+                    showBallCapacity = realBallCapacity;
                 }
                 if (outlooking == OUTLOOKING_ORIGIN || outlooking == OUTLOOKING_WIND
                         || outlooking == OUTLOOKING_CANDY) {
-                    power = npower;
+                    showBallPower = realBallPower;
                 }
-                if (canSetBall() && !isUsingBallBtn && usedBallCount < amount
+                if (canSetBall() && !isBallBtnPressed && usedBallCount < showBallCapacity
                         && !maps.isBall(getHeng(), getShu())) {
                     setBall();
                 }
-                isUsingBallBtn = true;
+                isBallBtnPressed = true;
             }
 
-            if (e.getKeyCode() == KeyEvent.VK_M && !isUsingForkBtn) {
-                if (fork > 0 && outlooking == OUTLOOKING_STUCK) {
-                    fork -= 1;
+            if (e.getKeyCode() == KeyEvent.VK_M && !isForkBtnPressed) {
+                if (forkNumber > 0 && outlooking == OUTLOOKING_STUCK) {
+                    forkNumber -= 1;
                     escape();
                 }
-                isUsingForkBtn = true;
+                isForkBtnPressed = true;
             }
         } else {
             if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT) {
@@ -804,58 +917,58 @@ public class Player implements KeyListener {
                     case KeyEvent.VK_R:
                         UpInterruptCount = 0;
                         isUpReleased = false;
-                        if (!isRightReleased && !UP) RightInterruptCount++;
-                        if (!isLeftReleased && !UP) LeftInterruptCount++;
-                        if (!isDownReleased && !UP) DownInterruptCount++;
-                        UP = true;
+                        if (!isRightReleased && !isUpPressed) RightInterruptCount++;
+                        if (!isLeftReleased && !isUpPressed) LeftInterruptCount++;
+                        if (!isDownReleased && !isUpPressed) DownInterruptCount++;
+                        isUpPressed = true;
                         break;
                     case KeyEvent.VK_F:
                         DownInterruptCount = 0;
                         isDownReleased = false;
-                        if (!isRightReleased && !DOWN) RightInterruptCount++;
-                        if (!isLeftReleased && !DOWN) LeftInterruptCount++;
-                        if (!isUpReleased && !DOWN) UpInterruptCount++;
-                        DOWN = true;
+                        if (!isRightReleased && !isDownPressed) RightInterruptCount++;
+                        if (!isLeftReleased && !isDownPressed) LeftInterruptCount++;
+                        if (!isUpReleased && !isDownPressed) UpInterruptCount++;
+                        isDownPressed = true;
                         break;
                     case KeyEvent.VK_D:
                         LeftInterruptCount = 0;
                         isLeftReleased = false;
-                        if (!isRightReleased && !LEFT) RightInterruptCount++;
-                        if (!isUpReleased && !LEFT) UpInterruptCount++;
-                        if (!isDownReleased && !LEFT) DownInterruptCount++;
-                        LEFT = true;
+                        if (!isRightReleased && !isLeftPressed) RightInterruptCount++;
+                        if (!isUpReleased && !isLeftPressed) UpInterruptCount++;
+                        if (!isDownReleased && !isLeftPressed) DownInterruptCount++;
+                        isLeftPressed = true;
                         break;
                     case KeyEvent.VK_G:
                         RightInterruptCount = 0;
                         isRightReleased = false;
-                        if (!isUpReleased && !RIGHT) UpInterruptCount++;
-                        if (!isLeftReleased && !RIGHT) LeftInterruptCount++;
-                        if (!isDownReleased && !RIGHT) DownInterruptCount++;
-                        RIGHT = true;
+                        if (!isUpReleased && !isRightPressed) UpInterruptCount++;
+                        if (!isLeftReleased && !isRightPressed) LeftInterruptCount++;
+                        if (!isDownReleased && !isRightPressed) DownInterruptCount++;
+                        isRightPressed = true;
                         break;
                 }
             }
             if (e.getKeyCode() == KeyEvent.VK_Q) {
                 if (outlooking == OUTLOOKING_ORIGIN || outlooking == OUTLOOKING_WIND) {
-                    amount = namount;
+                    showBallCapacity = realBallCapacity;
                 }
                 if (outlooking == OUTLOOKING_ORIGIN || outlooking == OUTLOOKING_WIND
                         || outlooking == OUTLOOKING_CANDY) {
-                    power = npower;
+                    showBallPower = realBallPower;
                 }
-                if (canSetBall() && !isUsingBallBtn && usedBallCount < amount
+                if (canSetBall() && !isBallBtnPressed && usedBallCount < showBallCapacity
                         && !maps.isBall(getHeng(), getShu())) {
                     setBall();
                 }
-                isUsingBallBtn = true;
+                isBallBtnPressed = true;
             }
 
-            if (e.getKeyCode() == KeyEvent.VK_W && !isUsingForkBtn) {
-                if (fork > 0 && outlooking == OUTLOOKING_STUCK) {
-                    fork -= 1;
+            if (e.getKeyCode() == KeyEvent.VK_W && !isForkBtnPressed) {
+                if (forkNumber > 0 && outlooking == OUTLOOKING_STUCK) {
+                    forkNumber -= 1;
                     escape();
                 }
-                isUsingForkBtn = true;
+                isForkBtnPressed = true;
             }
         }
 
@@ -863,84 +976,84 @@ public class Player implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (this.playerNumber == GameConstants.PLAYER1) {
+        if (this.playerNumber == GameConstants.PLAYER1 || this.playerNumber == GameConstants.PLAYER_HUMAN) {
             if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT) {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
                         isUpReleased = true;
-                        if (RightInterruptCount > UpInterruptCount && UP) RightInterruptCount--;
-                        if (LeftInterruptCount > UpInterruptCount && UP) LeftInterruptCount--;
-                        if (DownInterruptCount > UpInterruptCount && UP) DownInterruptCount--;
+                        if (RightInterruptCount > UpInterruptCount && isUpPressed) RightInterruptCount--;
+                        if (LeftInterruptCount > UpInterruptCount && isUpPressed) LeftInterruptCount--;
+                        if (DownInterruptCount > UpInterruptCount && isUpPressed) DownInterruptCount--;
                         UpInterruptCount = 0;
-                        UP = false;
+                        isUpPressed = false;
                         break;
                     case KeyEvent.VK_DOWN:
                         isDownReleased = true;
-                        if (RightInterruptCount > DownInterruptCount && DOWN) RightInterruptCount--;
-                        if (LeftInterruptCount > DownInterruptCount && DOWN) LeftInterruptCount--;
-                        if (UpInterruptCount > DownInterruptCount && DOWN) UpInterruptCount--;
-                        DOWN = false;
+                        if (RightInterruptCount > DownInterruptCount && isDownPressed) RightInterruptCount--;
+                        if (LeftInterruptCount > DownInterruptCount && isDownPressed) LeftInterruptCount--;
+                        if (UpInterruptCount > DownInterruptCount && isDownPressed) UpInterruptCount--;
+                        isDownPressed = false;
                         DownInterruptCount = 0;
                         break;
                     case KeyEvent.VK_LEFT:
                         isLeftReleased = true;
-                        if (RightInterruptCount > LeftInterruptCount && LEFT) RightInterruptCount--;
-                        if (UpInterruptCount > LeftInterruptCount && LEFT) UpInterruptCount--;
-                        if (DownInterruptCount > LeftInterruptCount && LEFT) DownInterruptCount--;
-                        LEFT = false;
+                        if (RightInterruptCount > LeftInterruptCount && isLeftPressed) RightInterruptCount--;
+                        if (UpInterruptCount > LeftInterruptCount && isLeftPressed) UpInterruptCount--;
+                        if (DownInterruptCount > LeftInterruptCount && isLeftPressed) DownInterruptCount--;
+                        isLeftPressed = false;
                         LeftInterruptCount = 0;
                         break;
                     case KeyEvent.VK_RIGHT:
                         isRightReleased = true;
-                        if (UpInterruptCount > RightInterruptCount && RIGHT) UpInterruptCount--;
-                        if (LeftInterruptCount > RightInterruptCount && RIGHT) LeftInterruptCount--;
-                        if (DownInterruptCount > RightInterruptCount && RIGHT) DownInterruptCount--;
-                        RIGHT = false;
+                        if (UpInterruptCount > RightInterruptCount && isRightPressed) UpInterruptCount--;
+                        if (LeftInterruptCount > RightInterruptCount && isRightPressed) LeftInterruptCount--;
+                        if (DownInterruptCount > RightInterruptCount && isRightPressed) DownInterruptCount--;
+                        isRightPressed = false;
                         RightInterruptCount = 0;
                         break;
                 }
             }
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) isUsingBallBtn = false;
-            if (e.getKeyCode() == KeyEvent.VK_M) isUsingForkBtn = false;
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) isBallBtnPressed = false;
+            if (e.getKeyCode() == KeyEvent.VK_M) isForkBtnPressed = false;
         } else {
             if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT) {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_R:
                         isUpReleased = true;
-                        if (RightInterruptCount > UpInterruptCount && UP) RightInterruptCount--;
-                        if (LeftInterruptCount > UpInterruptCount && UP) LeftInterruptCount--;
-                        if (DownInterruptCount > UpInterruptCount && UP) DownInterruptCount--;
+                        if (RightInterruptCount > UpInterruptCount && isUpPressed) RightInterruptCount--;
+                        if (LeftInterruptCount > UpInterruptCount && isUpPressed) LeftInterruptCount--;
+                        if (DownInterruptCount > UpInterruptCount && isUpPressed) DownInterruptCount--;
                         UpInterruptCount = 0;
-                        UP = false;
+                        isUpPressed = false;
                         break;
                     case KeyEvent.VK_F:
                         isDownReleased = true;
-                        if (RightInterruptCount > DownInterruptCount && DOWN) RightInterruptCount--;
-                        if (LeftInterruptCount > DownInterruptCount && DOWN) LeftInterruptCount--;
-                        if (UpInterruptCount > DownInterruptCount && DOWN) UpInterruptCount--;
-                        DOWN = false;
+                        if (RightInterruptCount > DownInterruptCount && isDownPressed) RightInterruptCount--;
+                        if (LeftInterruptCount > DownInterruptCount && isDownPressed) LeftInterruptCount--;
+                        if (UpInterruptCount > DownInterruptCount && isDownPressed) UpInterruptCount--;
+                        isDownPressed = false;
                         DownInterruptCount = 0;
                         break;
                     case KeyEvent.VK_D:
                         isLeftReleased = true;
-                        if (RightInterruptCount > LeftInterruptCount && LEFT) RightInterruptCount--;
-                        if (UpInterruptCount > LeftInterruptCount && LEFT) UpInterruptCount--;
-                        if (DownInterruptCount > LeftInterruptCount && LEFT) DownInterruptCount--;
-                        LEFT = false;
+                        if (RightInterruptCount > LeftInterruptCount && isLeftPressed) RightInterruptCount--;
+                        if (UpInterruptCount > LeftInterruptCount && isLeftPressed) UpInterruptCount--;
+                        if (DownInterruptCount > LeftInterruptCount && isLeftPressed) DownInterruptCount--;
+                        isLeftPressed = false;
                         LeftInterruptCount = 0;
                         break;
                     case KeyEvent.VK_G:
                         isRightReleased = true;
-                        if (UpInterruptCount > RightInterruptCount && RIGHT) UpInterruptCount--;
-                        if (LeftInterruptCount > RightInterruptCount && RIGHT) LeftInterruptCount--;
-                        if (DownInterruptCount > RightInterruptCount && RIGHT) DownInterruptCount--;
-                        RIGHT = false;
+                        if (UpInterruptCount > RightInterruptCount && isRightPressed) UpInterruptCount--;
+                        if (LeftInterruptCount > RightInterruptCount && isRightPressed) LeftInterruptCount--;
+                        if (DownInterruptCount > RightInterruptCount && isRightPressed) DownInterruptCount--;
+                        isRightPressed = false;
                         RightInterruptCount = 0;
                         break;
                 }
             }
-            if (e.getKeyCode() == KeyEvent.VK_Q) isUsingBallBtn = false;
-            if (e.getKeyCode() == KeyEvent.VK_W) isUsingForkBtn = false;
+            if (e.getKeyCode() == KeyEvent.VK_Q) isBallBtnPressed = false;
+            if (e.getKeyCode() == KeyEvent.VK_W) isForkBtnPressed = false;
         }
 
     }

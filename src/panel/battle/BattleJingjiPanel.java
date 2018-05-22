@@ -6,7 +6,6 @@ import element.MusicTool;
 import element.Wall;
 import element.WallMapTool;
 import panel.MyPanelCard;
-import player.JingjiModePlayer;
 import player.Player;
 
 import java.applet.AudioClip;
@@ -41,8 +40,8 @@ public class BattleJingjiPanel extends JPanel {
     }
 
     //人物登场
-    private JingjiModePlayer p1;
-    private JingjiModePlayer p2;
+    private Player p1;
+    private Player p2;
 
     //private static int cishu = 0;
     private static final int DELAY_TO_JUMP_MAX_TIME = 200;
@@ -69,12 +68,13 @@ public class BattleJingjiPanel extends JPanel {
         MusicTool.stopAllMusic();
         myPanelCard.removeKeyListener(p1);
         myPanelCard.removeKeyListener(p2);
+        timer.stop();
         p1 = null;
         p2 = null;
 
         cardLayout.show(myPanelCard, panelName);
         bgmToPlay.loop();
-        timer.stop();
+
     }
 
     public void initAndShowAndStartGame() {
@@ -88,8 +88,8 @@ public class BattleJingjiPanel extends JPanel {
         /**
          * init players
          */
-        p2 = new JingjiModePlayer(GameConstants.PLAYER2, maps);
-        p1 = new JingjiModePlayer(GameConstants.PLAYER1, maps);
+        p2 = new Player(GameConstants.PLAYER2, maps);
+        p1 = new Player(GameConstants.PLAYER1, maps);
         p1.setAnotherPlayer(p2);
         p2.setAnotherPlayer(p1);
         initPlayerPosition();
@@ -124,8 +124,8 @@ public class BattleJingjiPanel extends JPanel {
         this.cardLayout = cardLayout;
 
 
-        p2 = new JingjiModePlayer(GameConstants.PLAYER2, maps);
-        p1 = new JingjiModePlayer(GameConstants.PLAYER1, maps);
+        p2 = new Player(GameConstants.PLAYER2, maps);
+        p1 = new Player(GameConstants.PLAYER1, maps);
         p1.setAnotherPlayer(p2);
         p2.setAnotherPlayer(p1);
 
@@ -148,57 +148,50 @@ public class BattleJingjiPanel extends JPanel {
     public void paintComponent(Graphics page) {
         super.paintComponent(page);
         maps.getBiwumenIcon().paintIcon(this, page, 0, 0);
-        maps.getGroundIcon().paintIcon(this, page, 0, 200);
+        maps.getGroundIcon().paintIcon(this, page, 0, GameConstants.MAP_UPPER_PICTURE_HEIGHT);
         //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具
         for (int j = 0; j < GameConstants.SHU; j++)
             for (int i = 0; i < GameConstants.HENG; i++) {
                 if (maps.isBall(i, j)) {
-                    maps.getBall(i, j).getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
-                    maps.getBall(i, j).addTime();
+                    maps.getBall(i, j).getBallIcon().paintIcon(this, page, i * GameConstants.GRID_LENGTH, j * GameConstants.GRID_LENGTH + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    //maps.getBall(i, j).addTime();
                 }
 
                 if (maps.isWall(i, j) && (!maps.getWall(i, j).isRuined())) {
-                    maps.getWall(i, j).getWallIcon().paintIcon(this, page, i * 50, j * 50 - 12 + 200);
+                    maps.getWall(i, j).getWallIcon().paintIcon(this, page, i * GameConstants.GRID_LENGTH, j * GameConstants.GRID_LENGTH - 12 + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
                 }
 
                 if (maps.isItem(i, j)) {
-                    maps.getItem(i, j).getItemIcon().paintIcon(this, page, i * 50, j * 50 + 200);
+                    maps.getItem(i, j).getItemIcon().paintIcon(this, page, i * GameConstants.GRID_LENGTH, j * GameConstants.GRID_LENGTH + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
                 }
 
                 if (maps.isExplosion(i, j)) {
-                    maps.getExplosion(i, j).getImage().paintIcon(this, page, i * 50, j * 50 + 200);
-                    maps.getExplosion(i, j).addTime();
+                    maps.getExplosion(i, j).getImage().paintIcon(this, page, i * GameConstants.GRID_LENGTH, j * GameConstants.GRID_LENGTH + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    //maps.getExplosion(i, j).addTime();
                 }
 
-                if (p1.getHeng() == i && p1.getShu() == j)
-                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
-
-                if (p2.getHeng() == i && p2.getShu() == j)
-                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
-                //todo 50 200 消灭魔鬼数字
-
-                //todo below display issues
-                /*if (p1.getHeng() == i && p1.getShu() == j && p2.getShu() != j)
-                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
-
-                if (p2.getHeng() == i && p2.getShu() == j && p1.getShu() != j)
-                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
-
-                if (p2.getJudgeXPosition() == i && p2.getJudgeYPosition() == j)
-                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
-
-                if (p1.getShu() == j && p2.getShu() == j && p1.getJudgeYPosition() > p2.getJudgeYPosition()) {
-                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
-                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
+                if (p1.getHeng() == i && p1.getShu() == j && p2.getShu() != j) {
+                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    continue;
+                }
+                if (p2.getHeng() == i && p2.getShu() == j && p1.getShu() != j) {
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    continue;
+                }
+                if (p1.getHeng() == i && p1.getShu() == j && p1.getJudgeYPosition() > p2.getJudgeYPosition()) {
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    continue;
+                }
+                if (p2.getHeng() == i && p2.getShu() == j && p1.getJudgeYPosition() <= p2.getJudgeYPosition()) {
+                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    continue;
                 }
 
-                if (p1.getShu() == j && p2.getShu() == j && p1.getJudgeYPosition() < p2.getJudgeYPosition()) {
-                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
-                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
-                }*/
             }
     }
-
+// todo reset position
     private void jumpAwayIfPossible() {
     /*if (cishu == 0) {
         if (p1.outlooking == Player.OUTLOOKING_WINNER) {
@@ -249,6 +242,16 @@ public class BattleJingjiPanel extends JPanel {
             repaint();
             playerDoing();
             jumpAwayIfPossible();
+
+            for (int j = 0; j < GameConstants.SHU; j++)
+                for (int i = 0; i < GameConstants.HENG; i++) {
+                    if (maps.isBall(i, j)) {
+                        maps.getBall(i, j).addTime();
+                    }
+                    if (maps.isExplosion(i, j)) {
+                        maps.getExplosion(i, j).addTime();
+                    }
+                }
         }
     }
 

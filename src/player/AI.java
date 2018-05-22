@@ -11,37 +11,19 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 public class AI extends Player {
-    protected int amount = MAX_BALL_CAPACITY, power = 5, speed = MAX_SPEED + 2;
+    //protected int amount = MAX_BALL_CAPACITY, power = 5, speed = MAX_SPEED + 2;
 
     private Random random;
-
     public AI(Maps maps) {
         super(GameConstants.PLAYER_AI, maps);
-
-        originGoDownIcon = new ImageIcon("包子下.gif");
-        originGoUpIcon = new ImageIcon("包子上.gif");
-        originGoLeftIcon = new ImageIcon("包子左.gif");
-        orginGoRightIcon = new ImageIcon("包子右.gif");
-
-        originGoDownFlashIcon = new ImageIcon("s包子下.gif");
-        originGoUpFlashIcon = new ImageIcon("s包子上.gif");
-        originGoLeftFlashIcon = new ImageIcon("s包子左.gif");
-        orginGoRightFlashIcon = new ImageIcon("s包子右.gif");
-
-        stuckIcon = new ImageIcon("炸弹水.gif");
-        deadIcon = new ImageIcon("P2die.gif");
-        winningIcon = new ImageIcon("P2win.jpg");
-        ballIcon = new ImageIcon("糖泡蓝.gif");
-        currentPlayerIcon = originGoDownIcon;
         random = new Random();
     }
-
-
-    public void doing() {
+    // todo AI 主动去刺破 human
+    // todo 让AI更像人, 躲开墙,吃道具,一点一点成长,攻击手段多样化
+    // todo ai两个部分代码整理合并
+    public void keepDoing() {
         pickupItem();
-        //isBeBombed();
-        dieIfPossible();
-        //pickupItem();
+        countTimeToLoseIfPossible();
         beBombed();
     }
 
@@ -217,18 +199,19 @@ public class AI extends Player {
         return true;
     }
 
-    //放慢慢胶
     public void scatterItemFox() {
-
-        for (int k = 0; k < 15; ++k) {
-            int i = random.nextInt(13);
-            int j = random.nextInt(8);
-            if (i <= 12 && i >= 0 && j <= 7 && j >= 0 && !maps.isItem(i, j)
-                    && !maps.isBall(i, j) && !maps.isExplosion(i, j)
-                    && !maps.isWall(i, j))
-                maps.setItem(i, j, Item.createItemFox());
+        // TODO: 18/5/22 找到更好的解决方法
+        if (outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT) {
+            for (int k = 0; k < 15; ++k) {
+                int i = random.nextInt(13);
+                int j = random.nextInt(8);
+                if (i <= 12 && i >= 0 && j <= 7 && j >= 0 && !maps.isItem(i, j)
+                        && !maps.isBall(i, j) && !maps.isExplosion(i, j)
+                        && !maps.isWall(i, j))
+                    maps.setItem(i, j, Item.createItemFox());
+            }
+            MusicTool.SCATTER_ITEM.play();
         }
-        MusicTool.SCATTER_ITEM.play();
     }
 
     //以自我为中心的方框内是否安全
@@ -346,42 +329,42 @@ public class AI extends Player {
     //帮助函数///////////////////////////////////////////////////////////////////////////////////////////
     //让虎克行走
     public void goDown() {
-        UP = false;
-        DOWN = true;
-        LEFT = false;
-        RIGHT = false;
+        isUpPressed = false;
+        isDownPressed = true;
+        isLeftPressed = false;
+        isRightPressed = false;
         move();
     }
 
     public void goUp() {
-        UP = true;
-        DOWN = false;
-        LEFT = false;
-        RIGHT = false;
+        isUpPressed = true;
+        isDownPressed = false;
+        isLeftPressed = false;
+        isRightPressed = false;
         move();
     }
 
     public void goLeft() {
-        UP = false;
-        DOWN = false;
-        LEFT = true;
-        RIGHT = false;
+        isUpPressed = false;
+        isDownPressed = false;
+        isLeftPressed = true;
+        isRightPressed = false;
         move();
     }
 
     public void goRight() {
-        UP = false;
-        DOWN = false;
-        LEFT = false;
-        RIGHT = true;
+        isUpPressed = false;
+        isDownPressed = false;
+        isLeftPressed = false;
+        isRightPressed = true;
         move();
     }
 
     private void stopGoing() {
-        UP = false;
-        DOWN = false;
-        LEFT = false;
-        RIGHT = false;
+        isUpPressed = false;
+        isDownPressed = false;
+        isLeftPressed = false;
+        isRightPressed = false;
     }
 
     //判断此位置是否安全  0表示位置  1表示安全 2表示死亡   判断了 边界，墙壁，炸弹射程
@@ -520,42 +503,44 @@ public class AI extends Player {
         else return false;
     }
 
-    public void move() {
-        if (RIGHT) {
+    /*public void move() {
+        if (isRightPressed && outlooking <= OUTLOOKING_CAN_MOVE_UPPER_LIMIT) {
             currentPlayerIcon = orginGoRightIcon;
-            if (canGoRight()) setJudgeXPosition(getJudgeXPosition() + speed);
+            if (canGoRight()) setJudgeXPosition(getJudgeXPosition() + getRealSpeed());
             stopGoing();
-        } else if (LEFT) {
+        } else if (isLeftPressed) {
             currentPlayerIcon = originGoLeftIcon;
-            if (canGoLeft()) setJudgeXPosition(getJudgeXPosition() - speed);
+            if (canGoLeft()) setJudgeXPosition(getJudgeXPosition() - getRealSpeed());
             stopGoing();
-        } else if (UP) {
+        } else if (isUpPressed) {
             currentPlayerIcon = originGoUpIcon;
-            if (canGoUp()) setJudgeYPosition(getJudgeYPosition() - speed);
+            if (canGoUp()) setJudgeYPosition(getJudgeYPosition() - getRealSpeed());
             stopGoing();
-        } else if (DOWN) {
+        } else if (isDownPressed) {
             currentPlayerIcon = originGoDownIcon;
-            if (canGoDown()) setJudgeYPosition(getJudgeYPosition() + speed);
+            if (canGoDown()) setJudgeYPosition(getJudgeYPosition() + getRealSpeed());
             stopGoing();
         }
 
-    }
+    }*/
 
     public void pickupItem() {
         if (maps.isItem(getHeng(), getShu())) {
-                MusicTool.PICKUP_ITEM.play();
-                maps.removeItem(getHeng(), getShu());
+            MusicTool.PICKUP_ITEM.play();
+            maps.removeItem(getHeng(), getShu());
+            MusicTool.PICKUP_ITEM.play();
         }
     }
+
 
     public void setBall() {
         maps.setBall(new Ball(this, getHeng(), getShu(), 6, getBallIcon(), maps));
         MusicTool.SET_BALL.play();
     }
 
-    public boolean isBeBombed() {
+    /*public boolean isBeBombed() {
         return maps.isExplosion(getHeng(), getShu());
-    }
+    }*/
 
     public boolean myfindway(int i, int j) {
         if (isLineSafe(i, j)) return true;

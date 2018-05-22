@@ -13,7 +13,7 @@ public class Ball {
     //炸弹计时
     private int timeCounter = 0;
     //不爆炸的时间
-    private static final int MAX_TIME = 400;
+    private static final int MAX_TIME = 500;
     //动态图
     private ImageIcon ballIcon;
     //谁放的
@@ -24,7 +24,7 @@ public class Ball {
     private Maps maps;
     public Ball(Player player, int heng, int shu, int power, ImageIcon icon, Maps maps) {
         this.player = player;
-        player.addUsedBallCount();
+        player.incUsedBallCount();
 
         this.heng = heng;
         this.shu = shu;
@@ -165,7 +165,7 @@ public class Ball {
 
     private void removeBallSelf() {
         this.maps.removeBall(heng, shu);
-        this.player.subUsedBallCount();
+        this.player.decUsedBallCount();
     }
 
     //返回 int  0能炸过去     1遇到了墙能炸碎     2遇到了便边界 或者炸不碎的墙

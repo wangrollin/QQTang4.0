@@ -7,8 +7,6 @@ import element.Wall;
 import element.WallMapTool;
 import panel.MyPanelCard;
 import player.AI;
-import player.AIModePlayer;
-import player.JingjiModePlayer;
 import player.Player;
 
 import java.applet.AudioClip;
@@ -43,7 +41,7 @@ public class BattleAIPanel extends JPanel {
         this.maps.setGroundIconByType(groundType);
     }
     //人物登场
-    private AIModePlayer p1;
+    private Player p1;
     private AI p2;
     //public Player getPlayer1() {
     //    return p1;
@@ -79,7 +77,7 @@ public class BattleAIPanel extends JPanel {
         exitBtn.setBounds(510, 10, 130, 50);
         add(exitBtn);
 
-        p1 = new AIModePlayer(maps);
+        p1 = new Player(GameConstants.PLAYER_HUMAN, maps);
         p2 = new AI(maps);
         p1.setAnotherPlayer(p2);
         p2.setAnotherPlayer(p1);
@@ -94,13 +92,14 @@ public class BattleAIPanel extends JPanel {
     }
     public void closeGameAndJumpAway(String panelName, AudioClip bgmToPlay) {
         MusicTool.stopAllMusic();
+        timer.stop();
         myPanelCard.removeKeyListener(p1);
         p1 = null;
         p2 = null;
 
         cardLayout.show(myPanelCard, panelName);
         bgmToPlay.loop();
-        timer.stop();
+
     }
     public void initAndShowAndStartGame() {
         /**
@@ -113,7 +112,7 @@ public class BattleAIPanel extends JPanel {
         /**
          * init players
          */
-        p1 = new AIModePlayer(maps);
+        p1 = new Player(GameConstants.PLAYER_HUMAN, maps);
         p2 = new AI(maps);
         p1.setAnotherPlayer(p2);
         p2.setAnotherPlayer(p1);
@@ -142,37 +141,49 @@ public class BattleAIPanel extends JPanel {
     public void paintComponent(Graphics page) {
         super.paintComponent(page);
         maps.getBiwumenIcon().paintIcon(this, page, 0, 0);
-        maps.getGroundIcon().paintIcon(this, page, 0, 200);
+        maps.getGroundIcon().paintIcon(this, page, 0, GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+
 
         //绘图采用一行一行扫的形式              墙   人  糖浆   糖泡 道具
         for (int j = 0; j < GameConstants.SHU; j++)
             for (int i = 0; i < GameConstants.HENG; i++) {
                 if (maps.isWall(i, j) && !maps.getWall(i, j).isRuined()) {
-                    maps.getWall(i, j).getWallIcon().paintIcon(this, page, i * 50, j * 50 - 12 + 200);
+                    maps.getWall(i, j).getWallIcon().paintIcon(this, page, i * GameConstants.GRID_LENGTH, j * GameConstants.GRID_LENGTH - 12 + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
                 }
 
                 if (maps.isItem(i, j)) {
-                    maps.getItem(i, j).getItemIcon().paintIcon(this, page, i * 50, j * 50 + 200);
+                    maps.getItem(i, j).getItemIcon().paintIcon(this, page, i * GameConstants.GRID_LENGTH, j * GameConstants.GRID_LENGTH + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
                 }
 
                 if (maps.isBall(i, j)) {
-                    maps.getBall(i, j).getBallIcon().paintIcon(this, page, i * 50, j * 50 + 200);
-                    maps.getBall(i, j).addTime();
+                    maps.getBall(i, j).getBallIcon().paintIcon(this, page, i * GameConstants.GRID_LENGTH, j * GameConstants.GRID_LENGTH + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    //maps.getBall(i, j).addTime();
                 }
 
                 if (maps.isExplosion(i, j)) {
-                    maps.getExplosion(i, j).getImage().paintIcon(this, page, i * 50, j * 50 + 200);
-                    maps.getExplosion(i, j).addTime();
+                    maps.getExplosion(i, j).getImage().paintIcon(this, page, i * GameConstants.GRID_LENGTH, j * GameConstants.GRID_LENGTH + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    //maps.getExplosion(i, j).addTime();
                 }
 
-                if (p1.getHeng() == i && p1.getShu() == j)
-                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + 200);
-
-                if (p2.getHeng() == i && p2.getShu() == j)
-                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + 200);
+                if (p1.getHeng() == i && p1.getShu() == j && p2.getShu() != j) {
+                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    continue;
+                }
+                if (p2.getHeng() == i && p2.getShu() == j && p1.getShu() != j) {
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    continue;
+                }
+                if (p1.getHeng() == i && p1.getShu() == j && p1.getJudgeYPosition() > p2.getJudgeYPosition()) {
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    continue;
+                }
+                if (p2.getHeng() == i && p2.getShu() == j && p1.getJudgeYPosition() <= p2.getJudgeYPosition()) {
+                    p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    p2.currentPlayerIcon.paintIcon(this, page, p2.getx(), p2.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
+                    continue;
+                }
             }
-
-
     }
 
     private void aiDoing() {
@@ -366,19 +377,16 @@ public class BattleAIPanel extends JPanel {
     }
 
     private void playerDoing() {
-        //不断刷新的
-        p1.move();
+        // ai scatter too much item todo
+        p1.keepDoing();
+        //todo ai keep doing 合并 aiDoing()
+        p2.keepDoing();
+        aiDoing();
 
-        p1.pickupItem();
-        p1.beBombed();
-        p1.transformToOrigin();
-
-        p2.doing();
     }
 
     private void jumpAwayIfPossible() {
-        // TODO ai一旦被炸到,就dieIcon, human变成ideIcon才是, 谁先谁输
-        if (p2.isBeBombed()) {
+        if (p1.outlooking == Player.OUTLOOKING_WINNER) {
             if(delayToJumpTime == 0) {
                 MusicTool.stopAllMusic();
                 MusicTool.WINNING_BGM.loop();
@@ -388,7 +396,7 @@ public class BattleAIPanel extends JPanel {
             } else {
                 closeGameAndJumpAway("fighterWinPanel", MusicTool.WINNING_BGM);
             }
-        } else if (p1.toDie()) {
+        } else if (p2.outlooking == Player.OUTLOOKING_WINNER) {
             if(delayToJumpTime == 0) {
                 MusicTool.stopAllMusic();
                 MusicTool.WINNING_BGM.loop();
@@ -405,9 +413,18 @@ public class BattleAIPanel extends JPanel {
     public class Mytime implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             repaint();
+            for (int j = 0; j < GameConstants.SHU; j++)
+                for (int i = 0; i < GameConstants.HENG; i++) {
+                    if (maps.isBall(i, j)) {
+                        maps.getBall(i, j).addTime();
+                    }
+                    if (maps.isExplosion(i, j)) {
+                        maps.getExplosion(i, j).addTime();
+                    }
+                }
+
             jumpAwayIfPossible();
             playerDoing();
-            aiDoing();
         }
     }
 

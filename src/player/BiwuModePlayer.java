@@ -31,7 +31,7 @@ public class BiwuModePlayer extends Player {
             orginGoRightFlashIcon = new ImageIcon("s战士右.gif");
 
             stuckIcon = new ImageIcon("炸弹火.gif");
-            deadIcon = new ImageIcon("P1die.gif");
+            loseIcon = new ImageIcon("P1die.gif");
             winningIcon = new ImageIcon("P1win.gif");
             ballIcon = new ImageIcon("糖泡红.gif");
         } else {
@@ -48,7 +48,7 @@ public class BiwuModePlayer extends Player {
             orginGoRightFlashIcon = new ImageIcon("s包子右.gif");
 
             stuckIcon = new ImageIcon("炸弹水.gif");
-            deadIcon = new ImageIcon("P2die.gif");
+            loseIcon = new ImageIcon("P2die.gif");
             winningIcon = new ImageIcon("P2win.jpg");
             ballIcon = new ImageIcon("糖泡蓝.gif");
         }
@@ -59,16 +59,16 @@ public class BiwuModePlayer extends Player {
         deathFrequency += 1;
         outlooking = OUTLOOKING_LOSER;
         setIconsByOutlooking();
-        currentPlayerIcon = deadIcon;
+        currentPlayerIcon = loseIcon;
         MusicTool.PLAYER_EXPLODE.play();
     }
 
     public void keepDoing() {
         move();
-        dieIfPossible();
+        countTimeToLoseIfPossible();
         pickupItem();
         beBombed();
-        transformToOrigin();
+        transformToOriginIfPossible();
         reborn();
     }
 
@@ -90,21 +90,21 @@ public class BiwuModePlayer extends Player {
         }
     }
 
-    public void dieIfPossible() {
+    public void countTimeToLoseIfPossible() {
         if (flashTime > 0) flashTime += 1;
         if (flashTime == Player.FLASH_MAX_TIME) flashTime = 0;
         if (outlooking == OUTLOOKING_STUCK) {
-            stuckTime += 1;
-            if (stuckTime == Player.BEFORE_DIE_TIME) {
+            incStuckTime();
+            if (getStuckTime() == Player.BEFORE_LOSE_TIME) {
                 die();
             } else if (getAnotherPlayer().outlooking != OUTLOOKING_STUCK
                     && getHeng() == getAnotherPlayer().getHeng()
                     && getShu() == getAnotherPlayer().getShu()) {
                 die();
-                RIGHT = false;
-                LEFT = false;
-                UP = false;
-                DOWN = false;
+                isRightPressed = false;
+                isLeftPressed = false;
+                isUpPressed = false;
+                isDownPressed = false;
             }
         }
     }

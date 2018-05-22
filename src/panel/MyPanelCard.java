@@ -85,9 +85,8 @@ public class MyPanelCard extends JPanel implements ActionListener {
         setFocusable(true);
 
         this.wallMap = WallMapTool.createKuangdongMap();
-
         MusicTool.Musicload();
-        MusicTool.HOME_BGM.play();
+        MusicTool.HOME_BGM.loop();
         /**
          * init panels
          */
@@ -176,6 +175,8 @@ public class MyPanelCard extends JPanel implements ActionListener {
                 || e.getSource() == baoziWinPanel.getGobackBtn()
                 || e.getSource() == fighterLosePanel.getGobackBtn()
                 || e.getSource() == dagfallPanel.getGobackBtn()) {
+            MusicTool.stopAllMusic();
+            MusicTool.HOME_BGM.loop();
             cardLayout.show(this, "modeSelectPanel");
         } else if (e.getSource() == battleBiwuPanel.getGobackBtn()) {
             battleBiwuPanel.closeGameAndJumpAway("modeSelectPanel", MusicTool.HOME_BGM);

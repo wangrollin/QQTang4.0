@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-
 public class HelpPanel extends JPanel {
     private JButton gobackBtn;
     private ImageIcon bgIcon;

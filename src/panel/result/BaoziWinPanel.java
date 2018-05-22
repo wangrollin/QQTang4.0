@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-
 public class BaoziWinPanel extends JPanel {
     private JButton gobackBtn, exitbtn;
     private ImageIcon bgIcon;
