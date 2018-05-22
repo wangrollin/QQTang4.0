@@ -15,6 +15,8 @@ public class Play extends JFrame {
     // TODO: 18/5/22 到底是什么导致的卡顿
     // TODO: 18/5/22 改善文件命名,代码变量名
     // TODO: 18/5/22 加好的注释
+    // TODO: 18/5/22 将图片放在resource里,将resource放入jar包中
+    // TODO: 18/5/22 将所有输出都删掉 或者加个开关 debugMode = True
     public Play() {
         this.panel = new MyPanelCard(this);
 
