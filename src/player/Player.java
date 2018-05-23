@@ -142,6 +142,10 @@ public class Player implements KeyListener {
         this.realBallCapacity = MAX_BALL_CAPACITY;
         this.realBallPower = MAX_BALL_POWER;
         this.realSpeed = MAX_SPEED;
+
+        this.showBallCapacity = MAX_BALL_CAPACITY;
+        this.showBallPower = MAX_BALL_POWER;
+        this.showSpeed = MAX_SPEED;
     }
 
     public void setAnotherPlayer(Player anotherPlayer) {
