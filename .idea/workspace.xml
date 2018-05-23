@@ -7,7 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4833e96-b1ee-472d-809a-015415e587c3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/map_maker/WallSetPanel.java" afterPath="$PROJECT_DIR$/src/map_maker/WallSetPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/element/MusicTool.java" afterPath="$PROJECT_DIR$/src/element/MusicTool.java" />
     </list>
     <ignored path="666游戏工作室 QQ糖.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,11 +51,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AI.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/player/AI.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="162">
               <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyPanelCard.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/panel/MyPanelCard.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="258">
+              <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BattleJingjiPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/panel/battle/BattleJingjiPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="251">
+              <caret line="113" column="39" selection-start-line="113" selection-start-column="22" selection-end-line="113" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MusicTool.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/element/MusicTool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="166">
+              <caret line="61" column="85" selection-start-line="61" selection-start-column="85" selection-end-line="61" selection-end-column="85" />
               <folding />
             </state>
           </provider>
@@ -167,10 +198,10 @@
         <option value="$PROJECT_DIR$/src/player/AI.java" />
         <option value="$PROJECT_DIR$/src/panel/battle/BattleAIPanel.java" />
         <option value="$PROJECT_DIR$/src/panel/HomePanel.java" />
-        <option value="$PROJECT_DIR$/src/element/MusicTool.java" />
         <option value="$PROJECT_DIR$/src/player/Player.java" />
         <option value="$PROJECT_DIR$/src/panel/Play.java" />
         <option value="$PROJECT_DIR$/src/map_maker/WallSetPanel.java" />
+        <option value="$PROJECT_DIR$/src/element/MusicTool.java" />
       </list>
     </option>
   </component>
@@ -991,12 +1022,12 @@
       <workItem from="1526540149001" duration="55718000" />
       <workItem from="1526810062205" duration="51562000" />
       <workItem from="1526957647125" duration="17733000" />
-      <workItem from="1526987895540" duration="5682000" />
+      <workItem from="1526987895540" duration="5891000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131052000" />
+    <option name="totallyTimeSpent" value="131261000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1312,14 +1343,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/panel/MyPanelCard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/player/AIModePlayer.java" />
     <entry file="file://$PROJECT_DIR$/src/player/JingjiModePlayer.java" />
     <entry file="file://$PROJECT_DIR$/src/panel/battle/BattleBiwuPanel.java">
@@ -1336,14 +1359,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
           <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/panel/battle/BattleJingjiPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="193" column="3" selection-start-line="193" selection-start-column="3" selection-end-line="193" selection-end-column="3" />
           <folding />
         </state>
       </provider>
@@ -1392,14 +1407,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="205">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/element/MusicTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="54" column="74" selection-start-line="54" selection-start-column="74" selection-end-line="54" selection-end-column="74" />
           <folding />
         </state>
       </provider>
@@ -1462,6 +1469,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/panel/MyPanelCard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/panel/battle/BattleJingjiPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="113" column="39" selection-start-line="113" selection-start-column="22" selection-end-line="113" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/element/MusicTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="61" column="85" selection-start-line="61" selection-start-column="85" selection-end-line="61" selection-end-column="85" />
           <folding />
         </state>
       </provider>

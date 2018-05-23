@@ -59,7 +59,7 @@ public class MusicTool {
              */
             SHUIMIAN_MAP_BGM = JApplet.newAudioClip(new URL("file", "localhost", "水面音乐.wav"));
             BIWU_MAP_BGM = JApplet.newAudioClip(new URL("file", "localhost", "比武背景.wav"));
-            KUANGDONG_MAP_BGM = JApplet.newAudioClip(new URL("file", "localhost", "比武背景.wav"));
+            KUANGDONG_MAP_BGM = JApplet.newAudioClip(new URL("file", "localhost", "矿洞音乐.wav"));
             DIY_MAP_BGM = JApplet.newAudioClip(new URL("file", "localhost", "diy1.wav"));
             /**
              * map game, loop
