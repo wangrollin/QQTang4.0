@@ -1,6 +1,7 @@
 package map_maker;
 
 import constants.GameConstants;
+import element.MusicTool;
 import element.Wall;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -60,6 +61,9 @@ public class WallSetPanel extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_SPACE:
+                if (wallMap[x][y] != null) {
+                    MusicTool.PRESS_BUTTON.play();
+                }
                 wallMap[x][y] = null;
                 repaint();
                 break;
@@ -88,42 +92,52 @@ public class WallSetPanel extends JPanel implements KeyListener {
                 }
                 break;
             case KeyEvent.VK_1:
+                MusicTool.PRESS_BUTTON.play();
                 wallMap[x][y] = new Wall(Wall.WALL_TYPE3);
                 repaint();
                 break;
             case KeyEvent.VK_2:
+                MusicTool.PRESS_BUTTON.play();
                 wallMap[x][y] = new Wall(Wall.WALL_TYPE2);
                 repaint();
                 break;
             case KeyEvent.VK_3:
+                MusicTool.PRESS_BUTTON.play();
                 wallMap[x][y] = new Wall(Wall.WALL_TYPE0);
                 repaint();
                 break;
             case KeyEvent.VK_4:
+                MusicTool.PRESS_BUTTON.play();
                 wallMap[x][y] = new Wall(Wall.WALL_TYPE1);
                 repaint();
                 break;
             case KeyEvent.VK_Q:
+                MusicTool.PRESS_BUTTON.play();
                 wallMap[x][y] = new Wall(Wall.WALL_TYPE6);
                 repaint();
                 break;
             case KeyEvent.VK_W:
+                MusicTool.PRESS_BUTTON.play();
                 wallMap[x][y] = new Wall(Wall.WALL_TYPE5);
                 repaint();
                 break;
             case KeyEvent.VK_E:
+                MusicTool.PRESS_BUTTON.play();
                 wallMap[x][y] = new Wall(Wall.WALL_TYPE7);
                 repaint();
                 break;
             case KeyEvent.VK_A:
+                MusicTool.PRESS_BUTTON.play();
                 wallMap[x][y] = new Wall(Wall.WALL_TYPE8);
                 repaint();
                 break;
             case KeyEvent.VK_S:
+                MusicTool.PRESS_BUTTON.play();
                 wallMap[x][y] = new Wall(Wall.WALL_TYPE9);
                 repaint();
                 break;
             case KeyEvent.VK_D:
+                MusicTool.PRESS_BUTTON.play();
                 wallMap[x][y] = new Wall(Wall.WALL_TYPE4);
                 repaint();
                 break;
