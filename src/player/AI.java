@@ -27,6 +27,13 @@ public class AI extends Player {
         beBombed();
     }
 
+    public void setBall() {
+        if (outlooking <= OUTLOOKING_CAN_SETBALL_UPPER_LIMIT) {
+            maps.setBall(new Ball(this, getHeng(), getShu(), getShowBallPower(), getBallIcon(), maps));
+            MusicTool.SET_BALL.play();
+        }
+    }
+
     //技能--斜泡    1继续执行 -1中断
     public int attackUpRight(int i) {
         if (i >= 83) return -1;
@@ -530,12 +537,6 @@ public class AI extends Player {
             maps.removeItem(getHeng(), getShu());
             MusicTool.PICKUP_ITEM.play();
         }
-    }
-
-
-    public void setBall() {
-        maps.setBall(new Ball(this, getHeng(), getShu(), 6, getBallIcon(), maps));
-        MusicTool.SET_BALL.play();
     }
 
     /*public boolean isBeBombed() {

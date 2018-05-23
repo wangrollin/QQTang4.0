@@ -842,6 +842,10 @@ public class Player implements KeyListener {
         MusicTool.SET_BALL.play();
     }
 
+    public int getShowBallPower() {
+        return showBallPower;
+    }
+
     //完美的行动派监听器！！！！！！！！！********************************************************************
     @Override
     public void keyTyped(KeyEvent e) {

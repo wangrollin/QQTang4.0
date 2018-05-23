@@ -8,7 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c4833e96-b1ee-472d-809a-015415e587c3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/element/MusicTool.java" afterPath="$PROJECT_DIR$/src/element/MusicTool.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/AI.java" afterPath="$PROJECT_DIR$/src/player/AI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/Player.java" afterPath="$PROJECT_DIR$/src/player/Player.java" />
     </list>
     <ignored path="666游戏工作室 QQ糖.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -41,21 +42,23 @@
       <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/player/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="34" column="7" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
+            <state relative-caret-position="197">
+              <caret line="843" column="0" selection-start-line="843" selection-start-column="0" selection-end-line="843" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#loadSuperCharacterIcon#0;class#Player#0" expanded="false" />
+                <element signature="e#30421#30422#0" expanded="true" />
+                <element signature="e#30457#30458#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AI.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/player/AI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
+            <state relative-caret-position="144">
+              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -81,7 +84,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MusicTool.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MusicTool.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/element/MusicTool.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="166">
@@ -195,13 +198,13 @@
         <option value="$PROJECT_DIR$/src/panel/HelpPanel.java" />
         <option value="$PROJECT_DIR$/src/constants/GameConstants.java" />
         <option value="$PROJECT_DIR$/src/player/BiwuModePlayer.java" />
-        <option value="$PROJECT_DIR$/src/player/AI.java" />
         <option value="$PROJECT_DIR$/src/panel/battle/BattleAIPanel.java" />
         <option value="$PROJECT_DIR$/src/panel/HomePanel.java" />
-        <option value="$PROJECT_DIR$/src/player/Player.java" />
         <option value="$PROJECT_DIR$/src/panel/Play.java" />
         <option value="$PROJECT_DIR$/src/map_maker/WallSetPanel.java" />
         <option value="$PROJECT_DIR$/src/element/MusicTool.java" />
+        <option value="$PROJECT_DIR$/src/player/Player.java" />
+        <option value="$PROJECT_DIR$/src/player/AI.java" />
       </list>
     </option>
   </component>
@@ -1022,12 +1025,12 @@
       <workItem from="1526540149001" duration="55718000" />
       <workItem from="1526810062205" duration="51562000" />
       <workItem from="1526957647125" duration="17733000" />
-      <workItem from="1526987895540" duration="5891000" />
+      <workItem from="1526987895540" duration="6194000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131261000" />
+    <option name="totallyTimeSpent" value="131564000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1422,17 +1425,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/player/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="34" column="7" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#loadSuperCharacterIcon#0;class#Player#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/panel/Play.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -1465,14 +1457,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/player/AI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/panel/MyPanelCard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
@@ -1493,6 +1477,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
           <caret line="61" column="85" selection-start-line="61" selection-start-column="85" selection-end-line="61" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/player/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="843" column="0" selection-start-line="843" selection-start-column="0" selection-end-line="843" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#loadSuperCharacterIcon#0;class#Player#0" expanded="false" />
+            <element signature="e#30421#30422#0" expanded="true" />
+            <element signature="e#30457#30458#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/player/AI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
         </state>
       </provider>
