@@ -160,8 +160,8 @@ public class BattleBiwuPanel extends JPanel {
         //p1 = new player.BiwuModePlayer();
         //p2 = new abandon.BiwuModePlayer2();
         //timer = new Timer(DELAY, new Mytime());
-        timer = new Timer(DELAY, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        //timer = new Timer(DELAY, new ActionListener() {
+        timer = new Timer(DELAY, (ActionEvent e)-> {
                 repaint();
                 jumpAwayIfPossible();
                 playerDoing();
@@ -177,7 +177,7 @@ public class BattleBiwuPanel extends JPanel {
                         }
                     }
             }
-        });
+        );
 
         setLayout(null);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -362,7 +362,7 @@ public class BattleBiwuPanel extends JPanel {
     }
 
     //时间监听*******************************************************************************************
-    public class Mytime implements ActionListener {
+    /*public class Mytime implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             repaint();
             jumpAwayIfPossible();
@@ -379,7 +379,7 @@ public class BattleBiwuPanel extends JPanel {
                     }
                 }
         }
-    }
+    }*/
 
     public JButton getGobackBtn() {
         return gobackBtn;

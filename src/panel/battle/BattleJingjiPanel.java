@@ -138,7 +138,23 @@ public class BattleJingjiPanel extends JPanel {
         add(exitBtn);
 
         //timer = new Timer(DELAY, new Mytime());
-        timer = new Timer(DELAY, actionListener);
+        timer = new Timer(DELAY, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                repaint();
+                playerDoing();
+                jumpAwayIfPossible();
+
+                for (int j = 0; j < GameConstants.SHU; j++)
+                    for (int i = 0; i < GameConstants.HENG; i++) {
+                        if (maps.isBall(i, j)) {
+                            maps.getBall(i, j).addTime();
+                        }
+                        if (maps.isExplosion(i, j)) {
+                            maps.getExplosion(i, j).addTime();
+                        }
+                    }
+            }
+        });
         setLayout(null);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
@@ -256,7 +272,7 @@ public class BattleJingjiPanel extends JPanel {
         }
     }*/
 
-    ActionListener actionListener = (ActionEvent e) -> {
+   /* ActionListener actionListener = (ActionEvent e) -> {
         repaint();
         playerDoing();
         jumpAwayIfPossible();
@@ -270,7 +286,7 @@ public class BattleJingjiPanel extends JPanel {
                     maps.getExplosion(i, j).addTime();
                 }
             }
-    };
+    };*/
 
 
     public JButton getGobackBtn() {
