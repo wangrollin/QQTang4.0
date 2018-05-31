@@ -88,7 +88,6 @@ public class BattleBiwuPanel extends JPanel {
 
         cardLayout.show(myPanelCard, panelName);
         bgmToPlay.loop();
-
     }
 
     public void initAndShowAndStartGame() {

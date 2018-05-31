@@ -155,6 +155,7 @@ public class BattleJingjiPanel extends JPanel {
                     }
             }
         });
+
         setLayout(null);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
