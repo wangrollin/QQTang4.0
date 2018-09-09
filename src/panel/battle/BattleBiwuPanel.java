@@ -160,7 +160,7 @@ public class BattleBiwuPanel extends JPanel {
         //p2 = new abandon.BiwuModePlayer2();
         //timer = new Timer(DELAY, new Mytime());
         //timer = new Timer(DELAY, new ActionListener() {
-        timer = new Timer(DELAY, (ActionEvent e)-> {
+        timer = new Timer(DELAY, (e)-> {
                 repaint();
                 jumpAwayIfPossible();
                 playerDoing();
