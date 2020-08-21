@@ -2,12 +2,8 @@ package panel;
 
 import constants.GameConstants;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 
 public class ModeSelectPanel extends JPanel {
@@ -21,6 +17,7 @@ public class ModeSelectPanel extends JPanel {
     private ImageIcon arrow;
 
     private MyPanelCard myPanelCard;
+
     public ModeSelectPanel(MyPanelCard myPanelCard) {
         bgIcon = new ImageIcon("111.png");
         arrow = new ImageIcon("guang.png");

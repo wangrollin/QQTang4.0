@@ -1,7 +1,6 @@
 package element;
 
 import constants.GameConstants;
-import element.Wall;
 
 public class WallMapTool {
 
@@ -263,7 +262,7 @@ public class WallMapTool {
         Wall[][] copyWallMap = new Wall[GameConstants.HENG][GameConstants.SHU];
         for (int i = 0; i < GameConstants.HENG; i++) {
             for (int j = 0; j < GameConstants.SHU; j++) {
-                copyWallMap[i][j] = oldWallMap[i][j] == null? null:new Wall(oldWallMap[i][j].getWallType());
+                copyWallMap[i][j] = oldWallMap[i][j] == null ? null : new Wall(oldWallMap[i][j].getWallType());
             }
         }
         return copyWallMap;

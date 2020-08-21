@@ -8,16 +8,12 @@ import element.WallMapTool;
 import panel.MyPanelCard;
 import player.Player;
 
+import javax.swing.*;
 import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.Timer;
 
 public class BattleJingjiPanel extends JPanel {
     private MyPanelCard myPanelCard;
@@ -35,6 +31,7 @@ public class BattleJingjiPanel extends JPanel {
     public void setWallMapAndWallMapType(Wall[][] wallMap, int wallMapType) {
         this.maps.setWallMap(wallMap, wallMapType);
     }
+
     public void setGroundIconByType(int groundType) {
         this.maps.setGroundIconByType(groundType);
     }
@@ -209,7 +206,8 @@ public class BattleJingjiPanel extends JPanel {
 
             }
     }
-// todo reset position
+
+    // todo reset position
     private void jumpAwayIfPossible() {
     /*if (cishu == 0) {
         if (p1.outlooking == Player.OUTLOOKING_WINNER) {
@@ -223,7 +221,7 @@ public class BattleJingjiPanel extends JPanel {
     }*/
         if (p1.outlooking == Player.OUTLOOKING_WINNER) {
             //cishu = 1;
-            if(delayToJumpTime == 0) {
+            if (delayToJumpTime == 0) {
                 MusicTool.stopAllMusic();
                 MusicTool.WINNING_BGM.loop();
             }
@@ -236,7 +234,7 @@ public class BattleJingjiPanel extends JPanel {
         }
         if (p2.outlooking == Player.OUTLOOKING_WINNER) {
             //cishu = 1;
-            if(delayToJumpTime == 0) {
+            if (delayToJumpTime == 0) {
                 MusicTool.stopAllMusic();
                 MusicTool.WINNING_BGM.loop();
             }

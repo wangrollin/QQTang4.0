@@ -1,6 +1,6 @@
 package element;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 public class Wall {
     private boolean isBreakable;

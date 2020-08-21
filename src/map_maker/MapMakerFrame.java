@@ -1,15 +1,13 @@
 package map_maker;
 
 import constants.GameConstants;
-import element.Maps;
 import element.MusicTool;
 import panel.MyPanelCard;
 import panel.Play;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.*;
 
 
 public class MapMakerFrame extends JFrame implements ActionListener {

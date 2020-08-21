@@ -1,11 +1,7 @@
 package panel;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class HomePanel extends JPanel {
     private JButton startGameBtn, helpBtn, exitBtn;

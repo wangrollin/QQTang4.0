@@ -22,6 +22,7 @@ public class Ball {
     //事先预警
     private Explosion just;
     private Maps maps;
+
     public Ball(Player player, int heng, int shu, int power, ImageIcon icon, Maps maps) {
         this.player = player;
         player.incUsedBallCount();
@@ -199,7 +200,7 @@ public class Ball {
     private int canExplodeRight(int i) {
         if (heng + i <= 12 && (!maps.isWall(heng + i, shu)))
             return 0;
-        else if (heng + i <= 12 && maps.isWall(heng + i, shu) && maps.getWall(heng + i ,shu).isBreakable())
+        else if (heng + i <= 12 && maps.isWall(heng + i, shu) && maps.getWall(heng + i, shu).isBreakable())
             return 1;
         else
             return 2;

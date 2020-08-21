@@ -6,6 +6,6 @@ import javax.swing.*;
 
 public class Play extends JFrame {
     public Play() {
-        
+
     }
 }

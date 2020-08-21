@@ -4,9 +4,8 @@ import constants.GameConstants;
 import element.Maps;
 import element.MusicTool;
 
+import javax.swing.*;
 import java.util.Random;
-
-import javax.swing.ImageIcon;
 
 
 public class BiwuModePlayer extends Player {
@@ -55,6 +54,7 @@ public class BiwuModePlayer extends Player {
 
         currentPlayerIcon = originGoDownIcon;
     }
+
     public void die() {
         deathFrequency += 1;
         outlooking = OUTLOOKING_LOSER;

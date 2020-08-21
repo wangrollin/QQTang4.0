@@ -13,11 +13,10 @@ import panel.result.DagfallPanel;
 import panel.result.FighterLosePanel;
 import panel.result.FighterWinPanel;
 
-import java.awt.CardLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
 
 
 public class MyPanelCard extends JPanel implements ActionListener {
@@ -40,14 +39,17 @@ public class MyPanelCard extends JPanel implements ActionListener {
     private Play play;
 
     private int gameMode = GameConstants.AI_MODE;
+
     public int getGameMode() {
         return gameMode;
     }
 
     private int wallMapType = GameConstants.KUANGDONG_MAP;
+
     public int getWallMapType() {
         return wallMapType;
     }
+
     public void setWallMapType(int wallMapType) {
         this.wallMapType = wallMapType;
     }
@@ -169,9 +171,7 @@ public class MyPanelCard extends JPanel implements ActionListener {
                 || e.getSource() == dagfallPanel.getExitBtn() || e.getSource() == battleBiwuPanel.getExitBtn()
                 || e.getSource() == battleJingjiPanel.getExitBtn() || e.getSource() == battleAIPanel.getExitBtn()) {
             System.exit(0);
-        }
-
-        else if (e.getSource() == fighterWinPanel.getGobackBtn()
+        } else if (e.getSource() == fighterWinPanel.getGobackBtn()
                 || e.getSource() == baoziWinPanel.getGobackBtn()
                 || e.getSource() == fighterLosePanel.getGobackBtn()
                 || e.getSource() == dagfallPanel.getGobackBtn()) {
@@ -223,7 +223,6 @@ public class MyPanelCard extends JPanel implements ActionListener {
             this.wallMap = WallMapTool.createBiwuMap();
 
 
-
             this.groundType = GameConstants.BIWU_GROUND;
         } else if (e.getSource() == modeSelectPanel.getShuimianMapBtn()) {
             this.wallMapType = GameConstants.SHUIMIAN_MAP;
@@ -233,7 +232,7 @@ public class MyPanelCard extends JPanel implements ActionListener {
             this.wallMapType = GameConstants.KUANGDONG_MAP;
             this.wallMap = WallMapTool.createKuangdongMap();
             this.groundType = GameConstants.KUANGDONG_GROUND;
-        }  else if (e.getSource() == modeSelectPanel.getDiyMapBtn()) {
+        } else if (e.getSource() == modeSelectPanel.getDiyMapBtn()) {
             MapMakerFrame mapMakerFrame = new MapMakerFrame(this.play, this);
             this.play.setVisible(false);
             mapMakerFrame.setVisible(true);

@@ -1,20 +1,18 @@
 package player;
 
 import constants.GameConstants;
+import element.Ball;
 import element.Item;
 import element.Maps;
-import element.Ball;
 import element.MusicTool;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 // TODO: 18/5/22  player 整理
 
 public class Player implements KeyListener {
-
-
 
 
     /**
@@ -87,7 +85,6 @@ public class Player implements KeyListener {
     public static final int BEFORE_LOSE_TIME = 500;
 
 
-
     /**
      * player walk, set ball, use fork
      */
@@ -100,7 +97,6 @@ public class Player implements KeyListener {
      * player position
      */
     private int judgeXPosition, judgeYPosition;
-
 
 
     /**
@@ -191,7 +187,7 @@ public class Player implements KeyListener {
 
 
         } else if (this.playerNumber == GameConstants.PLAYER2
-                || this.playerNumber == GameConstants.PLAYER_AI){
+                || this.playerNumber == GameConstants.PLAYER_AI) {
             //judgeXPosition = 125;
             //judgeYPosition = 75;
             originGoDownIcon = new ImageIcon("包子下.gif");
@@ -670,7 +666,7 @@ public class Player implements KeyListener {
                     break;
                 }
             }
-            maps.removeItem(getHeng(),getShu());
+            maps.removeItem(getHeng(), getShu());
             MusicTool.PICKUP_ITEM.play();
         }
     }
@@ -681,7 +677,7 @@ public class Player implements KeyListener {
         }
         if (maps.isExplosion(getHeng(), getShu())
                 && (outlooking >= OUTLOOKING_FIRST_TRANSFORM
-                    && outlooking <= OUTLOOKING_LAST_TRANSFORM)
+                && outlooking <= OUTLOOKING_LAST_TRANSFORM)
                 && flashTime == 0) {
             transformTime = TRANSFORM_MAX_TIME + 1;
             transformToOriginIfPossible();
@@ -761,7 +757,7 @@ public class Player implements KeyListener {
                 isBorder = true;
             if ((getShu() - 1 >= 0 && !maps.isWall(getHeng(), getShu() - 1))
                     || (getShu() - 1 >= 0 && maps.isWall(getHeng(), getShu() - 1)
-                        && judgeYPosition > ((getShu() - 1) * 50 + 65))
+                    && judgeYPosition > ((getShu() - 1) * 50 + 65))
                     || (getShu() - 1 < 0 && !maps.isWall(getHeng(), getShu())))
                 wall = true;
             if ((getShu() - 1 >= 0 && !maps.isBall(getHeng(), getShu() - 1))
@@ -783,12 +779,12 @@ public class Player implements KeyListener {
                 isBorder = true;
             if ((getHeng() - 1 >= 0 && !maps.isBall(getHeng() - 1, getShu()))
                     || (getHeng() - 1 >= 0 && maps.isBall(getHeng() - 1, getShu())
-                        && judgeXPosition > (getHeng() - 1) * 50 + 65)
+                    && judgeXPosition > (getHeng() - 1) * 50 + 65)
                     || (getHeng() - 1 < 0 && !maps.isBall(getHeng(), getShu())))
                 ball = true;
             if ((getHeng() - 1 >= 0 && !maps.isWall(getHeng() - 1, getShu()))
                     || (getHeng() - 1 >= 0 && maps.isWall(getHeng() - 1, getShu())
-                        && judgeXPosition > (getHeng() - 1) * 50 + 65)
+                    && judgeXPosition > (getHeng() - 1) * 50 + 65)
                     || (getHeng() - 1 < 0 && !maps.isWall(getHeng(), getShu())))
                 wall = true;
             return (wall && ball && isBorder);

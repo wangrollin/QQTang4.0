@@ -1,10 +1,9 @@
 package element;
 
+import javax.swing.*;
 import java.applet.AudioClip;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import javax.swing.JApplet;
 
 
 public class MusicTool {

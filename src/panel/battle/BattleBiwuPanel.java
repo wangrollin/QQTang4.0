@@ -6,16 +6,10 @@ import panel.MyPanelCard;
 import player.BiwuModePlayer;
 import player.Player;
 
+import javax.swing.*;
 import java.applet.AudioClip;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Random;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.Timer;
 
 
 public class BattleBiwuPanel extends JPanel {
@@ -37,6 +31,7 @@ public class BattleBiwuPanel extends JPanel {
     public void setGroundIconByType(int groundType) {
         this.maps.setGroundIconByType(groundType);
     }
+
     public Player getPlayer1() {
         return p1;
     }
@@ -44,6 +39,7 @@ public class BattleBiwuPanel extends JPanel {
     public Player getPlayer2() {
         return p2;
     }
+
     //人物登场
     private BiwuModePlayer p1;
     private BiwuModePlayer p2;
@@ -54,7 +50,8 @@ public class BattleBiwuPanel extends JPanel {
 
     private static final int DELAY_TO_JUMP_MAX_TIME = 200;
     private int delayToJumpTime = 0;
-// battle panel 整理 todo
+
+    // battle panel 整理 todo
     public void initPlayerPosition() {
         Random random = new Random();
         p1.setJudgeXPosition(random.nextInt(500) + 50);
@@ -160,22 +157,22 @@ public class BattleBiwuPanel extends JPanel {
         //p2 = new abandon.BiwuModePlayer2();
         //timer = new Timer(DELAY, new Mytime());
         //timer = new Timer(DELAY, new ActionListener() {
-        timer = new Timer(DELAY, (e)-> {
-                repaint();
-                jumpAwayIfPossible();
-                playerDoing();
-                timeCounter.count();
+        timer = new Timer(DELAY, (e) -> {
+            repaint();
+            jumpAwayIfPossible();
+            playerDoing();
+            timeCounter.count();
 
-                for (int j = 0; j < GameConstants.SHU; j++)
-                    for (int i = 0; i < GameConstants.HENG; i++) {
-                        if (maps.isBall(i, j)) {
-                            maps.getBall(i, j).addTime();
-                        }
-                        if (maps.isExplosion(i, j)) {
-                            maps.getExplosion(i, j).addTime();
-                        }
+            for (int j = 0; j < GameConstants.SHU; j++)
+                for (int i = 0; i < GameConstants.HENG; i++) {
+                    if (maps.isBall(i, j)) {
+                        maps.getBall(i, j).addTime();
                     }
-            }
+                    if (maps.isExplosion(i, j)) {
+                        maps.getExplosion(i, j).addTime();
+                    }
+                }
+        }
         );
 
         setLayout(null);
@@ -211,8 +208,6 @@ public class BattleBiwuPanel extends JPanel {
                 }
 
 
-
-
                 if (p1.getHeng() == i && p1.getShu() == j && p2.getShu() != j) {
                     p1.currentPlayerIcon.paintIcon(this, page, p1.getx(), p1.gety() + GameConstants.MAP_UPPER_PICTURE_HEIGHT);
                     continue;
@@ -246,7 +241,7 @@ public class BattleBiwuPanel extends JPanel {
             if (p1.deathFrequency < p2.deathFrequency) {
                 p1.win();
                 p2.lose();
-                if(delayToJumpTime == 0) {
+                if (delayToJumpTime == 0) {
                     MusicTool.stopAllMusic();
                     MusicTool.WINNING_BGM.loop();
                 }
@@ -258,7 +253,7 @@ public class BattleBiwuPanel extends JPanel {
             } else if (p1.deathFrequency > p2.deathFrequency) {
                 p1.lose();
                 p2.win();
-                if(delayToJumpTime == 0) {
+                if (delayToJumpTime == 0) {
                     MusicTool.stopAllMusic();
                     MusicTool.WINNING_BGM.loop();
                 }
@@ -270,7 +265,7 @@ public class BattleBiwuPanel extends JPanel {
             } else if (p1.deathFrequency == p2.deathFrequency) {
                 p1.win();
                 p2.win();
-                if(delayToJumpTime == 0) {
+                if (delayToJumpTime == 0) {
                     MusicTool.stopAllMusic();
                     MusicTool.WINNING_BGM.loop();
                 }

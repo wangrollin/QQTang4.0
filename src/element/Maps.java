@@ -2,7 +2,7 @@ package element;
 
 import constants.GameConstants;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 
 public class Maps {
@@ -18,7 +18,8 @@ public class Maps {
     private ImageIcon biwumenIcon = new ImageIcon("比武门.png");
 
     private int groundType = GameConstants.BIWU_GROUND;
-    private ImageIcon groundIcon = new ImageIcon("比武地面.png");;
+    private ImageIcon groundIcon = new ImageIcon("比武地面.png");
+    ;
 
     private int wallMapType;
 
@@ -122,8 +123,6 @@ public class Maps {
     public void setItem(int heng, int shu, Item item) {
         this.itemMap[heng][shu] = item;
     }
-
-
 
 
     public void clearItemIfInExplosion(int heng, int shu) {

@@ -1,8 +1,7 @@
 package element;
 
+import javax.swing.*;
 import java.util.Random;
-
-import javax.swing.ImageIcon;
 
 public class Item {
 

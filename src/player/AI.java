@@ -8,16 +8,16 @@ import element.MusicTool;
 
 import java.util.Random;
 
-import javax.swing.ImageIcon;
-
 public class AI extends Player {
     //protected int amount = MAX_BALL_CAPACITY, power = 5, speed = MAX_SPEED + 2;
 
     private Random random;
+
     public AI(Maps maps) {
         super(GameConstants.PLAYER_AI, maps);
         random = new Random();
     }
+
     // todo AI 主动去刺破 human
     // todo 让AI更像人, 躲开墙,吃道具,一点一点成长,攻击手段多样化
     // todo ai两个部分代码整理合并
@@ -145,7 +145,8 @@ public class AI extends Player {
             int j = getShu() - 1;
             if (maps.isExplosion(i, j) || maps.isBall(i, j)) return false;
             for (int k = 0; k < 8; ++k) {
-                if (isUpSafe(i, j - k - 1, k + 1) && isLeftSafe(i - k - 1, j, k + 1) && isRightSafe(i + k + 1, j, k + 1)) ;
+                if (isUpSafe(i, j - k - 1, k + 1) && isLeftSafe(i - k - 1, j, k + 1) && isRightSafe(i + k + 1, j, k + 1))
+                    ;
                 else return false;
             }
             return true;
@@ -154,7 +155,8 @@ public class AI extends Player {
             int j = getShu();
             if (maps.isExplosion(i, j) || maps.isBall(i, j)) return false;
             for (int k = 0; k < 8; ++k) {
-                if (isUpSafe(i, j - k - 1, k + 1) && isLeftSafe(i - k - 1, j, k + 1) && isDownSafe(i, j + k + 1, k + 1)) ;
+                if (isUpSafe(i, j - k - 1, k + 1) && isLeftSafe(i - k - 1, j, k + 1) && isDownSafe(i, j + k + 1, k + 1))
+                    ;
                 else return false;
             }
             return true;
@@ -163,7 +165,8 @@ public class AI extends Player {
             int j = getShu() + 1;
             if (maps.isExplosion(i, j) || maps.isBall(i, j)) return false;
             for (int k = 0; k < 8; ++k) {
-                if (isLeftSafe(i - k - 1, j, k + 1) && isDownSafe(i, j + k + 1, k + 1) && isRightSafe(i + k + 1, j, k + 1)) ;
+                if (isLeftSafe(i - k - 1, j, k + 1) && isDownSafe(i, j + k + 1, k + 1) && isRightSafe(i + k + 1, j, k + 1))
+                    ;
                 else return false;
             }
             return true;
@@ -172,7 +175,8 @@ public class AI extends Player {
             int j = getShu();
             if (maps.isExplosion(i, j) || maps.isBall(i, j)) return false;
             for (int k = 0; k < 8; ++k) {
-                if (isUpSafe(i, j - k - 1, k + 1) && isDownSafe(i, j + k + 1, k + 1) && isRightSafe(i + k + 1, j, k + 1)) ;
+                if (isUpSafe(i, j - k - 1, k + 1) && isDownSafe(i, j + k + 1, k + 1) && isRightSafe(i + k + 1, j, k + 1))
+                    ;
                 else return false;
             }
             return true;

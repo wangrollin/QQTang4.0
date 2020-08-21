@@ -1,8 +1,6 @@
 package panel;
 
-import element.MusicTool;
-
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class Play extends JFrame {
     //static panel.MyPanelCard panel;
@@ -10,6 +8,7 @@ public class Play extends JFrame {
     //static JFrame frame;
     //static int moshi = 2;
     static int zanting = 0;
+
     //static panel.Play play;
     // TODO: 18/5/22 到底是什么吃资源,消灭掉 风扇猛转
     // TODO: 18/5/22 到底是什么导致的卡顿

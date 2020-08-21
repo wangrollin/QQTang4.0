@@ -1,8 +1,7 @@
 package element;
 
+import javax.swing.*;
 import java.util.Random;
-
-import javax.swing.ImageIcon;
 
 
 public class Explosion {
@@ -27,6 +26,7 @@ public class Explosion {
     private ImageIcon explosionIcon;
 
     private Maps maps;
+
     public Explosion(int h, int s, String position, Maps maps) {
         heng = h;
         shu = s;

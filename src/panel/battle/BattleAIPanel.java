@@ -9,17 +9,12 @@ import panel.MyPanelCard;
 import player.AI;
 import player.Player;
 
+import javax.swing.*;
 import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
 
 
 public class BattleAIPanel extends JPanel {
@@ -40,6 +35,7 @@ public class BattleAIPanel extends JPanel {
     public void setGroundIconByType(int groundType) {
         this.maps.setGroundIconByType(groundType);
     }
+
     //人物登场
     private Player p1;
     private AI p2;
@@ -87,9 +83,11 @@ public class BattleAIPanel extends JPanel {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
     }
+
     public void setWallMapAndWallMapType(Wall[][] wallMap, int wallMapType) {
         this.maps.setWallMap(wallMap, wallMapType);
     }
+
     public void closeGameAndJumpAway(String panelName, AudioClip bgmToPlay) {
         MusicTool.stopAllMusic();
         timer.stop();
@@ -101,6 +99,7 @@ public class BattleAIPanel extends JPanel {
         bgmToPlay.loop();
 
     }
+
     public void initAndShowAndStartGame() {
         /**
          * init maps
@@ -387,7 +386,7 @@ public class BattleAIPanel extends JPanel {
 
     private void jumpAwayIfPossible() {
         if (p1.outlooking == Player.OUTLOOKING_WINNER) {
-            if(delayToJumpTime == 0) {
+            if (delayToJumpTime == 0) {
                 MusicTool.stopAllMusic();
                 MusicTool.WINNING_BGM.loop();
             }
@@ -397,7 +396,7 @@ public class BattleAIPanel extends JPanel {
                 closeGameAndJumpAway("fighterWinPanel", MusicTool.WINNING_BGM);
             }
         } else if (p2.outlooking == Player.OUTLOOKING_WINNER) {
-            if(delayToJumpTime == 0) {
+            if (delayToJumpTime == 0) {
                 MusicTool.stopAllMusic();
                 MusicTool.WINNING_BGM.loop();
             }

@@ -3,11 +3,11 @@ package map_maker;
 import constants.GameConstants;
 import element.MusicTool;
 import element.Wall;
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class WallSetPanel extends JPanel implements KeyListener {
     /*public static final int makercanvas_WIDTH = 650;
@@ -47,12 +47,12 @@ public class WallSetPanel extends JPanel implements KeyListener {
         for (int j = 0; j < GameConstants.SHU; j++) {
             for (int i = 0; i < GameConstants.HENG; i++) {
                 if (wallMap[i][j] != null) {
-                    wallMap[i][j].getWallIcon().paintIcon(this, page, i*50, j*50);
+                    wallMap[i][j].getWallIcon().paintIcon(this, page, i * 50, j * 50);
                 }
             }
         }
 
-        arrowIcon.paintIcon(this, page, x*50, y*50);
+        arrowIcon.paintIcon(this, page, x * 50, y * 50);
 
         repaint();
     }

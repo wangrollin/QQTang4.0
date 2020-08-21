@@ -1,9 +1,9 @@
 package map_maker;
 
 import element.Wall;
-import java.awt.Dimension;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MapMakerPanel extends JPanel {
     WallDisplayPanel wallDisplayPanel;
